@@ -139,6 +139,8 @@ vim.cmd [[
   hi NvimTreeEndOfBuffer guibg=NONE ctermbg=NONE
 ]]
 
+vim.cmd('highlight SignColumn guibg=NONE ctermbg=NONE')
+
 -- Enable relative line numbers
 vim.wo.number = true
 vim.wo.relativenumber = true
@@ -150,7 +152,7 @@ vim.o.clipboard = "unnamedplus"
 vim.wo.colorcolumn = "81"
 
 -- No sign column
-vim.wo.signcolumn = "no"
+-- vim.wo.signcolumn = "no"
 
 -- Set scroll off to 5 lines
 vim.o.scrolloff = 5
@@ -168,9 +170,6 @@ local four_spaces_languages = {"python", "c", "cpp", "haskell", "elm"}
 for _, lang in ipairs(four_spaces_languages) do
   vim.cmd(string.format("autocmd FileType %s setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab", lang))
 end
-
--- Hide end of buffer lines
--- vim.wo.fillchars = "eob: "
 
 -- LSP configuration
 require("mason").setup()
