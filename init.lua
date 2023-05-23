@@ -28,9 +28,9 @@ require('packer').startup(function()
       {'neovim/nvim-lspconfig'},
       {
         'williamboman/mason.nvim',
-	run = function()
-  	  pcall(function() vim.cmd('MasonUpdate') end)
-	end
+      	run = function()
+  	    pcall(function() vim.cmd('MasonUpdate') end)
+	      end
       },
       {'williamboman/mason-lspconfig.nvim'},
 
@@ -61,12 +61,14 @@ require('packer').startup(function()
       require("nvim-tree").setup {}
     end
   }
+  -- Auto trim trailing whitespaces and lines
   use {
     "cappyzawa/trim.nvim",
     config = function()
       require("trim").setup({})
     end
   }
+  -- GitSigns
   use 'lewis6991/gitsigns.nvim'
 end)
 
@@ -131,15 +133,15 @@ vim.cmd [[
   colorscheme tokyonight
 ]]
 
--- No background color
-vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
+-- Background color
+vim.cmd('hi Normal guibg=#1a1b26 ctermbg=NONE')
 
 vim.cmd [[
-  hi NvimTreeNormal guibg=NONE ctermbg=NONE
-  hi NvimTreeEndOfBuffer guibg=NONE ctermbg=NONE
+  hi NvimTreeNormal guibg=#1a1b26 ctermbg=NONE
+  hi NvimTreeEndOfBuffer guibg=#1a1b26 ctermbg=NONE
 ]]
 
-vim.cmd('highlight SignColumn guibg=NONE ctermbg=NONE')
+vim.cmd('highlight SignColumn guibg=#1a1b26 ctermbg=NONE')
 
 -- Enable relative line numbers
 vim.wo.number = true
@@ -150,9 +152,6 @@ vim.o.clipboard = "unnamedplus"
 
 -- 80 characters per line limit
 vim.wo.colorcolumn = "81"
-
--- No sign column
--- vim.wo.signcolumn = "no"
 
 -- Set scroll off to 5 lines
 vim.o.scrolloff = 5
@@ -195,9 +194,9 @@ require'lspconfig'.lua_ls.setup {
       },
       telemetry = {
         enable = false,
-      },
-    },
-  },
+      }
+    }
+  }
 }
 
 require'lspconfig'.metals.setup{}
