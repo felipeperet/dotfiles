@@ -62,15 +62,12 @@ require('packer').startup(function()
     end
   }
   -- Auto trim trailing whitespaces and lines
-  use {
-    "cappyzawa/trim.nvim",
-    config = function()
-      require("trim").setup({})
-    end
-  }
+  use "cappyzawa/trim.nvim"
   -- GitSigns
   use 'lewis6991/gitsigns.nvim'
-end)
+  -- Auto pairs
+  use 'windwp/nvim-autopairs'
+ end)
 
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
@@ -235,6 +232,27 @@ require('trim').setup({
 })
 
 require('gitsigns').setup()
+
+require("nvim-autopairs").setup ({
+  check_ts = true,
+  ts_config = {
+    lua = { "string", "source" },
+    javascript = { "string", "template_string" },
+    java = false,
+  },
+  disable_filetype = { "TelescopePrompt", "spectre_panel" },
+  fast_wrap = {
+    map = "<M-e>",
+    chars = { "{", "[", "(", '"', "'" },
+    pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
+    offset = 0, -- Offset from pattern match
+    end_key = "$",
+    keys = "qwertyuiopzxcvbnmasdfghjkl",
+    check_comma = true,
+    highlight = "PmenuSel",
+    highlight_grey = "LineNr",
+  }
+})
 
 -- Shorten function name
 local keymap = vim.api.nvim_set_keymap
