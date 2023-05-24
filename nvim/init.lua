@@ -196,7 +196,7 @@ require'lspconfig'.metals.setup{}
 
 require('nvim-treesitter.configs').setup {
   -- Install these parsers
-  ensure_installed = {"lua", "haskell", "scala", "elm", "typescript"},
+  ensure_installed = {"nix","lua", "haskell", "scala", "elm", "typescript"},
   highlight = {
     enable = true,
   },
