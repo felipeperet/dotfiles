@@ -89,10 +89,6 @@ require("nvim-tree").setup({
   }
 })
 
--- Configure statusline for LSP
--- local lsp_status = require('lsp-status')
--- lsp_status.register_progress()
-
 require('lualine').setup {
   options = {
     icons_enabled = true,
@@ -226,9 +222,9 @@ require('trim').setup({
   ft_blocklist = {"markdown"},
 
   -- Replace multiple blank lines with a single line
-  patterns = {
-    [[%s/\(\n\n\)\n\+/\1/]],
-  },
+  -- patterns = {
+  --   [[%s/\(\n\n\)\n\+/\1/]],
+  -- },
 })
 
 require('gitsigns').setup()
