@@ -20,11 +20,26 @@ require('packer').startup(function()
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
   -- LSP
-  use 'neovim/nvim-lspconfig'
-  -- Autocompletion
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'L3MON4D3/LuaSnip'
+  use {
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v2.x',
+    requires = {
+      -- LSP Support
+      {'neovim/nvim-lspconfig'},
+      {
+        'williamboman/mason.nvim',
+      	run = function()
+  	    pcall(function() vim.cmd('MasonUpdate') end)
+	      end
+      },
+      {'williamboman/mason-lspconfig.nvim'},
+
+      -- Autocompletion
+      {'hrsh7th/nvim-cmp'},
+      {'hrsh7th/cmp-nvim-lsp'},
+      {'L3MON4D3/LuaSnip'},
+    }
+  }
   -- Tree sitter
   use 'nvim-treesitter/nvim-treesitter'
   -- Neovim comments
@@ -106,16 +121,27 @@ for _, lang in ipairs(four_spaces_languages) do
   vim.cmd(string.format("autocmd FileType %s setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab", lang))
 end
 
+require('gitsigns').setup()
+
+require('nvim_comment').setup()
+
 -- LSP configuration
+require("mason").setup()
+local lsp = require('lsp-zero').preset({})
 
--- For each language server you wish to use, call lspconfig.<language server>.setup({})
--- You can find the list of language servers here: https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
+lsp.on_attach(function(_, bufnr)
+  lsp.default_keymaps({buffer = bufnr})
+end)
 
--- Haskell
+lsp.setup()
+
+-- Haskell LSP
 require'lspconfig'.hls.setup{}
--- Scala
+
+-- Scala LSP
 require'lspconfig'.metals.setup{}
--- Lua
+
+-- Lua LSP
 require'lspconfig'.lua_ls.setup {
   settings = {
     Lua = {
@@ -127,6 +153,7 @@ require'lspconfig'.lua_ls.setup {
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
       },
       telemetry = {
         enable = false,
@@ -142,6 +169,50 @@ require('nvim-treesitter.configs').setup {
     enable = true,
   },
 }
+
+require("indent_blankline").setup {
+  -- The character used for indentation guides
+  char = "│",
+  -- Exclude indentation guides in terminal buffers
+  buftype_exclude = { "terminal" },
+  -- Disable indentation guides for blank lines
+  show_trailing_blankline_indent = false,
+  -- Disable indentation guide for the first indent level
+  show_first_indent_level = false,
+  -- Use treesitter to determine indentation level
+  use_treesitter = true,
+}
+
+require('trim').setup({
+  -- Ignore markdown files
+  ft_blocklist = {"markdown"},
+
+  -- Replace multiple blank lines with a single line
+  -- patterns = {
+  --   [[%s/\(\n\n\)\n\+/\1/]],
+  -- },
+})
+
+require("nvim-autopairs").setup ({
+  check_ts = true,
+  ts_config = {
+    lua = { "string", "source" },
+    javascript = { "string", "template_string" },
+    java = false,
+  },
+  disable_filetype = { "TelescopePrompt", "spectre_panel" },
+  fast_wrap = {
+    map = "<M-e>",
+    chars = { "{", "[", "(", '"', "'" },
+    pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
+    offset = 0, -- Offset from pattern match
+    end_key = "$",
+    keys = "qwertyuiopzxcvbnmasdfghjkl",
+    check_comma = true,
+    highlight = "PmenuSel",
+    highlight_grey = "LineNr",
+  }
+})
 
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
@@ -186,54 +257,6 @@ require('lualine').setup {
     lualine_a = {'buffers'},
   }
 }
-
-require('nvim_comment').setup()
-
-require("indent_blankline").setup {
-  -- The character used for indentation guides
-  char = "│",
-  -- Exclude indentation guides in terminal buffers
-  buftype_exclude = { "terminal" },
-  -- Disable indentation guides for blank lines
-  show_trailing_blankline_indent = false,
-  -- Disable indentation guide for the first indent level
-  show_first_indent_level = false,
-  -- Use treesitter to determine indentation level
-  use_treesitter = true,
-}
-
-require('trim').setup({
-  -- Ignore markdown files
-  ft_blocklist = {"markdown"},
-
-  -- Replace multiple blank lines with a single line
-  -- patterns = {
-  --   [[%s/\(\n\n\)\n\+/\1/]],
-  -- },
-})
-
-require('gitsigns').setup()
-
-require("nvim-autopairs").setup ({
-  check_ts = true,
-  ts_config = {
-    lua = { "string", "source" },
-    javascript = { "string", "template_string" },
-    java = false,
-  },
-  disable_filetype = { "TelescopePrompt", "spectre_panel" },
-  fast_wrap = {
-    map = "<M-e>",
-    chars = { "{", "[", "(", '"', "'" },
-    pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-    offset = 0, -- Offset from pattern match
-    end_key = "$",
-    keys = "qwertyuiopzxcvbnmasdfghjkl",
-    check_comma = true,
-    highlight = "PmenuSel",
-    highlight_grey = "LineNr",
-  }
-})
 
 -- Shorten function name
 local keymap = vim.api.nvim_set_keymap
