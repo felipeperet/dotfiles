@@ -103,7 +103,6 @@
     # Editors
     vim
     neovim
-    vscode
 
     # Terminal
     kitty
@@ -139,9 +138,11 @@
 
     # Scala
     scala
+    scalafix
     scala-cli
     sbt
     metals
+    coursier
 
     # Haskell
     ghc
