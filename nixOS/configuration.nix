@@ -122,6 +122,9 @@
     slack
     tdesktop
 
+    # Games
+    crawlTiles
+
     # Utils
     python3
     libgccjit
