@@ -20,26 +20,11 @@ require('packer').startup(function()
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
   -- LSP
-  use {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
-    requires = {
-      -- LSP Support
-      {'neovim/nvim-lspconfig'},
-      {
-        'williamboman/mason.nvim',
-      	run = function()
-  	    pcall(function() vim.cmd('MasonUpdate') end)
-	      end
-      },
-      {'williamboman/mason-lspconfig.nvim'},
-
-      -- Autocompletion
-      {'hrsh7th/nvim-cmp'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'L3MON4D3/LuaSnip'},
-    }
-  }
+  use 'neovim/nvim-lspconfig'
+  -- Autocompletion
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'L3MON4D3/LuaSnip'
   -- Tree sitter
   use 'nvim-treesitter/nvim-treesitter'
   -- Neovim comments
@@ -67,6 +52,8 @@ require('packer').startup(function()
   use 'lewis6991/gitsigns.nvim'
   -- Auto pairs
   use 'windwp/nvim-autopairs'
+  -- Direnv
+  use 'direnv/direnv.vim'
  end)
 
 -- disable netrw at the very start of your init.lua (strongly advised)
@@ -75,50 +62,6 @@ vim.g.loaded_netrwPlugin = 1
 
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
-
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
-  view = {
-    width = 30,
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  }
-})
-
-require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'tokyonight',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    always_divide_middle = true,
-    globalstatus = false,
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
-    }
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  inactive_sections = {
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-  },
-  tabline = {
-    lualine_a = {'buffers'},
-  }
-}
 
 -- Set theme to Tokyo Night
 vim.cmd [[
@@ -164,15 +107,15 @@ for _, lang in ipairs(four_spaces_languages) do
 end
 
 -- LSP configuration
-require("mason").setup()
-local lsp = require('lsp-zero').preset({})
 
-lsp.on_attach(function(_, bufnr)
-  lsp.default_keymaps({buffer = bufnr})
-end)
+-- For each language server you wish to use, call lspconfig.<language server>.setup({})
+-- You can find the list of language servers here: https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
 
-lsp.setup()
-
+-- Haskell
+require'lspconfig'.hls.setup{}
+-- Scala
+require'lspconfig'.metals.setup{}
+-- Lua
 require'lspconfig'.lua_ls.setup {
   settings = {
     Lua = {
@@ -192,14 +135,56 @@ require'lspconfig'.lua_ls.setup {
   }
 }
 
-require'lspconfig'.metals.setup{}
-
 require('nvim-treesitter.configs').setup {
   -- Install these parsers
   ensure_installed = {"nix","lua", "haskell", "scala", "elm", "typescript"},
   highlight = {
     enable = true,
   },
+}
+
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  view = {
+    width = 30,
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  }
+})
+
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'tokyonight',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    always_divide_middle = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+  },
+  tabline = {
+    lualine_a = {'buffers'},
+  }
 }
 
 require('nvim_comment').setup()
