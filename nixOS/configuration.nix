@@ -101,8 +101,9 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # Editors
-    vim 
-    neovim 
+    vim
+    neovim
+    vscode
 
     # Terminal
     kitty
@@ -115,7 +116,7 @@
     unzip
     neofetch
     unclutter
-    
+
     # GUI
     google-chrome
     slack
@@ -134,6 +135,7 @@
     ncurses
     nodejs
     xclip
+    direnv
 
     # Scala
     scala
@@ -145,8 +147,8 @@
     ghc
     stack
     cabal-install
-    haskell-language-server
     cabal2nix
+    haskell-language-server
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
