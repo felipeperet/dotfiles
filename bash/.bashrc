@@ -12,6 +12,3 @@ if [[ ${EUID} == 0 ]] ; then
 else
     PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
 fi
-
-# Increase the cursor size
-export XCURSOR_SIZE=30
