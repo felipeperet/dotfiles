@@ -112,6 +112,7 @@
     # Editors
     vim
     neovim
+    emacs
 
     # Terminal
     kitty
@@ -166,6 +167,9 @@
     # Elm
     elmPackages.elm
     elmPackages.elm-language-server
+
+    # Agda
+    haskellPackages.Agda
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
