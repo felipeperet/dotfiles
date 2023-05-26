@@ -134,7 +134,6 @@
     gnumake
     gmp
     coreutils
-    xz
     ncurses
     nodejs
     xclip
@@ -154,6 +153,10 @@
     cabal-install
     cabal2nix
     haskell-language-server
+
+    # Elm
+    elmPackages.elm
+    elmPackages.elm-language-server
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
