@@ -50,6 +50,15 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
+  # Enabling Graphics Cards
+  services.xserver.videoDrivers = [ "nvidia" "intel" ];
+  hardware.opengl.enable = true;
+
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+  # nvidia-drm.modeset=1 is required for some wayland compositors, e.g. sway
+  hardware.nvidia.modesetting.enable = true;
+
   # Configure keymap in X11
   services.xserver = {
     layout = "br";
