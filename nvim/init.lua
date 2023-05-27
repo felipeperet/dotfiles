@@ -305,9 +305,9 @@ keymap('n', '<C-d>', '<C-d>zz', opts)
 keymap('n', '<C-u>', '<C-u>zz', opts)
 
 -- Key mapping for opening Telescope
-keymap('n', '<Space>sf', '<Cmd>Telescope<CR>', opts)
+-- keymap('n', '<Space>sf', '<Cmd>Telescope<CR>', opts)
 -- Key mapping for searching files with Telescope
-keymap('n', '<Space>sf', '<Cmd>Telescope find_files<CR>', opts)
+keymap('n', '<Space>ff', '<Cmd>Telescope find_files<CR>', opts)
 
 -- Key mapping for hovering LSP information with <Shift-k>
 keymap('n', '<S-k>', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
