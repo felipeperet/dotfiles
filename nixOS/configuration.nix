@@ -169,7 +169,7 @@
     elmPackages.elm-language-server
 
     # Agda
-    haskellPackages.Agda
+    (agda.withPackages [ agdaPackages.standard-library ])
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
