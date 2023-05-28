@@ -128,7 +128,6 @@
 
     # GUI
     google-chrome
-    spotify
     slack
     tdesktop
 
