@@ -76,3 +76,28 @@
 
 ;; Starts emacs in fullscreen
 (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
+
+
+;; Keybinds
+(map!
+ :n "C-x 3" nil
+ :n ""
+ )
+
+(map! :leader
+      (:prefix ("f" . "file")
+       :desc "Find file" "f" nil))
+
+(map!
+ :n "C-S-n" #'split-window-right
+ :n "C-S-h" #'windmove-left
+ :n "C-S-l" #'windmove-right
+ :n "C-S-<right>"  #'shrink-window-horizontally
+ :n "C-S-<left>" #'enlarge-window-horizontally
+ )
+
+(map!
+ :leader
+ (:prefix-map ("s" . "search")
+   :desc "Find file" "f" #'find-file)
+ )
