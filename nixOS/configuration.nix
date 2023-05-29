@@ -131,6 +131,10 @@
     slack
     tdesktop
 
+    # Multimedia
+    popcorntime
+    vlc
+
     # Games
     crawlTiles
 
