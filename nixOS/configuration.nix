@@ -122,6 +122,7 @@
     curl
     git
     htop
+    zip
     unzip
     neofetch
     unclutter
@@ -131,15 +132,10 @@
     slack
     tdesktop
 
-    # Multimedia
-    popcorntime
-    vlc
-
     # Games
     crawlTiles
 
     # Utils
-    python3
     libgccjit
     gcc
     zlib
@@ -151,6 +147,10 @@
     nodejs
     xclip
     direnv
+
+    # Python
+    python3
+    python39Packages.pip
 
     # Scala
     scala
