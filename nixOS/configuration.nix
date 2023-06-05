@@ -10,6 +10,22 @@
       ./hardware-configuration.nix
     ];
 
+  nix = {
+    settings = {
+      substituters = [
+        "https://hydra.iohk.io"
+        "https://cache.nixos.org/"
+      ];
+      trusted-public-keys = [
+        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      ];
+    };
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -147,6 +163,12 @@
     nodejs
     xclip
     direnv
+
+    # Rust
+    rustup
+    rustc
+    rust-analyzer
+    cargo
 
     # Python
     python3
