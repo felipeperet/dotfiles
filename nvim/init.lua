@@ -101,8 +101,8 @@ vim.wo.relativenumber = true
 -- Use system's clipboard
 vim.o.clipboard = "unnamedplus"
 
--- 80 characters per line limit
-vim.wo.colorcolumn = "81"
+-- 100 characters per line limit
+vim.wo.colorcolumn = "101"
 
 -- Set scroll off to 5 lines
 vim.o.scrolloff = 5
@@ -134,6 +134,11 @@ lsp.on_attach(function(_, bufnr)
 end)
 
 lsp.setup()
+
+-- Rust LSP
+require'lspconfig'.rust_analyzer.setup{
+  cmd = { "/run/current-system/sw/bin/rust-analyzer" }
+}
 
 -- Haskell LSP
 require'lspconfig'.hls.setup{}
