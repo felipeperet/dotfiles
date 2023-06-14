@@ -154,6 +154,7 @@
     # Utils
     libgccjit
     gcc
+    glibc
     zlib
     clang
     gnumake
@@ -164,15 +165,22 @@
     xclip
     direnv
 
+    # Python
+    python3
+    python39Packages.pip
+
+    # Haskell
+    ghc
+    stack
+    cabal-install
+    cabal2nix
+    haskell-language-server
+
     # Rust
     rustup
     rustc
     rust-analyzer
     cargo
-
-    # Python
-    python3
-    python39Packages.pip
 
     # Scala
     scala
@@ -181,13 +189,6 @@
     sbt
     metals
     coursier
-
-    # Haskell
-    ghc
-    stack
-    cabal-install
-    cabal2nix
-    haskell-language-server
 
     # Elm
     elmPackages.elm

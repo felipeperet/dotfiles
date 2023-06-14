@@ -41,7 +41,10 @@ require('packer').startup(function()
     }
   }
   -- Tree sitter
-  use 'nvim-treesitter/nvim-treesitter'
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    commit = 'cc360a9beb1b30d172438f640e2c3450358c4086'
+  }
   -- Neovim comments
   use 'terrortylor/nvim-comment'
   -- Indentation guide
@@ -101,8 +104,8 @@ vim.wo.relativenumber = true
 -- Use system's clipboard
 vim.o.clipboard = "unnamedplus"
 
--- 100 characters per line limit
-vim.wo.colorcolumn = "101"
+-- 81 characters per line limit
+vim.wo.colorcolumn = "81"
 
 -- Set scroll off to 5 lines
 vim.o.scrolloff = 5
