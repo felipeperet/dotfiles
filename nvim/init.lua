@@ -41,10 +41,7 @@ require('packer').startup(function()
     }
   }
   -- Tree sitter
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    commit = 'cc360a9beb1b30d172438f640e2c3450358c4086'
-  }
+  use 'nvim-treesitter/nvim-treesitter'
   -- Neovim comments
   use 'terrortylor/nvim-comment'
   -- Indentation guide
