@@ -129,6 +129,7 @@
     vim
     neovim
     emacs
+    vscode
 
     # Terminal
     kitty
