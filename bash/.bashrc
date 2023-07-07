@@ -12,3 +12,5 @@ if [[ ${EUID} == 0 ]] ; then
 else
     PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
 fi
+
+export PATH=$PATH:$(pwd)/result-bin/bin
