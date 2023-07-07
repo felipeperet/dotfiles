@@ -169,6 +169,7 @@
     xclip
     xdotool
     direnv
+    gtk3
 
     # Python
     python3
