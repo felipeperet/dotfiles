@@ -1,4 +1,3 @@
--- init.lua
 -- Install packer if not installed
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
@@ -19,6 +18,8 @@ require('packer').startup(function()
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
+  -- Aiken Programming Language Support
+  use 'aiken-lang/editor-integration-nvim'
   -- LSP
   use {
     'VonHeikemen/lsp-zero.nvim',
@@ -42,6 +43,7 @@ require('packer').startup(function()
   }
   -- Tree sitter
   use 'nvim-treesitter/nvim-treesitter'
+  use 'tree-sitter/tree-sitter-scala'
   -- Neovim comments
   use 'terrortylor/nvim-comment'
   -- Indentation guide
@@ -102,7 +104,7 @@ vim.wo.relativenumber = true
 vim.o.clipboard = "unnamedplus"
 
 -- 81 characters per line limit
-vim.wo.colorcolumn = "81"
+vim.wo.colorcolumn = "101"
 
 -- Set scroll off to 5 lines
 vim.o.scrolloff = 5
@@ -207,9 +209,10 @@ cmp.setup({
 
 require('nvim-treesitter.configs').setup {
   -- Install these parsers
-  ensure_installed = {"nix","lua", "haskell", "scala", "elm", "typescript"},
+  ensure_installed = {"nix", "lua", "haskell", "rust", "typescript"},
   highlight = {
     enable = true,
+    disable = {"scala"},
   },
 }
 
