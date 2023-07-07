@@ -144,11 +144,13 @@
     neofetch
     unclutter
     docker
+    docker-compose
 
     # GUI
     google-chrome
-    slack
-    tdesktop
+    discord
+    vlc
+    obs-studio
 
     # Games
     crawlTiles
@@ -165,6 +167,7 @@
     ncurses
     nodejs
     xclip
+    xdotool
     direnv
 
     # Python
