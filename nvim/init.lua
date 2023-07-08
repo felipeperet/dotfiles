@@ -1,3 +1,6 @@
+local lspconfig = require'lspconfig'
+local configs = require'lspconfig.configs'
+
 -- Install packer if not installed
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
@@ -167,6 +170,29 @@ require'lspconfig'.lua_ls.setup {
       }
     }
   }
+}
+
+-- Aiken LSP
+if not configs.aiken then
+  configs.aiken = {
+    default_config = {
+      cmd = { 'aiken', 'lsp' },
+      filetypes = { 'aiken' },
+      root_dir = function(filename)
+        return lspconfig.util.root_pattern('aiken.toml')(filename) or
+               lspconfig.util.path.dirname(filename)
+      end,
+    },
+  }
+end
+
+require'lspconfig'.aiken.setup{
+  cmd = { "aiken", "lsp" },
+  filetypes = {"aiken"},
+  root_dir = function(fname)
+    return require'lspconfig'.util.root_pattern('aiken.toml')(fname) or
+           require'lspconfig'.util.path.dirname(fname)
+  end,
 }
 
 -- Autocompletion
