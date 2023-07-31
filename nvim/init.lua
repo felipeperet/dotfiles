@@ -90,14 +90,14 @@ vim.cmd [[
 ]]
 
 -- Background color
-vim.cmd('hi Normal guibg=#1a1b26 ctermbg=NONE')
+vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
 
 vim.cmd [[
-  hi NvimTreeNormal guibg=#1a1b26 ctermbg=NONE
-  hi NvimTreeEndOfBuffer guibg=#1a1b26 ctermbg=NONE
+  hi NvimTreeNormal guibg=NONE ctermbg=NONE
+  hi NvimTreeEndOfBuffer guibg=NONE ctermbg=NONE
 ]]
 
-vim.cmd('highlight SignColumn guibg=#1a1b26 ctermbg=NONE')
+vim.cmd('highlight SignColumn guibg=NONE ctermbg=NONE')
 
 -- Enable relative line numbers
 vim.wo.number = true
@@ -129,6 +129,10 @@ end
 require('gitsigns').setup()
 
 require('nvim_comment').setup()
+
+vim.api.nvim_exec([[
+  autocmd FileType aiken setlocal commentstring=//%s
+]], false)
 
 -- LSP configuration
 require("mason").setup()
@@ -354,3 +358,7 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
 -- Toggle Nvim Tree
 keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
+
+-- Center the screen after scrolling with 'j' or 'k'
+vim.api.nvim_set_keymap('n', 'j', 'jzz', { noremap = true })
+vim.api.nvim_set_keymap('n', 'k', 'kzz', { noremap = true })
