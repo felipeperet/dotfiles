@@ -21,7 +21,7 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 25))
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 22))
      ; doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
@@ -101,3 +101,38 @@
  (:prefix-map ("s" . "search")
    :desc "Find file" "f" #'find-file)
  )
+
+;; Add the following lines to your ~/.doom.d/config.el file
+
+;; Set margins for Org mode
+(use-package visual-fill-column
+  :hook (org-mode . visual-fill-column-mode)
+  :config
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t))
+
+;; Set fonts for Org mode
+(add-hook 'org-mode-hook #'(lambda ()
+                             (setq org-fontify-quote-and-verse-blocks t)
+                             (setq org-fontify-whole-heading-line t)
+                             (set-face-attribute 'org-document-title nil :height 1.3 :weight 'bold)
+                             (set-face-attribute 'org-level-1 nil :height 1.2 :weight 'bold)
+                             (set-face-attribute 'org-level-2 nil :height 1.1 :weight 'bold)
+                             (set-face-attribute 'org-level-3 nil :height 1.1)
+                             (set-face-attribute 'org-level-4 nil :height 1.05)
+                             (set-face-attribute 'org-level-5 nil :height 1.05)
+                             (set-face-attribute 'org-level-6 nil :height 1.05)
+                             (set-face-attribute 'org-level-7 nil :height 1.05)
+                             (set-face-attribute 'org-level-8 nil :height 1.05)))
+
+;; Remove line numbers in Org mode
+(add-hook 'org-mode-hook #'doom-disable-line-numbers-h)
+
+;; Enable word wrap in Org mode
+(add-hook 'org-mode-hook #'visual-line-mode)
+
+;; Hide the asterisks (*) in Org mode
+(setq org-hide-emphasis-markers t)
+
+;; Export code snippets with syntax highlighting in org-latex
+(setq org-latex-src-block-backend 'engraved)
