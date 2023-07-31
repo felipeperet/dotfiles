@@ -87,6 +87,9 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # Enable Bluetooth.
+  hardware.bluetooth.enable = true;
+
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -122,6 +125,13 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Enable Steam
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -129,6 +139,7 @@
     vim
     neovim
     emacs
+    emacsPackages.engrave-faces
     vscode
 
     # Terminal
@@ -138,22 +149,29 @@
     wget
     curl
     git
+    tree
     htop
+    duf
     zip
     unzip
     neofetch
     unclutter
     docker
     docker-compose
+    pandoc
+    texlive.combined.scheme-full
 
     # GUI
     google-chrome
     discord
+    spotify
     vlc
     obs-studio
 
     # Games
+    crawl
     crawlTiles
+    steam
 
     # Utils
     libgccjit
@@ -165,11 +183,15 @@
     gmp
     coreutils
     ncurses
-    nodejs
+    nodejs-16_x
     xclip
     xdotool
     direnv
     gtk3
+    xorg.xev
+    xorg.xmodmap
+    xorg.setxkbmap
+    xorg.xset
 
     # Python
     python3
