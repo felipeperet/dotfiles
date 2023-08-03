@@ -158,12 +158,15 @@
     unclutter
     docker
     docker-compose
+    yt-dlp
+    ffmpeg
     pandoc
     texlive.combined.scheme-full
 
     # GUI
-    google-chrome
+    firefox
     discord
+    google-chrome
     spotify
     vlc
     obs-studio
@@ -172,6 +175,7 @@
     crawl
     crawlTiles
     steam
+    lutris
 
     # Utils
     libgccjit
@@ -183,7 +187,8 @@
     gmp
     coreutils
     ncurses
-    nodejs-16_x
+    # nodejs-16_x
+    nodejs
     xclip
     xdotool
     direnv
@@ -225,6 +230,9 @@
     # Agda
     (agda.withPackages [ agdaPackages.standard-library ])
   ];
+
+  # Enables Noisetorch.
+  programs.noisetorch.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
