@@ -347,6 +347,9 @@ keymap('n', '<C-u>', '<C-u>zz', opts)
 -- Key mapping for searching files with Telescope
 keymap('n', '<Space>sf', '<Cmd>Telescope find_files<CR>', opts)
 
+-- Key mapping for searching words with Telescope
+keymap('n', '<Space>sw', '<Cmd>Telescope live_grep<CR>', opts)
+
 -- Key mapping for hovering LSP information with <Shift-k>
 keymap('n', '<S-k>', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
 -- Key mapping for jumping to the next warning/error with <C-k>
