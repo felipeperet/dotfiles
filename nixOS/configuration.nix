@@ -107,6 +107,12 @@
     #media-session.enable = true;
   };
 
+  # Enable PostgreSQL
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql;
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -140,6 +146,7 @@
     neovim
     emacs
     emacsPackages.engrave-faces
+    emacsPackages.ox-reveal
     vscode
 
     # Terminal
@@ -149,33 +156,40 @@
     wget
     curl
     git
+    direnv
     tree
     htop
     duf
     zip
     unzip
+    ripgrep
+    lsof
+    openssl
     neofetch
     unclutter
     docker
     docker-compose
+    postgresql
     yt-dlp
     ffmpeg
     pandoc
-    texlive.combined.scheme-full
 
     # GUI
     firefox
-    discord
     google-chrome
-    spotify
+    dbeaver
     vlc
+    sioyek
     obs-studio
+    discord
+    piper
+    gnome.cheese
 
     # Games
     crawl
     crawlTiles
-    steam
     lutris
+    steam
 
     # Utils
     libgccjit
@@ -187,20 +201,33 @@
     gmp
     coreutils
     ncurses
-    # nodejs-16_x
-    nodejs
     xclip
-    xdotool
-    direnv
     gtk3
+    libratbag
+    prisma-engines
     xorg.xev
     xorg.xmodmap
     xorg.setxkbmap
     xorg.xset
+    texlive.combined.scheme-full
+
+    # TypeScript
+    nodejs
 
     # Python
-    python3
-    python39Packages.pip
+    (python3.withPackages (ps: with ps; with python3Packages; [
+      jupyter
+      ipython
+
+      pandas
+      numpy
+      matplotlib
+      pyodbc
+      sqlalchemy
+      tabulate
+      scikit-learn
+      xgboost
+    ]))
 
     # Haskell
     ghc
