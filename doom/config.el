@@ -136,3 +136,32 @@
 
 ;; Export code snippets with syntax highlighting in org-latex
 (setq org-latex-src-block-backend 'engraved)
+
+;; After the org-mode package is loaded...
+(after! org
+  ;; ...configure Babel languages to support Python.
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)))
+
+  ;; Set various org-mode configurations:
+  ;; - Don't ask for confirmation when evaluating Babel blocks.
+  ;; - Fontify the source code natively.
+  ;; - Display inline images and redisplay them as needed.
+  ;; - Start org files with inline images displayed.
+  (setq org-confirm-babel-evaluate nil
+        org-src-fontify-natively t
+        org-display-inline-images t
+        org-redisplay-inline-images t
+        org-startup-with-inline-images "inlineimages"))
+
+;; After the visual-fill-column package is loaded...
+(after! visual-fill-column
+  ;; ...set the column width to 100 characters.
+  ;; Center text in the window for a better visual appearance.
+  (setq visual-fill-column-width 100
+                visual-fill-column-center-text t))
+
+;; Enabling ox-reveal for Org-Mode Slideshows.
+(require 'ox-reveal)
+(setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@4/")
