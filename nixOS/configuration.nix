@@ -67,8 +67,9 @@
   services.xserver.desktopManager.plasma5.enable = true;
 
   # Enabling Graphics Cards
-  services.xserver.videoDrivers = [ "nvidia" "intel" ];
+  services.xserver.videoDrivers = [ "modesetting" ];
   hardware.opengl.enable = true;
+  # hardware.nvidia.optimus_prime.enable = true;
 
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
@@ -164,6 +165,8 @@
     unzip
     ripgrep
     lsof
+    appimage-run
+    appimagekit
     openssl
     neofetch
     unclutter
@@ -173,21 +176,27 @@
     yt-dlp
     ffmpeg
     pandoc
+    glxinfo
+    wine
+    wine64
+    winetricks
 
     # GUI
     firefox
     google-chrome
-    dbeaver
+    popcorntime
     vlc
     sioyek
-    obs-studio
+    transmission-qt
+    dbeaver
     discord
     piper
+    android-studio
+    obs-studio
     gnome.cheese
 
     # Games
-    crawl
-    crawlTiles
+    tetrio-desktop
     lutris
     steam
 
@@ -202,6 +211,7 @@
     coreutils
     ncurses
     xclip
+    wl-clipboard
     gtk3
     libratbag
     prisma-engines
