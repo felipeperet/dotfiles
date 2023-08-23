@@ -18,9 +18,12 @@ if [[ ${EUID} == 0 ]] ; then
     # If the user is root, color the prompt in red.
     PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
 else
-    # For normal users, color the prompt in green.
-    PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
+    # For normal users, color the prompt in cyan and ~ in blue.
+    PS1='\[\033[01;36m\]\n\u@\h\[\033[01;34m\] \W\[\033[01;36m\]\n  λ  \[\033[00m\]'
 fi
 
 # Add the ./result-bin/bin directory to PATH.
 export PATH=$PATH:$(pwd)/result-bin/bin
+
+# Alias for neofetch.
+alias neofetch='neofetch --color_blocks off'
