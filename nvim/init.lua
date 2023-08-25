@@ -132,6 +132,7 @@ require('nvim_comment').setup()
 
 vim.api.nvim_exec([[
   autocmd FileType aiken setlocal commentstring=//%s
+  autocmd FileType nix setlocal commentstring=#%s
 ]], false)
 
 -- LSP configuration
