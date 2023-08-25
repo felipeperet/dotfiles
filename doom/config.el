@@ -21,7 +21,7 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 22))
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 21))
      ; doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
@@ -75,7 +75,7 @@
 ;; they are implemented.
 
 ;; Starts emacs in fullscreen
-(add-hook 'window-setup-hook #'toggle-frame-fullscreen)
+;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
 
 
 ;; Keybinds
