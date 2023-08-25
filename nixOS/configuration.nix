@@ -4,6 +4,13 @@
 
 { config, pkgs, ... }:
 
+let
+  # Define the overridden waybar package.
+  customWaybar = pkgs.waybar.overrideAttrs (oldAttrs: {
+    mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+  });
+
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -59,15 +66,11 @@
     LC_TIME = "pt_BR.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  # services.xserver.displayManager.sddm.enable = true;
+  # services.xserver.desktopManager.plasma5.enable = true;
 
   # Enabling Graphics Cards
-  services.xserver.videoDrivers = [ "modesetting" ];
   hardware.opengl.enable = true;
   # hardware.nvidia.optimus_prime.enable = true;
 
@@ -76,13 +79,19 @@
   # nvidia-drm.modeset=1 is required for some wayland compositors, e.g. sway
   hardware.nvidia.modesetting.enable = true;
 
-  # Configure keymap in X11
+  # Configure xserver.
   services.xserver = {
+    enable = true;
+    videoDrivers = [ "intel" "nvidia" ];
+    displayManager.gdm = {
+        enable = true;
+        wayland = true;
+    };
     layout = "br";
     xkbVariant = "";
   };
 
-  # Configure console keymap
+  # Configure console keymap.
   console.keyMap = "br-abnt2";
 
   # Enable CUPS to print documents.
@@ -100,12 +109,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+    jack.enable = true;
   };
 
   # Enable PostgreSQL
@@ -120,12 +124,14 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sasdelli = {
     isNormalUser = true;
+    shell = pkgs.zsh;
     description = "Felipe Sasdelli";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "input"
+                    "docker" "audio"
+                  ];
     packages = with pkgs; [
       firefox
-      kate
-    #  thunderbird
+      neovim
     ];
   };
 
@@ -139,19 +145,45 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
+  environment.variables.GDK_BACKEND = "wayland";
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # Terminal
+    kitty
+
+    # Fonts
+    font-awesome
+
+    # Shell
+    zsh
+
     # Editors
     vim
     neovim
     emacs
     emacsPackages.engrave-faces
     emacsPackages.ox-reveal
-    vscode
 
-    # Terminal
-    kitty
+    # Browsers
+    firefox
+    google-chrome
+
+    # Wayland + Hyprland
+    customWaybar
+    dunst
+    libnotify
+    rofi-wayland
+    swww
+    lxappearance-gtk2
+    networkmanagerapplet
+    blueberry
+
+    # Audio
+    pulseaudioFull
+    pulsemixer
+    mpd
 
     # CLI
     wget
@@ -182,8 +214,7 @@
     winetricks
 
     # GUI
-    firefox
-    google-chrome
+    spotify
     popcorntime
     vlc
     sioyek
@@ -193,20 +224,23 @@
     piper
     android-studio
     obs-studio
-    gnome.cheese
 
     # Games
     tetrio-desktop
-    lutris
+    bastet
+    ttyper
     steam
+    lutris
 
     # Utils
+    dxvk
     libgccjit
     gcc
     glibc
     zlib
     clang
     gnumake
+    usbutils
     gmp
     coreutils
     ncurses
@@ -268,6 +302,19 @@
     (agda.withPackages [ agdaPackages.standard-library ])
   ];
 
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+  # Enables zsh.
+  programs.zsh.enable = true;
+
+  # Enables hyprland.
+  programs.hyprland = {
+      enable = true;
+      xwayland.enable = true;
+      nvidiaPatches = true;
+  };
+
   # Enables Noisetorch.
   programs.noisetorch.enable = true;
 
@@ -300,5 +347,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
-
 }
