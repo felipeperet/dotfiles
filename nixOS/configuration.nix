@@ -112,27 +112,22 @@ in
     jack.enable = true;
   };
 
-  # Enable PostgreSQL
+  # Enabling libinput.
+  services.xserver.libinput.enable = true;
+
+  # Enable PostgreSQL.
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql;
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sasdelli = {
     isNormalUser = true;
     shell = pkgs.zsh;
     description = "Felipe Sasdelli";
-    extraGroups = [ "networkmanager" "wheel" "input"
-                    "docker" "audio"
-                  ];
-    packages = with pkgs; [
-      firefox
-      neovim
-    ];
+    extraGroups = [ "networkmanager" "wheel" "input" "docker" "audio" ];
+    packages = with pkgs; [ firefox neovim ];
   };
 
   # Allow unfree packages
@@ -141,11 +136,18 @@ in
   # Enable Steam
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    # Open ports in the firewall for Steam Remote Play
+    remotePlay.openFirewall = true;
+    # Open ports in the firewall for Source Dedicated Server
+    dedicatedServer.openFirewall = true;
   };
 
   environment.variables.GDK_BACKEND = "wayland";
+
+  environment.sessionVariables = {
+    # If your cursor becomes invisible
+    WLR_NO_HARDWARE_CURSORS = "1";
+   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -176,11 +178,17 @@ in
     libnotify
     rofi-wayland
     swww
-    lxappearance-gtk2
     networkmanagerapplet
     blueberry
+    grim
+    slurp
+    wl-clipboard
+    swayimg
+    mpv
+    cinnamon.nemo
 
-    # Audio
+    # Media / Audio
+    playerctl
     pulseaudioFull
     pulsemixer
     mpd
@@ -189,6 +197,7 @@ in
     wget
     curl
     git
+    killall
     direnv
     tree
     htop
@@ -201,6 +210,7 @@ in
     appimagekit
     openssl
     neofetch
+    cmatrix
     unclutter
     docker
     docker-compose
@@ -216,7 +226,6 @@ in
     # GUI
     spotify
     popcorntime
-    vlc
     sioyek
     transmission-qt
     dbeaver
@@ -224,6 +233,7 @@ in
     piper
     android-studio
     obs-studio
+    lxappearance-gtk2
 
     # Games
     tetrio-desktop
@@ -245,10 +255,13 @@ in
     coreutils
     ncurses
     xclip
-    wl-clipboard
     gtk3
     libratbag
     prisma-engines
+    libinput
+    evtest
+    xdotool
+    xbindkeys
     xorg.xev
     xorg.xmodmap
     xorg.setxkbmap
