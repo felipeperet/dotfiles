@@ -106,7 +106,7 @@ vim.wo.relativenumber = true
 -- Use system's clipboard
 vim.o.clipboard = "unnamedplus"
 
--- 81 characters per line limit
+-- 101 characters per line limit
 vim.wo.colorcolumn = "101"
 
 -- Set scroll off to 5 lines
@@ -294,7 +294,7 @@ require("nvim-autopairs").setup ({
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
-    width = 30,
+    width = 20,
   },
   renderer = {
     group_empty = true,
