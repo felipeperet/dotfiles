@@ -20,11 +20,13 @@ in
   nix = {
     settings = {
       substituters = [
-        "https://hydra.iohk.io"
-        "https://cache.nixos.org/"
+        "https://cache.iog.io"
+        "https://cache.zw3rk.com"
+        "https://cache.nixos.org"
       ];
       trusted-public-keys = [
         "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+        "loony-tools:pr9m4BkM/5/eSTZlkQyRt57Jz7OMBxNSUiMC4FkcNfk="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     };
@@ -82,7 +84,7 @@ in
   # Configure xserver.
   services.xserver = {
     enable = true;
-    videoDrivers = [ "intel" "nvidia" ];
+    videoDrivers = [ "nvidia" "intel" ];
     displayManager.gdm = {
         enable = true;
         wayland = true;
@@ -167,6 +169,7 @@ in
     emacs
     emacsPackages.engrave-faces
     emacsPackages.ox-reveal
+    vscode
 
     # Browsers
     firefox
@@ -184,6 +187,7 @@ in
     slurp
     wl-clipboard
     swayimg
+    zathura
     mpv
     cinnamon.nemo
 
@@ -197,6 +201,7 @@ in
     wget
     curl
     git
+    cmake
     killall
     direnv
     tree
@@ -217,6 +222,7 @@ in
     postgresql
     yt-dlp
     ffmpeg
+    imagemagick
     pandoc
     glxinfo
     wine
@@ -226,7 +232,6 @@ in
     # GUI
     spotify
     popcorntime
-    sioyek
     transmission-qt
     dbeaver
     discord
@@ -243,6 +248,8 @@ in
     lutris
 
     # Utils
+    pkg-config
+    libsodium
     dxvk
     libgccjit
     gcc
@@ -268,6 +275,9 @@ in
     xorg.xset
     texlive.combined.scheme-full
 
+    # Lua
+    lua
+
     # TypeScript
     nodejs
 
@@ -284,6 +294,7 @@ in
       tabulate
       scikit-learn
       xgboost
+      meson
     ]))
 
     # Haskell
@@ -295,7 +306,6 @@ in
 
     # Rust
     rustup
-    rustc
     rust-analyzer
     cargo
 
