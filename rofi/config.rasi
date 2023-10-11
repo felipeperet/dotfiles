@@ -1,0 +1,15 @@
+@theme "/nix/store/k85vc676dgi5hn9hxxwzhnwc3bg9ryj9-rofi-1.7.5+wayland1/share/rofi/themes/Arc-Dark.rasi"
+
+element-icon {
+    size: 3.5ch;
+}
+
+/* Rounded edges */
+window {
+    border-radius: 15px;
+}
+
+/* Remove "drun" from the search box */
+inputbar {
+    children: [ entry ];
+}
