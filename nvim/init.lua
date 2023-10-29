@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
--- Installing Packer
+-- 1. Installing Packer
 --------------------------------------------------------------------------------
 -- Install packer if not installed.
 local fn = vim.fn
@@ -16,7 +16,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 --------------------------------------------------------------------------------
--- Plugin Management
+-- 2. Plugin Management
 --------------------------------------------------------------------------------
 -- Using Packer to manage plugins.
 require('packer').startup(function()
@@ -89,7 +89,7 @@ require('packer').startup(function()
  end)
 
 --------------------------------------------------------------------------------
--- Neovim Settings
+-- 3. Neovim Settings
 --------------------------------------------------------------------------------
 -- Set theme to Tokyo Night.
 vim.cmd [[
@@ -124,7 +124,7 @@ vim.opt.shiftwidth = 2  -- Set the number of spaces for autoindenting.
 vim.opt.expandtab = true-- Converts tabs to spaces.
 
 -- List of languages with 4 spaces indentation
-local four_spaces_languages = {"python", "c", "cpp", "haskell", "elm"}
+local four_spaces_languages = {"c", "cpp", "haskell"}
 
 -- Function to create autocmd for 4 spaces indentation
 for _, lang in ipairs(four_spaces_languages) do
@@ -137,7 +137,7 @@ vim.api.nvim_exec([[
 ]], false)
 
 --------------------------------------------------------------------------------
--- LSP Configuration
+-- 4. LSP Configuration
 --------------------------------------------------------------------------------
 local lspconfig = require'lspconfig'
 local configs = require'lspconfig.configs'
@@ -153,7 +153,7 @@ end)
 lsp.setup()
 
 -- Lua LSP
-require'lspconfig'.lua_ls.setup {
+lspconfig.lua_ls.setup {
   settings = {
     Lua = {
       runtime = {
@@ -174,11 +174,10 @@ require'lspconfig'.lua_ls.setup {
 }
 
 -- OCaml LSP
-require'lspconfig'.ocamllsp.setup{
-}
+lspconfig.ocamllsp.setup{}
 
 -- Haskell LSP
-require'lspconfig'.hls.setup{}
+lspconfig.hls.setup{}
 
 -- Aiken LSP
 if not configs.aiken then
@@ -194,7 +193,7 @@ if not configs.aiken then
   }
 end
 
-require'lspconfig'.aiken.setup{
+lspconfig.aiken.setup{
   cmd = { "aiken", "lsp" },
   filetypes = {"aiken"},
   root_dir = function(fname)
@@ -204,7 +203,7 @@ require'lspconfig'.aiken.setup{
 }
 
 --------------------------------------------------------------------------------
--- Plugin Configuration
+-- 5. Plugin Configuration
 --------------------------------------------------------------------------------
 require('gitsigns').setup()
 
@@ -350,7 +349,7 @@ require('lualine').setup {
 }
 
 --------------------------------------------------------------------------------
--- Keybindings
+-- 6. Keybindings
 --------------------------------------------------------------------------------
 -- Shorten function name.
 local keymap = vim.api.nvim_set_keymap
@@ -370,7 +369,7 @@ keymap('n', '<S-k>', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
 -- Key mapping for jumping to the next warning/error with <C-k>.
 keymap('n', '<C-k>', '<Cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
--- Naviagate buffers.
+-- Navigate buffers.
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
