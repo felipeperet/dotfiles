@@ -118,23 +118,58 @@ vim.wo.colorcolumn = "81"
 -- vim.o.scrolloff = 5
 
 -- Set default indentation
-vim.opt.tabstop = 2     -- Set the number of spaces for <Tab> in the file.
-vim.opt.softtabstop = 2 -- Set the number of spaces for a <Tab> in insert mode.
-vim.opt.shiftwidth = 2  -- Set the number of spaces for autoindenting.
-vim.opt.expandtab = true-- Converts tabs to spaces.
+vim.opt.tabstop = 2      -- Set the number of spaces for <Tab> in the file.
+vim.opt.softtabstop = 2  -- Set the number of spaces for a <Tab> in insert mode.
+vim.opt.shiftwidth = 2   -- Set the number of spaces for autoindenting.
+vim.opt.expandtab = true -- Converts tabs to spaces.
 
--- List of languages with 4 spaces indentation
-local four_spaces_languages = {"c", "cpp", "haskell"}
-
--- Function to create autocmd for 4 spaces indentation
-for _, lang in ipairs(four_spaces_languages) do
-  vim.cmd(string.format("autocmd FileType %s setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab", lang))
+-- Function to create autocmd for 4 spaces indentation.
+local function setupFourSpacesIndentation()
+    local four_spaces_languages = {"c", "cpp", "haskell"}
+    for _, lang in ipairs(four_spaces_languages) do
+        local cmd = string.format("autocmd FileType %s setlocal tabstop=4 " ..
+                                  "shiftwidth=4 softtabstop=4 expandtab", lang)
+        vim.cmd(cmd)
+    end
 end
 
+setupFourSpacesIndentation()
+
+-- Setting comment symbols for Aiken.
 vim.api.nvim_exec([[
   autocmd FileType aiken setlocal commentstring=//%s
   autocmd FileType nix setlocal commentstring=#%s
 ]], false)
+
+-- Automatically format OCaml every time the file is saved.
+vim.cmd [[
+autocmd BufWritePre *.ml,*.mli silent! lua FormatInMemory()
+]]
+
+function FormatInMemory()
+    local cursor_pos = vim.api.nvim_win_get_cursor(0)
+    local current_buffer = vim.api.nvim_get_current_buf()
+    local current_content = table.concat(
+        vim.api.nvim_buf_get_lines(current_buffer, 0, -1, false), "\n"
+    )
+
+    local temp_file = "/tmp/vim_ocaml_format_tmp.ml"
+    local f = io.open(temp_file, "w")
+    if f then
+        f:write(current_content)
+        f:close()
+    else
+        error("Failed to open temporary file for formatting.")
+    end
+
+    local format_cmd = 'silent! :!ocamlformat ' ..
+                       '--enable-outside-detected-project --inplace '
+    vim.cmd(format_cmd .. temp_file)
+
+    vim.cmd('silent! %!cat ' .. temp_file)
+    os.remove(temp_file)
+    vim.api.nvim_win_set_cursor(0, cursor_pos)
+end
 
 --------------------------------------------------------------------------------
 -- 4. LSP Configuration
@@ -230,7 +265,6 @@ require("transparent").setup({
 local cmp = require'cmp'
 
 cmp.setup({
-  -- You must set mapping if you want.
   mapping = {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
