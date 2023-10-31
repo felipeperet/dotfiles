@@ -252,8 +252,7 @@ in
     libinput       # A tool for for handling input devices
     evtest         # A tool for testing input device.
     glxinfo        # Display information about the GLX implementation.
-    cmake          # A tool to manage the build process of software.
-    gnumake        # GNU make utility.
+    nodejs         # JavaScript runtime built on Chrome's V8 JavaScript engine.
     wine           # Software for running Windows applications on Linux.
     wine64         # 64-bit version of Wine.
     winetricks     # Script to help install various Windows software on Wine.
@@ -264,7 +263,7 @@ in
     xorg.xmodmap   # Modify keymaps.
     xorg.setxkbmap # Set keyboard keymaps.
     xorg.xset      # User preference utility for X.
-    texlive.combined.scheme-full  # Comprehensive TeX system.
+    texlive.combined.scheme-full # Comprehensive TeX system.
     ############################################################################
 
     ############################################################################
@@ -294,7 +293,6 @@ in
     # Utils
     # --------------------------------------------------------------------------
     dxvk           # Vulkan-based translation layer for Direct3D
-    libgccjit      # Just-In-Time compilation support in GCC.
     usbutils       # Linux USB utilities.
     coreutils      # File, shell and text manipulation utilities.
     xclip          # Command line interface to the X11 clipboard.
@@ -304,15 +302,17 @@ in
     libsodium      # Library for encryption.
     ncurses        # Library for writing text-based UIs.
     gmp            # Library for arbitrary precision arithmetic.
-    nodejs         # JavaScript runtime built on Chrome's V8 JavaScript engine.
     ############################################################################
 
     ############################################################################
     # C
     # --------------------------------------------------------------------------
-    gcc   # GNU Compiler Collection.
-    glibc # GNU C Library.
-    clang # C, C++, and Objective-C compiler.
+    gcc       # GNU Compiler Collection.
+    glibc     # GNU C Library.
+    gnumake   # GNU make utility.
+    clang     # C, C++, and Objective-C compiler.
+    cmake     # A tool to manage the build process of software.
+    libgccjit # Just-In-Time compilation support in GCC.
     ############################################################################
 
     ############################################################################
@@ -331,9 +331,12 @@ in
     ############################################################################
     # OCaml
     # --------------------------------------------------------------------------
-    ocaml  # A functional and statically typed programming language.
-    opam   # A package manager for OCaml.
-    dune_3 # A composable build system.
+    ocaml       # A functional and statically typed programming language.
+    opam        # A package manager for OCaml.
+    dune_3      # A composable build system.
+    ocamlformat # Auto-formatter for OCaml code.
+    ocamlPackages.utop      # Universal toplevel for OCaml.
+    ocamlPackages.ocaml-lsp # OCaml Language Server Protocol.
     ############################################################################
 
     ############################################################################
@@ -342,6 +345,7 @@ in
     (ghc.withPackages (ps: with ps; [
       cabal-install # A tool to compile and install Haskell libraries.
       cabal2nix     # Convert a Cabal file into a Nix build expression.
+      haskell-language-server # Haskell Language Server Protocol.
     ]))
     ############################################################################
 
