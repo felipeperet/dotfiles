@@ -345,6 +345,7 @@ in
     (ghc.withPackages (ps: with ps; [
       cabal-install # A tool to compile and install Haskell libraries.
       cabal2nix     # Convert a Cabal file into a Nix build expression.
+      stack         # A build tool for Haskell.
       haskell-language-server # Haskell Language Server Protocol.
     ]))
     ############################################################################
