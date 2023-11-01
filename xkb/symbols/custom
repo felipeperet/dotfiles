@@ -1,0 +1,15 @@
+partial default alphanumeric_keys
+xkb_symbols "basic" {
+    include "br"
+
+    key <ESC>  { [ apostrophe, quotedbl ] };
+    key <BKSP> { [ BackSpace, dead_grave ] };
+    key <CAPS> { [ Escape, question ] };
+    key <AB10> { [ Up, colon ] };
+    key <MENU> { [ Down, semicolon ] };
+    key <LALT> { [ slash, backslash ] };
+    key <RALT> { [ Left ] };
+    key <RCTL> { [ Right ] };
+    key <TAB>  { [ Tab, bar ] };
+    key <AD11> { [ dead_acute, dead_acute ] };
+};
