@@ -281,7 +281,8 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = false }),
     ['<Tab>'] = function(fallback)
       if vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+        vim.fn.feedkeys(
+          vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
       elseif cmp.visible() then
         cmp.select_next_item()
       else
@@ -290,7 +291,8 @@ cmp.setup({
     end,
     ['<S-Tab>'] = function(fallback)
       if vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+        vim.fn.feedkeys(
+          vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
       elseif cmp.visible() then
         cmp.select_prev_item()
       else
@@ -397,11 +399,14 @@ require('lualine').setup {
 local keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
--- Scroll up/down while maintaing the cursor in the middle of the screen.
+-- Scroll up/down while maintaining the cursor centered.
 keymap('n', '<C-d>', '<C-d>zz', opts)
 keymap('n', '<C-u>', '<C-u>zz', opts)
 
--- Keybindings for searching files with Telescope.
+-- Move to end of file while maintaining the cursor centered.
+keymap('n', '<S-g>', '<S-g>zz', opts)
+
+-- Keybindings for searching files and words with Telescope.
 keymap('n', '<Space>sf', '<Cmd>Telescope find_files<CR>', opts)
 keymap('n', '<Space>sw', '<Cmd>Telescope live_grep<CR>', opts)
 
@@ -422,7 +427,9 @@ keymap('n', 'j', 'jzz', opts)
 keymap('n', 'k', 'kzz', opts)
 
 -- GitSigns Keybindings.
+keymap('n', '<C-f>',
+  ':Gitsigns prev_hunk<CR>:sleep 5m<CR>' ..
+  ':Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz', opts)
 keymap('n', '<S-f>', ':Gitsigns preview_hunk_inline<CR>', opts)
-keymap('n', '<C-f>', ':Gitsigns reset_hunk<CR>', opts)
-keymap('n', '<S-h>', ':Gitsigns preview_hunk<CR>', opts)
-keymap('n', '<C-h>', ':Gitsigns prev_hunk<CR>', opts)
+keymap('n', '<S-p>', ':Gitsigns reset_hunk<CR>', opts)
+keymap('x', '<S-p>', ':Gitsigns reset_hunk<CR>', opts)
