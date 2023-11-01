@@ -84,6 +84,14 @@ require('packer').startup(function()
   use 'windwp/nvim-autopairs'
   -- Direnv.
   use 'direnv/direnv.vim'
+  -- Necessary plugins for Agda.
+  use 'liuchengxu/vim-which-key'
+  use 'kana/vim-textobj-user'
+  use 'neovimhaskell/nvim-hs.vim'
+  use {
+    'isovector/cornelis',
+    run = 'stack build'
+  }
   -- Aiken Programming Language Support.
   use 'aiken-lang/editor-integration-nvim'
  end)
@@ -393,14 +401,13 @@ local opts = { noremap = true, silent = true }
 keymap('n', '<C-d>', '<C-d>zz', opts)
 keymap('n', '<C-u>', '<C-u>zz', opts)
 
--- Key mapping for searching files with Telescope.
+-- Keybindings for searching files with Telescope.
 keymap('n', '<Space>sf', '<Cmd>Telescope find_files<CR>', opts)
--- Key mapping for searching words with Telescope.
 keymap('n', '<Space>sw', '<Cmd>Telescope live_grep<CR>', opts)
 
--- Key mapping for hovering LSP information with <Shift-k>.
+-- Keybindings for hovering LSP information with <Shift-k>.
 keymap('n', '<S-k>', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
--- Key mapping for jumping to the next warning/error with <C-k>.
+-- Keybindings for jumping to the next warning/error with <C-k>.
 keymap('n', '<C-k>', '<Cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
 -- Navigate buffers.
@@ -411,5 +418,11 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 
 -- Center the screen after scrolling with 'j' or 'k'.
-vim.api.nvim_set_keymap('n', 'j', 'jzz', { noremap = true })
-vim.api.nvim_set_keymap('n', 'k', 'kzz', { noremap = true })
+keymap('n', 'j', 'jzz', opts)
+keymap('n', 'k', 'kzz', opts)
+
+-- GitSigns Keybindings.
+keymap('n', '<S-f>', ':Gitsigns preview_hunk_inline<CR>', opts)
+keymap('n', '<C-f>', ':Gitsigns reset_hunk<CR>', opts)
+keymap('n', '<S-h>', ':Gitsigns preview_hunk<CR>', opts)
+keymap('n', '<C-h>', ':Gitsigns prev_hunk<CR>', opts)
