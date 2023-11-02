@@ -405,6 +405,8 @@ local opts = { noremap = true, silent = true }
 -- Scroll up/down while maintaining the cursor centered.
 keymap('n', '<C-d>', '<C-d>zz', opts)
 keymap('n', '<C-u>', '<C-u>zz', opts)
+keymap('n', '{', '{zz', opts)
+keymap('n', '}', '}zz', opts)
 
 -- Move to end of file while maintaining the cursor centered.
 keymap('n', '<S-g>', '<S-g>zz', opts)
