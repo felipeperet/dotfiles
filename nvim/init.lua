@@ -399,14 +399,14 @@ require('lualine').setup {
 -- 6. Keybindings
 --------------------------------------------------------------------------------
 -- Shorten function name.
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 -- Scroll up/down while maintaining the cursor centered.
 keymap('n', '<C-d>', '<C-d>zz', opts)
 keymap('n', '<C-u>', '<C-u>zz', opts)
-keymap('n', '{', '{zz', opts)
-keymap('n', '}', '}zz', opts)
+keymap({'n', 'x'}, '{', '{zz', opts)
+keymap({'n', 'x'}, '}', '}zz', opts)
 
 -- Move to end of file while maintaining the cursor centered.
 keymap('n', '<S-g>', '<S-g>zz', opts)
@@ -436,8 +436,7 @@ keymap('n', '<C-f>',
   ':Gitsigns prev_hunk<CR>:sleep 5m<CR>' ..
   ':Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz', opts)
 keymap('n', '<S-f>', ':Gitsigns preview_hunk_inline<CR>', opts)
-keymap('n', '<S-p>', ':Gitsigns reset_hunk<CR>', opts)
-keymap('x', '<S-p>', ':Gitsigns reset_hunk<CR>', opts)
+keymap({'n', 'x'}, '<S-p>', ':Gitsigns reset_hunk<CR>', opts)
 
 -- Cornelis Agda keybindings.
 keymap('n', '<C-c><C-l>', '<Cmd>CornelisLoad<CR>', opts)
