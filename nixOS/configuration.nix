@@ -241,7 +241,6 @@ in
     appimagekit    # Tools for working with AppImages.
     openssl        # A toolkit for TLS and SSL protocols.
     neofetch       # A command-line system information tool.
-    unclutter      # Hides the mouse cursor when idle.
     docker         # A platform to develop, ship, and run applications.
     docker-compose # Tool for defining and running Docker applications.
     postgresql     # A powerful, open source object-relational database system.
