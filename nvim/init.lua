@@ -85,7 +85,6 @@ require('packer').startup(function()
   -- Direnv.
   use 'direnv/direnv.vim'
   -- Necessary plugins for Agda.
-  use 'liuchengxu/vim-which-key'
   use 'kana/vim-textobj-user'
   use 'neovimhaskell/nvim-hs.vim'
   use {
@@ -130,6 +129,10 @@ vim.opt.tabstop = 2      -- Set the number of spaces for <Tab> in the file.
 vim.opt.softtabstop = 2  -- Set the number of spaces for a <Tab> in insert mode.
 vim.opt.shiftwidth = 2   -- Set the number of spaces for autoindenting.
 vim.opt.expandtab = true -- Converts tabs to spaces.
+
+-- Settings for agda-mode.
+vim.g.cornelis_split_location = "right"
+vim.g.cornelis_max_width = 52
 
 -- Function to create autocmd for 4 spaces indentation.
 local function setupFourSpacesIndentation()
@@ -433,3 +436,19 @@ keymap('n', '<C-f>',
 keymap('n', '<S-f>', ':Gitsigns preview_hunk_inline<CR>', opts)
 keymap('n', '<S-p>', ':Gitsigns reset_hunk<CR>', opts)
 keymap('x', '<S-p>', ':Gitsigns reset_hunk<CR>', opts)
+
+-- Cornelis Agda keybindings.
+keymap('n', '<C-c><C-l>', '<Cmd>CornelisLoad<CR>', opts)
+keymap('n', '<C-c><C-g>', '<Cmd>CornelisGoals<CR>', opts)
+keymap('n', '<C-c><C-s>', '<Cmd>CornelisSolve<CR>', opts)
+keymap('n', '<C-c><C-d>', '<Cmd>CornelisGoToDefinition<CR>', opts)
+keymap('n', '<C-c><C-b>', '<Cmd>CornelisPrevGoal<CR>:sleep 5m<CR>zz', opts)
+keymap('n', '<C-c><C-f>', '<Cmd>CornelisNextGoal<CR>:sleep 5m<CR>zz', opts)
+keymap('n', '<C-c><C-r>', '<Cmd>CornelisRefine<CR>', opts)
+keymap('n', '<C-c><C-a>', '<Cmd>CornelisAuto<CR>', opts)
+keymap('n', '<C-c><C-c>', '<Cmd>CornelisMakeCase<CR>', opts)
+keymap('n', '<C-c><C-,>', '<Cmd>CornelisTypeContext<CR>', opts)
+keymap('n', '<C-c><C-i>', '<Cmd>CornelisTypeInfer<CR>', opts)
+keymap('n', '<C-c><C-n>', '<Cmd>CornelisNormalize<CR>', opts)
+keymap('n', '<C-c><C-k>', '<Cmd>CornelisQuestionToMeta<CR>', opts)
+keymap('n', '<C-c><C-x><C-r>', '<Cmd>CornelisRestart<CR>', opts)
