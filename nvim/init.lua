@@ -278,9 +278,6 @@ local cmp = require'cmp'
 
 cmp.setup({
   mapping = {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = false }),
     ['<Tab>'] = function(fallback)
@@ -293,7 +290,7 @@ cmp.setup({
         fallback()
       end
     end,
-    ['<S-Tab>'] = function(fallback)
+    ['|'] = function(fallback)
       if vim.fn.pumvisible() == 1 then
         vim.fn.feedkeys(
           vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
@@ -312,7 +309,8 @@ cmp.setup({
 })
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = {"nix", "lua", "ocaml", "haskell", "typescript"},
+  ensure_installed =
+    {"typescript", "nix", "lua", "c", "rust", "ocaml", "haskell", "agda"},
   highlight = {
     enable = true,
     disable = {},
@@ -435,6 +433,9 @@ keymap('n', 'k', 'kzz', opts)
 -- GitSigns Keymaps.
 keymap('n', '<C-f>',
   ':Gitsigns next_hunk<CR>:sleep 5m<CR>' ..
+  ':Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz', opts)
+keymap('n', '<C-b>',
+  ':Gitsigns prev_hunk<CR>:sleep 5m<CR>' ..
   ':Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz', opts)
 keymap('n', '<S-f>', ':Gitsigns preview_hunk_inline<CR>', opts)
 keymap({'n', 'x'}, '<S-p>', ':Gitsigns reset_hunk<CR>', opts)
