@@ -22,8 +22,8 @@ end
 require('packer').startup(function()
   -- Packer can manage itself.
   use 'wbthomason/packer.nvim'
-  -- Tokyo Night theme.
-  use 'folke/tokyonight.nvim'
+  -- Kanagawa Color Scheme.
+  use 'rebelot/kanagawa.nvim'
   -- Status line plugin.
   use {
     'nvim-lualine/lualine.nvim',
@@ -98,10 +98,10 @@ require('packer').startup(function()
 --------------------------------------------------------------------------------
 -- 3. Neovim Settings
 --------------------------------------------------------------------------------
--- Set theme to Tokyo Night.
+-- Set color scheme to Kanagawa.
 vim.cmd [[
   syntax enable
-  colorscheme tokyonight
+  colorscheme kanagawa
 ]]
 
 -- Disable netrw at the very start of your init.lua (strongly advised).
@@ -270,6 +270,9 @@ require("transparent").setup({
                    'NvimTreeWinSeparator',
                    'TelescopeNormal',
                    'TelescopeBorder',
+                   'GitSignsAdd',
+                   'GitSignsChange',
+                   'GitSignsDelete'
                  },
   exclude_groups = {},
 })
@@ -366,7 +369,7 @@ require("nvim-tree").setup({
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'tokyonight',
+    theme = 'kanagawa',
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     always_divide_middle = true,
