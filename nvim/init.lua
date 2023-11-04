@@ -264,9 +264,10 @@ require("transparent").setup({
   },
   extra_groups = { 'NormalFloat',
                    'FloatBorder',
-                   'NvimTreeWinSeparator',
                    'NvimTreeNormal',
                    'NvimTreeNormalNC',
+                   'NvimTreeEndOfBuffer',
+                   'NvimTreeWinSeparator',
                    'TelescopeNormal',
                    'TelescopeBorder',
                  },
@@ -396,7 +397,7 @@ require('lualine').setup {
 }
 
 --------------------------------------------------------------------------------
--- 6. Keybindings
+-- 6. Keymaps
 --------------------------------------------------------------------------------
 -- Shorten function name.
 local keymap = vim.keymap.set
@@ -431,14 +432,14 @@ keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 keymap('n', 'j', 'jzz', opts)
 keymap('n', 'k', 'kzz', opts)
 
--- GitSigns Keybindings.
+-- GitSigns Keymaps.
 keymap('n', '<C-f>',
-  ':Gitsigns prev_hunk<CR>:sleep 5m<CR>' ..
+  ':Gitsigns next_hunk<CR>:sleep 5m<CR>' ..
   ':Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz', opts)
 keymap('n', '<S-f>', ':Gitsigns preview_hunk_inline<CR>', opts)
 keymap({'n', 'x'}, '<S-p>', ':Gitsigns reset_hunk<CR>', opts)
 
--- Cornelis Agda keybindings.
+-- Cornelis Agda Keymaps.
 keymap('n', '<C-c><C-l>', '<Cmd>CornelisLoad<CR>', opts)
 keymap('n', '<C-c><C-g>', '<Cmd>CornelisGoals<CR>', opts)
 keymap('n', '<C-c><C-s>', '<Cmd>CornelisSolve<CR>', opts)
