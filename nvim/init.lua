@@ -73,11 +73,11 @@ require('packer').startup(function()
       'nvim-tree/nvim-web-devicons',
     },
     config = function()
-      require("nvim-tree").setup {}
+      require('nvim-tree').setup {}
     end
   }
   -- Auto trim trailing whitespaces and lines.
-  use "cappyzawa/trim.nvim"
+  use 'cappyzawa/trim.nvim'
   -- GitSigns.
   use 'lewis6991/gitsigns.nvim'
   -- Auto pairs.
@@ -116,10 +116,10 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 -- Use system's clipboard
-vim.o.clipboard = "unnamedplus"
+vim.o.clipboard = 'unnamedplus'
 
 -- 101 characters per line limit
-vim.wo.colorcolumn = "81"
+vim.wo.colorcolumn = '81'
 
 -- Set scroll off to 5 lines
 -- vim.o.scrolloff = 5
@@ -131,15 +131,15 @@ vim.opt.shiftwidth = 2   -- Set the number of spaces for autoindenting.
 vim.opt.expandtab = true -- Converts tabs to spaces.
 
 -- Settings for agda-mode.
-vim.g.cornelis_split_location = "right"
+vim.g.cornelis_split_location = 'right'
 vim.g.cornelis_max_width = 52
 
 -- Function to create autocmd for 4 spaces indentation.
 local function setupFourSpacesIndentation()
-    local four_spaces_languages = {"c", "cpp", "haskell"}
+    local four_spaces_languages = {'c', 'cpp', 'haskell'}
     for _, lang in ipairs(four_spaces_languages) do
-        local cmd = string.format("autocmd FileType %s setlocal tabstop=4 " ..
-                                  "shiftwidth=4 softtabstop=4 expandtab", lang)
+        local cmd = string.format('autocmd FileType %s setlocal tabstop=4 ' ..
+                                  'shiftwidth=4 softtabstop=4 expandtab', lang)
         vim.cmd(cmd)
     end
 end
@@ -152,44 +152,14 @@ vim.api.nvim_exec([[
   autocmd FileType nix setlocal commentstring=#%s
 ]], false)
 
--- Automatically format OCaml every time the file is saved.
-vim.cmd [[
-autocmd BufWritePre *.ml,*.mli silent! lua FormatInMemory()
-]]
-
-function FormatInMemory()
-    local cursor_pos = vim.api.nvim_win_get_cursor(0)
-    local current_buffer = vim.api.nvim_get_current_buf()
-    local current_content = table.concat(
-        vim.api.nvim_buf_get_lines(current_buffer, 0, -1, false), "\n"
-    )
-
-    local temp_file = "/tmp/vim_ocaml_format_tmp.ml"
-    local f = io.open(temp_file, "w")
-    if f then
-        f:write(current_content)
-        f:close()
-    else
-        error("Failed to open temporary file for formatting.")
-    end
-
-    local format_cmd = 'silent! :!ocamlformat ' ..
-                       '--enable-outside-detected-project --inplace '
-    vim.cmd(format_cmd .. temp_file)
-
-    vim.cmd('silent! %!cat ' .. temp_file)
-    os.remove(temp_file)
-    vim.api.nvim_win_set_cursor(0, cursor_pos)
-end
-
 --------------------------------------------------------------------------------
 -- 4. LSP Configuration
 --------------------------------------------------------------------------------
-local lspconfig = require'lspconfig'
-local configs = require'lspconfig.configs'
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig.configs')
 
 -- LSP configuration.
-require("mason").setup()
+require('mason').setup()
 local lsp = require('lsp-zero').preset({})
 
 lsp.on_attach(function(_, bufnr)
@@ -209,7 +179,7 @@ lspconfig.lua_ls.setup {
         globals = {'vim', 'use'},
       },
       workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
+        library = vim.api.nvim_get_runtime_file('', true),
         checkThirdParty = false,
       },
       telemetry = {
@@ -219,8 +189,33 @@ lspconfig.lua_ls.setup {
   }
 }
 
+-- Create a group for autoformatting.
+local autoformat_group =
+  vim.api.nvim_create_augroup('Autoformat', { clear = true })
+
+-- C/C++ LSP
+lspconfig.clangd.setup{}
+
+-- C/C++ autoformatting on save.
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = autoformat_group,
+  pattern = {'*.c', '*.h', '*.cpp', '*.hpp'},
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
+})
+
 -- OCaml LSP
 lspconfig.ocamllsp.setup{}
+
+-- OCaml autoformatting on save.
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = autoformat_group,
+  pattern = {'*.ml', '*.mli'},
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
+})
 
 -- Haskell LSP
 lspconfig.hls.setup{}
@@ -240,8 +235,8 @@ if not configs.aiken then
 end
 
 lspconfig.aiken.setup{
-  cmd = { "aiken", "lsp" },
-  filetypes = {"aiken"},
+  cmd = { 'aiken', 'lsp' },
+  filetypes = {'aiken'},
   root_dir = function(fname)
     return require'lspconfig'.util.root_pattern('aiken.toml')(fname) or
            require'lspconfig'.util.path.dirname(fname)
@@ -255,7 +250,7 @@ require('gitsigns').setup()
 
 require('nvim_comment').setup()
 
-require("transparent").setup({
+require('transparent').setup({
   groups = {
     'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
     'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
@@ -305,49 +300,53 @@ cmp.setup({
 })
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed =
-    {"typescript", "nix", "lua", "c", "rust", "ocaml", "haskell", "agda"},
+  ensure_installed = {
+    'vim', 'vimdoc',
+    'nix', 'lua',
+    'typescript', 'c', 'cpp', 'rust',
+    'ocaml', 'haskell', 'agda'
+  },
   highlight = {
     enable = true,
     disable = {},
   },
 }
 
-require("indent_blankline").setup {
-  char = "│",
-  buftype_exclude = { "terminal" },
+require('indent_blankline').setup {
+  char = '│',
+  buftype_exclude = { 'terminal' },
   show_trailing_blankline_indent = false,
   show_first_indent_level = false,
   use_treesitter = true,
 }
 
 require('trim').setup({
-  ft_blocklist = {"markdown"},
+  ft_blocklist = {'markdown'},
 })
 
-require("nvim-autopairs").setup ({
+require('nvim-autopairs').setup ({
   check_ts = true,
   ts_config = {
-    lua = { "string", "source" },
-    javascript = { "string", "template_string" },
+    lua = { 'string', 'source' },
+    javascript = { 'string', 'template_string' },
     java = false,
   },
-  disable_filetype = { "TelescopePrompt", "spectre_panel" },
+  disable_filetype = { 'TelescopePrompt', 'spectre_panel' },
   fast_wrap = {
-    map = "<M-e>",
-    chars = { "{", "[", "(", '"', "'" },
-    pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
+    map = '<M-e>',
+    chars = { '{', '[', '(', '"', "'" },
+    pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], '%s+', ''),
     offset = 0,
-    end_key = "$",
-    keys = "qwertyuiopzxcvbnmasdfghjkl",
+    end_key = '$',
+    keys = 'qwertyuiopzxcvbnmasdfghjkl',
     check_comma = true,
-    highlight = "PmenuSel",
-    highlight_grey = "LineNr",
+    highlight = 'PmenuSel',
+    highlight_grey = 'LineNr',
   }
 })
 
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
+require('nvim-tree').setup({
+  sort_by = 'case_sensitive',
   view = {
     width = 20,
   },
