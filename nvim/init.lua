@@ -262,17 +262,10 @@ require("transparent").setup({
     'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
     'SignColumn', 'CursorLineNr', 'EndOfBuffer',
   },
-  extra_groups = { 'NormalFloat',
-                   'FloatBorder',
-                   'NvimTreeNormal',
-                   'NvimTreeNormalNC',
-                   'NvimTreeEndOfBuffer',
-                   'NvimTreeWinSeparator',
-                   'TelescopeNormal',
-                   'TelescopeBorder',
-                   'GitSignsAdd',
-                   'GitSignsChange',
-                   'GitSignsDelete'
+  extra_groups = { 'NormalFloat', 'FloatBorder',
+                   'NvimTreeNormal', 'NvimTreeNormalNC', 'NvimTreeEndOfBuffer',
+                   'NvimTreeWinSeparator', 'TelescopeNormal', 'TelescopeBorder',
+                   'GitSignsAdd', 'GitSignsChange', 'GitSignsDelete'
                  },
   exclude_groups = {},
 })
