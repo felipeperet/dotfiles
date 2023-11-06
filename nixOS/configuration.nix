@@ -304,18 +304,6 @@ in
     ############################################################################
 
     ############################################################################
-    # C
-    # --------------------------------------------------------------------------
-    gcc       # GNU Compiler Collection.
-    glibc     # GNU C Library.
-    gnumake   # GNU make utility.
-    clang     # C, C++, and Objective-C compiler.
-    cmake     # A tool to manage the build process of software.
-    libgccjit # Just-In-Time compilation support in GCC.
-    clang-tools # Standalone command line tools for C development.
-    ############################################################################
-
-    ############################################################################
     # Lua
     # --------------------------------------------------------------------------
     lua                 # A lightweight and embeddable scripting language.
@@ -326,6 +314,18 @@ in
     # Julia
     # --------------------------------------------------------------------------
     julia_18 # A high-level, high-performance, dynamically typed language.
+    ############################################################################
+
+    ############################################################################
+    # C
+    # --------------------------------------------------------------------------
+    gcc       # GNU Compiler Collection.
+    glibc     # GNU C Library.
+    gnumake   # GNU make utility.
+    clang     # C, C++, and Objective-C compiler.
+    cmake     # A tool to manage the build process of software.
+    libgccjit # Just-In-Time compilation support in GCC.
+    clang-tools # Standalone command line tools for C development.
     ############################################################################
 
     ############################################################################
