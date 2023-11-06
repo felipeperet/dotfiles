@@ -193,29 +193,23 @@ lspconfig.lua_ls.setup {
 local autoformat_group =
   vim.api.nvim_create_augroup('Autoformat', { clear = true })
 
--- C/C++ LSP
-lspconfig.clangd.setup{}
+-- Function to set up LSP and autoformatting on save for a given language.
+local function setup_lsp_autoformat(lang, lsp_config, file_patterns)
+  lspconfig[lang].setup(lsp_config or {})
+  vim.api.nvim_create_autocmd('BufWritePre', {
+    group = autoformat_group,
+    pattern = file_patterns,
+    callback = function()
+      vim.lsp.buf.format({ async = false })
+    end,
+  })
+end
 
--- C/C++ autoformatting on save.
-vim.api.nvim_create_autocmd('BufWritePre', {
-  group = autoformat_group,
-  pattern = {'*.c', '*.h', '*.cpp', '*.hpp'},
-  callback = function()
-    vim.lsp.buf.format({ async = false })
-  end,
-})
+-- Set up LSP and autoformatting for C/C++
+setup_lsp_autoformat('clangd', {}, {'*.c', '*.h', '*.cpp', '*.hpp'})
 
--- OCaml LSP
-lspconfig.ocamllsp.setup{}
-
--- OCaml autoformatting on save.
-vim.api.nvim_create_autocmd('BufWritePre', {
-  group = autoformat_group,
-  pattern = {'*.ml', '*.mli'},
-  callback = function()
-    vim.lsp.buf.format({ async = false })
-  end,
-})
+-- Set up LSP and autoformatting for OCaml
+setup_lsp_autoformat('ocamllsp', {}, {'*.ml', '*.mli'})
 
 -- Haskell LSP
 lspconfig.hls.setup{}
