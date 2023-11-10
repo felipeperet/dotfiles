@@ -111,18 +111,15 @@ vim.g.loaded_netrwPlugin = 1
 -- Set termguicolors to enable highlight groups.
 vim.opt.termguicolors = true
 
--- Enable relative line numbers
+-- Enable relative line numbers.
 vim.wo.number = true
 vim.wo.relativenumber = true
 
--- Use system's clipboard
+-- Use system's clipboard.
 vim.o.clipboard = 'unnamedplus'
 
--- 101 characters per line limit
+-- 80 characters per line limit.
 vim.wo.colorcolumn = '81'
-
--- Set scroll off to 5 lines
--- vim.o.scrolloff = 5
 
 -- Set default indentation
 vim.opt.tabstop = 2      -- Set the number of spaces for <Tab> in the file.
@@ -136,7 +133,7 @@ vim.g.cornelis_max_width = 52
 
 -- Function to create autocmd for 4 spaces indentation.
 local function setupFourSpacesIndentation()
-    local four_spaces_languages = {'c', 'cpp', 'haskell'}
+    local four_spaces_languages = {'c', 'cpp', 'rust', 'haskell'}
     for _, lang in ipairs(four_spaces_languages) do
         local cmd = string.format('autocmd FileType %s setlocal tabstop=4 ' ..
                                   'shiftwidth=4 softtabstop=4 expandtab', lang)
@@ -146,7 +143,7 @@ end
 
 setupFourSpacesIndentation()
 
--- Setting comment symbols for Aiken.
+-- Setting comment symbols for Aiken and Nix.
 vim.api.nvim_exec([[
   autocmd FileType aiken setlocal commentstring=//%s
   autocmd FileType nix setlocal commentstring=#%s
@@ -208,11 +205,22 @@ end
 -- Set up LSP and autoformatting for C/C++
 setup_lsp_autoformat('clangd', {}, {'*.c', '*.h', '*.cpp', '*.hpp'})
 
+-- Set up LSP and autoformatting for Rust
+setup_lsp_autoformat('rust_analyzer', {}, {'*.rs'})
+
 -- Set up LSP and autoformatting for OCaml
 setup_lsp_autoformat('ocamllsp', {}, {'*.ml', '*.mli'})
 
 -- Haskell LSP
-lspconfig.hls.setup{}
+-- lspconfig.hls.setup{}
+
+setup_lsp_autoformat('hls', {
+  settings = {
+    haskell = {
+      formattingProvider = "fourmolu"
+    }
+  }
+}, {'*.hs'})
 
 -- Aiken LSP
 if not configs.aiken then
