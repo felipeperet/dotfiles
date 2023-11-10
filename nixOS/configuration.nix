@@ -286,6 +286,7 @@ in
     ttyper         # A terminal typing game.
     steam          # A platform for video games.
     lutris         # Open gaming platform for Linux.
+    crispy-doom    # A Doom source port.
     ############################################################################
 
     ############################################################################
@@ -326,6 +327,15 @@ in
     cmake     # A tool to manage the build process of software.
     libgccjit # Just-In-Time compilation support in GCC.
     clang-tools # Standalone command line tools for C development.
+    ############################################################################
+
+    ############################################################################
+    # Rust
+    # --------------------------------------------------------------------------
+    rustc   # A safe, concurrent, practical language.
+    cargo   # A tool for downloading project's dependencies and building.
+    rustfmt # A tool for formatting Rust code according to style guidelines.
+    rust-analyzer # A modular compiler frontend for the Rust language.
     ############################################################################
 
     ############################################################################
