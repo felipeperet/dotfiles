@@ -211,6 +211,9 @@ setup_lsp_autoformat('rust_analyzer', {}, {'*.rs'})
 -- Set up LSP and autoformatting for OCaml
 setup_lsp_autoformat('ocamllsp', {}, {'*.ml', '*.mli'})
 
+-- Julia LSP
+lspconfig.julials.setup{}
+
 -- Haskell LSP
 -- lspconfig.hls.setup{}
 
