@@ -49,6 +49,8 @@ export PATH=$PATH:~/bins/oura/target/release
 # Add the ./result-bin/bin directory to PATH.
 export PATH=$PATH:$(pwd)/result-bin/bin
 
+export GRDIR=$PATH:~/.julia/packages/GR
+
 # Shell integration for direnv.
 eval "$(direnv hook zsh)"
 
