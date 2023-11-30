@@ -24,6 +24,8 @@ require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   -- Kanagawa Color Scheme.
   use 'rebelot/kanagawa.nvim'
+  -- TokyoNight Color Scheme.
+  use 'folke/tokyonight.nvim'
   -- Status line plugin.
   use {
     'nvim-lualine/lualine.nvim',
