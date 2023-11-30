@@ -231,6 +231,8 @@ in
     duf            # A disk usage utility.
     zip            # A compression utility.
     unzip          # A decompression utility.
+    rar            # Utility for RAR archives.
+    unrar          # Utility for RAR archives.
     killall        # A tool to kill all instances of a process.
     direnv         # An environment switcher for the shell.
     tree           # A recursive directory listing command.
@@ -281,11 +283,9 @@ in
     ############################################################################
     # Games
     # --------------------------------------------------------------------------
+    ttyper         # A terminal typing game.
     tetrio-desktop # Desktop version of TETR.IO, an online Tetris game.
     bastet         # Bastard Tetris - an evil Tetris clone.
-    ttyper         # A terminal typing game.
-    steam          # A platform for video games.
-    lutris         # Open gaming platform for Linux.
     crispy-doom    # A Doom source port.
     ############################################################################
 
@@ -357,6 +357,24 @@ in
       cabal2nix     # Convert a Cabal file into a Nix build expression.
       stack         # A build tool for Haskell.
       haskell-language-server # Haskell Language Server Protocol.
+    ]))
+    ############################################################################
+
+    ############################################################################
+    # Python
+    # --------------------------------------------------------------------------
+    (python3.withPackages (ps: with ps; with python3Packages; [
+      jupyter
+      ipython
+
+      pandas
+      numpy
+      matplotlib
+      pyodbc
+      sqlalchemy
+      tabulate
+      scikit-learn
+      xgboost
     ]))
     ############################################################################
 
