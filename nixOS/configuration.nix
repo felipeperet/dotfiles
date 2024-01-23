@@ -203,6 +203,7 @@ in
     swww                  # Uncertain without more context.
     networkmanagerapplet  # Applet for managing network connections.
     blueberry             # Bluetooth configuration tool.
+    # xwaylandvideobridge   # Allows streaming Wayland windows to X applications.
     grim                  # A tool to capture screenshots in Wayland.
     slurp                 # Select a region in Wayland.
     wl-clipboard          # Wayland clipboard utilities.
@@ -287,6 +288,7 @@ in
     tetrio-desktop # Desktop version of TETR.IO, an online Tetris game.
     bastet         # Bastard Tetris - an evil Tetris clone.
     crispy-doom    # A Doom source port.
+    lutris         # Open Source gaming platform for GNU/Linux.
     ############################################################################
 
     ############################################################################
@@ -364,9 +366,7 @@ in
     # Python
     # --------------------------------------------------------------------------
     (python3.withPackages (ps: with ps; with python3Packages; [
-      jupyter
       ipython
-
       pandas
       numpy
       matplotlib
