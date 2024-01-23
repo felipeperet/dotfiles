@@ -135,15 +135,27 @@ vim.g.cornelis_max_width = 52
 
 -- Function to create autocmd for 4 spaces indentation.
 local function setupFourSpacesIndentation()
-    local four_spaces_languages = {'c', 'cpp', 'rust', 'haskell'}
-    for _, lang in ipairs(four_spaces_languages) do
-        local cmd = string.format('autocmd FileType %s setlocal tabstop=4 ' ..
-                                  'shiftwidth=4 softtabstop=4 expandtab', lang)
-        vim.cmd(cmd)
-    end
+  local four_spaces_languages = {'c', 'cpp', 'rust', 'haskell'}
+  for _, lang in ipairs(four_spaces_languages) do
+      local cmd = string.format('autocmd FileType %s setlocal tabstop=4 ' ..
+                                'shiftwidth=4 softtabstop=4 expandtab', lang)
+      vim.cmd(cmd)
+  end
 end
 
 setupFourSpacesIndentation()
+
+-- Function to create autocmd for setting colorcolumn to '101'.
+local function setupColorColumnForLanguages()
+  local color_column_languages = {'rust', 'aiken'}
+  for _, lang in ipairs(color_column_languages) do
+      local cmd =
+        string.format('autocmd FileType %s setlocal colorcolumn=101', lang)
+      vim.cmd(cmd)
+  end
+end
+
+setupColorColumnForLanguages()
 
 -- Setting comment symbols for Aiken and Nix.
 vim.api.nvim_exec([[
@@ -267,7 +279,9 @@ require('transparent').setup({
   extra_groups = { 'NormalFloat', 'FloatBorder',
                    'NvimTreeNormal', 'NvimTreeNormalNC', 'NvimTreeEndOfBuffer',
                    'NvimTreeWinSeparator', 'TelescopeNormal', 'TelescopeBorder',
-                   'GitSignsAdd', 'GitSignsChange', 'GitSignsDelete'
+                   'GitSignsAdd', 'GitSignsChange', 'GitSignsDelete',
+                   'DiagnosticSignError', 'DiagnosticSignWarn',
+                   'DiagnosticSignHint'
                  },
   exclude_groups = {},
 })
@@ -431,6 +445,9 @@ keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 -- Center the screen after scrolling with 'j' or 'k'.
 keymap('n', 'j', 'jzz', opts)
 keymap('n', 'k', 'kzz', opts)
+
+-- Keymap for 'go to definition' with screen centering.
+keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>zz', opts)
 
 -- GitSigns Keymaps.
 keymap('n', '<C-f>',
