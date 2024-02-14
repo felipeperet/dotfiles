@@ -24,8 +24,10 @@ require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   -- Kanagawa Color Scheme.
   use 'rebelot/kanagawa.nvim'
-  -- TokyoNight Color Scheme.
-  use 'folke/tokyonight.nvim'
+  -- Everforest Color Scheme.
+  use 'sainnhe/everforest'
+  -- Catppuccin Color Scheme.
+  use 'catppuccin/nvim'
   -- Status line plugin.
   use {
     'nvim-lualine/lualine.nvim',
@@ -145,17 +147,21 @@ end
 
 setupFourSpacesIndentation()
 
--- Function to create autocmd for setting colorcolumn to '101'.
-local function setupColorColumnForLanguages()
-  local color_column_languages = {'rust', 'aiken'}
-  for _, lang in ipairs(color_column_languages) do
-      local cmd =
-        string.format('autocmd FileType %s setlocal colorcolumn=101', lang)
-      vim.cmd(cmd)
+-- Function to create autocmd for setting colorcolumn based on the language.
+local function setupColorColumn()
+  local languages =
+    {'rust', 'aiken', 'javascript', 'typescript', 'typescriptreact'}
+  local col = 101
+
+  for _, lang in ipairs(languages) do
+    vim.cmd(string.format(
+      'autocmd FileType %s setlocal colorcolumn=%s',
+      lang, tostring(col)
+    ))
   end
 end
 
-setupColorColumnForLanguages()
+setupColorColumn()
 
 -- Setting comment symbols for Aiken and Nix.
 vim.api.nvim_exec([[
@@ -167,7 +173,6 @@ vim.api.nvim_exec([[
 -- 4. LSP Configuration
 --------------------------------------------------------------------------------
 local lspconfig = require('lspconfig')
-local configs = require('lspconfig.configs')
 
 -- LSP configuration.
 require('mason').setup()
@@ -188,6 +193,7 @@ lspconfig.lua_ls.setup {
       },
       diagnostics = {
         globals = {'vim', 'use'},
+        disable = { 'missing-fields' },
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file('', true),
@@ -222,15 +228,13 @@ setup_lsp_autoformat('clangd', {}, {'*.c', '*.h', '*.cpp', '*.hpp'})
 -- Set up LSP and autoformatting for Rust
 setup_lsp_autoformat('rust_analyzer', {}, {'*.rs'})
 
+-- Set up LSP and autoformatting for JavaScript / TypeScript
+setup_lsp_autoformat('tsserver', {}, {'*.js', '*.ts', '*.tsx'})
+
 -- Set up LSP and autoformatting for OCaml
 setup_lsp_autoformat('ocamllsp', {}, {'*.ml', '*.mli'})
 
--- Julia LSP
-lspconfig.julials.setup{}
-
 -- Haskell LSP
--- lspconfig.hls.setup{}
-
 setup_lsp_autoformat('hls', {
   settings = {
     haskell = {
@@ -239,27 +243,20 @@ setup_lsp_autoformat('hls', {
   }
 }, {'*.hs'})
 
--- Aiken LSP
-if not configs.aiken then
-  configs.aiken = {
-    default_config = {
-      cmd = { 'aiken', 'lsp' },
-      filetypes = { 'aiken' },
-      root_dir = function(filename)
-        return lspconfig.util.root_pattern('aiken.toml')(filename) or
-               lspconfig.util.path.dirname(filename)
-      end,
-    },
-  }
-end
+-- Julia LSP
+lspconfig.julials.setup{}
 
+-- Aiken LSP
 lspconfig.aiken.setup{
   cmd = { 'aiken', 'lsp' },
   filetypes = {'aiken'},
   root_dir = function(fname)
-    return require'lspconfig'.util.root_pattern('aiken.toml')(fname) or
-           require'lspconfig'.util.path.dirname(fname)
+    return lspconfig.util.root_pattern('aiken.toml')(fname) or
+           lspconfig.util.path.dirname(fname)
   end,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(
+    vim.lsp.protocol.make_client_capabilities()
+  ),
 }
 
 --------------------------------------------------------------------------------
@@ -324,7 +321,7 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = {
     'vim', 'vimdoc',
     'nix', 'lua',
-    'typescript', 'c', 'cpp', 'rust',
+    'javascript', 'typescript', 'c', 'cpp', 'rust',
     'ocaml', 'haskell', 'agda'
   },
   highlight = {
@@ -446,8 +443,8 @@ keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 keymap('n', 'j', 'jzz', opts)
 keymap('n', 'k', 'kzz', opts)
 
--- Keymap for 'go to definition' with screen centering.
-keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>zz', opts)
+-- Keymap for 'go to definition' with screen centering and a slight delay.
+keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>:sleep 5m<CR>zz', opts)
 
 -- GitSigns Keymaps.
 keymap('n', '<C-f>',
