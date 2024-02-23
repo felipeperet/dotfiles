@@ -38,7 +38,7 @@ alias cmatrix='cmatrix -C cyan'
 alias cabal2nix='cabal2nix --shell . > shell.nix'
 
 # Alias for opam-nix.
-alias opam2nix='nix flake init -t github:tweag/opam-nix'
+alias opam-nix='nix flake init -t github:tweag/opam-nix'
 
 # Set the terminal title to the current directory
 precmd() { print -Pn "\e]0;%~\a" }
@@ -46,9 +46,9 @@ precmd() { print -Pn "\e]0;%~\a" }
 # Add Oura to PATH.
 export PATH=$PATH:~/bins/oura/target/release
 
-# Add the ./result-bin/bin directory to PATH.
-export PATH=$PATH:$(pwd)/result-bin/bin
-
+# Add different directories to PATH.
+export PATH=$PATH:$(pwd)/result/bin
+export PATH=$PATH:~/.cargo/bin
 export GRDIR=$PATH:~/.julia/packages/GR
 
 # Shell integration for direnv.
