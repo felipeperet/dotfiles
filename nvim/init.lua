@@ -24,10 +24,6 @@ require("packer").startup(function()
 	use("wbthomason/packer.nvim")
 	-- TokyoNight Color Scheme.
 	use("folke/tokyonight.nvim")
-	-- Kanagawa Color Scheme.
-	use("rebelot/kanagawa.nvim")
-	-- Embark Color Scheme.
-	use("embark-theme/vim")
 	-- Status line plugin.
 	use({
 		"nvim-lualine/lualine.nvim",
@@ -58,9 +54,9 @@ require("packer").startup(function()
 	})
 	-- Formatting.
 	use("stevearc/conform.nvim")
-	-- -- Fancy notification popups.
+	-- Fancy notification popups.
 	use("rcarriga/nvim-notify")
-	-- -- Better UI.
+	-- Better UI.
 	use({
 		"folke/noice.nvim",
 		requires = { "MunifTanjim/nui.nvim" },
@@ -224,42 +220,17 @@ lspconfig.lua_ls.setup({
 	},
 })
 
--- Create a group for autoformatting.
-local autoformat_group =
-	vim.api.nvim_create_augroup("Autoformat", { clear = true })
+-- C/C++ LSP
+lspconfig.clangd.setup({})
 
--- Function to set up LSP and autoformatting on save for a given language.
-local function setup_lsp_autoformat(lang, lsp_config, file_patterns)
-	lspconfig[lang].setup(lsp_config or {})
-	vim.api.nvim_create_autocmd("BufWritePre", {
-		group = autoformat_group,
-		pattern = file_patterns,
-		callback = function()
-			vim.lsp.buf.format({ async = false })
-		end,
-	})
-end
+-- Rust LSP
+lspconfig.rust_analyzer.setup({})
 
--- Set up LSP and autoformatting for C/C++
-setup_lsp_autoformat("clangd", {}, { "*.c", "*.h", "*.cpp", "*.hpp" })
-
--- Set up LSP and autoformatting for Rust
-setup_lsp_autoformat("rust_analyzer", {}, { "*.rs" })
-
--- Set up LSP and autoformatting for OCaml
-setup_lsp_autoformat("ocamllsp", {}, { "*.ml", "*.mli" })
+-- OCaml LSP
+lspconfig.ocamllsp.setup({})
 
 -- Haskell LSP
-setup_lsp_autoformat("hls", {
-	settings = {
-		haskell = {
-			formattingProvider = "fourmolu",
-		},
-	},
-}, { "*.hs" })
-
--- Julia LSP
-lspconfig.julials.setup({})
+lspconfig.hls.setup({})
 
 -- Aiken LSP
 lspconfig.aiken.setup({})
@@ -282,6 +253,11 @@ require("conform").setup({
 		html = { "prettierd" },
 		json = { "prettierd" },
 		yaml = { "prettierd" },
+		c = { "clang_format" },
+		cpp = { "clang_format" },
+		rust = { "rustfmt" },
+		ocaml = { "ocamlformat" },
+		haskell = { "fourmolu" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
