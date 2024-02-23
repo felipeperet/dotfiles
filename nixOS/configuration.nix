@@ -203,7 +203,7 @@ in
     swww                  # Uncertain without more context.
     networkmanagerapplet  # Applet for managing network connections.
     blueberry             # Bluetooth configuration tool.
-    # xwaylandvideobridge   # Allows streaming Wayland windows to X applications.
+    xwaylandvideobridge   # Allows streaming Wayland windows to X applications.
     grim                  # A tool to capture screenshots in Wayland.
     slurp                 # Select a region in Wayland.
     wl-clipboard          # Wayland clipboard utilities.
@@ -254,7 +254,6 @@ in
     libinput       # A tool for for handling input devices
     evtest         # A tool for testing input device.
     glxinfo        # Display information about the GLX implementation.
-    nodejs         # JavaScript runtime built on Chrome's V8 JavaScript engine.
     wine           # Software for running Windows applications on Linux.
     wine64         # 64-bit version of Wine.
     winetricks     # Script to help install various Windows software on Wine.
@@ -311,12 +310,7 @@ in
     # --------------------------------------------------------------------------
     lua                 # A lightweight and embeddable scripting language.
     lua-language-server # Language server for Lua.
-    ############################################################################
-
-    ############################################################################
-    # Julia
-    # --------------------------------------------------------------------------
-    julia_18 # A high-level, high-performance, dynamically typed language.
+    stylua              # An opinionated Lua code formatter.
     ############################################################################
 
     ############################################################################
@@ -329,6 +323,14 @@ in
     cmake     # A tool to manage the build process of software.
     libgccjit # Just-In-Time compilation support in GCC.
     clang-tools # Standalone command line tools for C development.
+    ############################################################################
+
+    ############################################################################
+    # JavaScript / TypeScript
+    # --------------------------------------------------------------------------
+    nodejs     # JavaScript runtime built on Chrome's V8 JavaScript engine.
+    typescript # A superset of JavaScript that compiles to clean JavaScript.
+    prettierd  # Prettier, as a daemon, for improved formatting speed.
     ############################################################################
 
     ############################################################################
@@ -379,10 +381,22 @@ in
     ############################################################################
 
     ############################################################################
+    # Julia
+    # --------------------------------------------------------------------------
+    julia_18 # A high-level, high-performance, dynamically typed language.
+    ############################################################################
+
+    ############################################################################
     # Agda
     # --------------------------------------------------------------------------
     (agda.withPackages [ agdaPackages.standard-library ]) # A proof assistant.
     ############################################################################
+  ];
+
+  fonts.packages = with pkgs; [
+    fira-code
+    fira-code-symbols
+    iosevka
   ];
 
   xdg.portal.enable = true;
@@ -395,7 +409,7 @@ in
   programs.hyprland = {
       enable = true;
       xwayland.enable = true;
-      nvidiaPatches = true;
+      enableNvidiaPatches = true;
   };
 
   # Enables Noisetorch.
