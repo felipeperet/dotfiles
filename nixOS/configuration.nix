@@ -213,6 +213,7 @@ in
     # CLI
     # --------------------------------------------------------------------------
     zoxide         # A fast cd command that learns your habits.
+    cloc           # A program that counts lines of source code.
     wget           # A tool to retrieve files using HTTP, HTTPS, FTP, and FTPS.
     curl           # A tool and library for transferring data with URL syntax.
     git            # A distributed version control system.
