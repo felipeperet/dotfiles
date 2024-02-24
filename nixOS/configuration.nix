@@ -163,12 +163,6 @@ in
     ############################################################################
 
     ############################################################################
-    # Shell
-    # --------------------------------------------------------------------------
-    zsh # A highly interactive Unix shell.
-    ############################################################################
-
-    ############################################################################
     # Editors
     # --------------------------------------------------------------------------
     vim    # A highly configurable text editor.
@@ -218,6 +212,7 @@ in
     ############################################################################
     # CLI
     # --------------------------------------------------------------------------
+    zoxide         # A fast cd command that learns your habits.
     wget           # A tool to retrieve files using HTTP, HTTPS, FTP, and FTPS.
     curl           # A tool and library for transferring data with URL syntax.
     git            # A distributed version control system.
@@ -397,7 +392,14 @@ in
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   # Enables zsh.
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    autosuggestions.enable = true;
+    ohMyZsh = {
+      enable = true;
+      };
+    syntaxHighlighting.enable = true;
+  };
 
   # Enables hyprland.
   programs.hyprland = {
