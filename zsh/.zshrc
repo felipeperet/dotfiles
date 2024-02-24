@@ -57,6 +57,9 @@ eval "$(direnv hook zsh)"
 # Shell integration for opam.
 eval "$(opam env)"
 
+# Shell integration for zoxide.
+eval "$(zoxide init --cmd cd zsh)"
+
 # Bind forward-word and backward-word.
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
