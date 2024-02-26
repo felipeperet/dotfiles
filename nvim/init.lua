@@ -531,6 +531,9 @@ keymap("n", "k", "kzz", opts)
 -- Keymap for 'go to definition' with screen centering and a slight delay.
 keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>:sleep 5m<CR>zz", opts)
 
+-- Keymap for applying LSP code action.
+keymap("n", "<C-a>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+
 -- GitSigns Keymaps.
 keymap(
 	"n",
