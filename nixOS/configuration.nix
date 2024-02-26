@@ -42,12 +42,6 @@ in
 
   # Define your hostname.
   networking.hostName = "nixos";
-  # Enables wireless support via wpa_supplicant.
-  # networking.wireless.enable = true;
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -69,10 +63,6 @@ in
     LC_TELEPHONE = "pt_BR.UTF-8";
     LC_TIME = "pt_BR.UTF-8";
   };
-
-  # Enable the KDE Plasma Desktop Environment.
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
 
   # Enabling Graphics Cards
   hardware.opengl.enable = true;
@@ -190,7 +180,6 @@ in
     swww                  # Uncertain without more context.
     networkmanagerapplet  # Applet for managing network connections.
     blueberry             # Bluetooth configuration tool.
-    xwaylandvideobridge   # Allows streaming Wayland windows to X applications.
     grim                  # A tool to capture screenshots in Wayland.
     slurp                 # Select a region in Wayland.
     wl-clipboard          # Wayland clipboard utilities.
@@ -382,13 +371,6 @@ in
     ############################################################################
   ];
 
-  fonts.packages = with pkgs; [
-    fira-code
-    fira-code-symbols
-    font-awesome
-    iosevka
-  ];
-
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
@@ -411,16 +393,6 @@ in
 
   # Enables Noisetorch.
   programs.noisetorch.enable = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
