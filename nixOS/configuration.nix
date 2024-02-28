@@ -1,21 +1,20 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   # Define the overridden waybar package.
   customWaybar = pkgs.waybar.overrideAttrs (oldAttrs: {
-    mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+    mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
   });
-
-in
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+in {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nix = {
     settings = {
@@ -76,10 +75,10 @@ in
   # Configure xserver.
   services.xserver = {
     enable = true;
-    videoDrivers = [ "nvidia" "intel" ];
+    videoDrivers = ["nvidia" "intel"];
     displayManager.gdm = {
-        enable = true;
-        wayland = true;
+      enable = true;
+      wayland = true;
     };
     layout = "br";
     xkbVariant = "";
@@ -120,8 +119,8 @@ in
     isNormalUser = true;
     shell = pkgs.zsh;
     description = "Felipe Sasdelli";
-    extraGroups = [ "networkmanager" "wheel" "input" "docker" "audio" ];
-    packages = with pkgs; [ firefox neovim ];
+    extraGroups = ["networkmanager" "wheel" "input" "docker" "audio"];
+    packages = with pkgs; [firefox neovim];
   };
 
   # Allow unfree packages
@@ -141,7 +140,7 @@ in
   environment.sessionVariables = {
     # If your cursor becomes invisible
     WLR_NO_HARDWARE_CURSORS = "1";
-   };
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -155,10 +154,10 @@ in
     ############################################################################
     # Editors
     # --------------------------------------------------------------------------
-    vim    # A highly configurable text editor.
+    vim # A highly configurable text editor.
     neovim # Vim-fork focused on extensibility and usability.
     vscode # Visual Studio Code.
-    emacs  # An extensible, customizable text editor.
+    emacs # An extensible, customizable text editor.
     emacsPackages.engrave-faces
     emacsPackages.ox-reveal
     ############################################################################
@@ -166,139 +165,178 @@ in
     ############################################################################
     # Browsers
     # --------------------------------------------------------------------------
-    firefox       # A popular web browser.
+    firefox # A popular web browser.
     google-chrome # Google's web browser.
     ############################################################################
 
     ############################################################################
     # Wayland + Hyprland
     # --------------------------------------------------------------------------
-    customWaybar          # A customizable wayland bar.
-    dunst                 # A lightweight notification daemon.
-    libnotify             # Library for sending desktop notifications.
-    rofi-wayland          # An application launcher, works with Wayland.
-    swww                  # Uncertain without more context.
-    networkmanagerapplet  # Applet for managing network connections.
-    blueberry             # Bluetooth configuration tool.
-    grim                  # A tool to capture screenshots in Wayland.
-    slurp                 # Select a region in Wayland.
-    wl-clipboard          # Wayland clipboard utilities.
-    swayimg               # Wayland image viewer.
-    zathura               # A lightweight document viewer.
-    mpv                   # A media player.
-    cinnamon.nemo         # The Nemo file manager from the Cinnamon desktop.
+    customWaybar # A customizable wayland bar.
+    dunst # A lightweight notification daemon.
+    libnotify # Library for sending desktop notifications.
+    rofi-wayland # An application launcher, works with Wayland.
+    swww # Uncertain without more context.
+    networkmanagerapplet # Applet for managing network connections.
+    blueberry # Bluetooth configuration tool.
+    grim # A tool to capture screenshots in Wayland.
+    slurp # Select a region in Wayland.
+    wl-clipboard # Wayland clipboard utilities.
+    swayimg # Wayland image viewer.
+    zathura # A lightweight document viewer.
+    mpv # A media player.
+    cinnamon.nemo # The Nemo file manager from the Cinnamon desktop.
     ############################################################################
 
     ############################################################################
     # Media / Audio
     # --------------------------------------------------------------------------
     pulseaudioFull # A sound system for POSIX OSes.
-    pulsemixer     # CLI and curses mixer for PulseAudio.
-    playerctl      # MPRIS command-line controller for media players.
-    mpd            # Music Player Daemon.
+    pulsemixer # CLI and curses mixer for PulseAudio.
+    playerctl # MPRIS command-line controller for media players.
+    mpd # Music Player Daemon.
     ############################################################################
 
     ############################################################################
     # CLI
     # --------------------------------------------------------------------------
-    zoxide         # A fast cd command that learns your habits.
-    cloc           # A program that counts lines of source code.
-    wget           # A tool to retrieve files using HTTP, HTTPS, FTP, and FTPS.
-    curl           # A tool and library for transferring data with URL syntax.
-    git            # A distributed version control system.
-    htop           # An interactive process viewer.
-    duf            # A disk usage utility.
-    zip            # A compression utility.
-    unzip          # A decompression utility.
-    rar            # Utility for RAR archives.
-    unrar          # Utility for RAR archives.
-    killall        # A tool to kill all instances of a process.
-    direnv         # An environment switcher for the shell.
-    tree           # A recursive directory listing command.
-    ripgrep        # A line-oriented search tool.
-    lsof           # Lists open files.
-    pkg-config     # Tool to compile and link library flags.
-    appimage-run   # A tool to run AppImages.
-    appimagekit    # Tools for working with AppImages.
-    openssl        # A toolkit for TLS and SSL protocols.
-    neofetch       # A command-line system information tool.
-    docker         # A platform to develop, ship, and run applications.
+    zoxide # A fast cd command that learns your habits.
+    cloc # A program that counts lines of source code.
+    tldr # Simplified and community-driven man pages.
+    wget # A tool to retrieve files using HTTP, HTTPS, FTP, and FTPS.
+    curl # A tool and library for transferring data with URL syntax.
+    git # A distributed version control system.
+    htop # An interactive process viewer.
+    duf # A disk usage utility.
+    zip # A compression utility.
+    unzip # A decompression utility.
+    rar # Utility for RAR archives.
+    unrar # Utility for RAR archives.
+    killall # A tool to kill all instances of a process.
+    direnv # An environment switcher for the shell.
+    tree # A recursive directory listing command.
+    ripgrep # A line-oriented search tool.
+    lsof # Lists open files.
+    pkg-config # Tool to compile and link library flags.
+    appimage-run # A tool to run AppImages.
+    appimagekit # Tools for working with AppImages.
+    openssl # A toolkit for TLS and SSL protocols.
+    neofetch # A command-line system information tool.
+    docker # A platform to develop, ship, and run applications.
     docker-compose # Tool for defining and running Docker applications.
-    postgresql     # A powerful, open source object-relational database system.
-    yt-dlp         # A youtube-dl fork with various improvements.
-    imagemagick    # A tool to create, edit, and compose bitmap images.
-    ffmpeg         # A solution to record, convert, and stream audio and video.
-    pandoc         # A universal document converter.
-    libinput       # A tool for for handling input devices
-    evtest         # A tool for testing input device.
-    glxinfo        # Display information about the GLX implementation.
-    wine           # Software for running Windows applications on Linux.
-    wine64         # 64-bit version of Wine.
-    winetricks     # Script to help install various Windows software on Wine.
-    cmatrix        # Console-based Matrix-style animation.
-    xdotool        # Command-line X11 automation tool.
-    xbindkeys      # Binds keys to shell commands.
-    xorg.xev       # Print contents of X events.
-    xorg.xmodmap   # Modify keymaps.
+    postgresql # A powerful, open source object-relational database system.
+    yt-dlp # A youtube-dl fork with various improvements.
+    imagemagick # A tool to create, edit, and compose bitmap images.
+    ffmpeg # A solution to record, convert, and stream audio and video.
+    pandoc # A universal document converter.
+    libinput # A tool for for handling input devices
+    evtest # A tool for testing input device.
+    glxinfo # Display information about the GLX implementation.
+    wine # Software for running Windows applications on Linux.
+    wine64 # 64-bit version of Wine.
+    winetricks # Script to help install various Windows software on Wine.
+    cmatrix # Console-based Matrix-style animation.
+    xdotool # Command-line X11 automation tool.
+    xbindkeys # Binds keys to shell commands.
+    xorg.xev # Print contents of X events.
+    xorg.xmodmap # Modify keymaps.
     xorg.setxkbmap # Set keyboard keymaps.
-    xorg.xset      # User preference utility for X.
+    xorg.xset # User preference utility for X.
     texlive.combined.scheme-full # Comprehensive TeX system.
     ############################################################################
 
     ############################################################################
     # GUI
     # --------------------------------------------------------------------------
-    spotify           # A digital music service.
-    popcorntime       # A BitTorrent client with a nice interface.
-    transmission-qt   # A lightweight BitTorrent client - Qt GUI.
-    dbeaver           # Free multi-platform database tool.
-    discord           # Voice and text chat for gamers.
-    android-studio    # The official Android IDE.
-    obs-studio        # Open Broadcaster Software Studio.
+    spotify # A digital music service.
+    popcorntime # A BitTorrent client with a nice interface.
+    transmission-qt # A lightweight BitTorrent client - Qt GUI.
+    dbeaver # Free multi-platform database tool.
+    discord # Voice and text chat for gamers.
+    android-studio # The official Android IDE.
+    obs-studio # Open Broadcaster Software Studio.
     lxappearance-gtk2 # GTK theme switcher.
     ############################################################################
 
     ############################################################################
     # Games
     # --------------------------------------------------------------------------
-    ttyper         # A terminal typing game.
+    ttyper # A terminal typing game.
     tetrio-desktop # Desktop version of TETR.IO, an online Tetris game.
-    bastet         # Bastard Tetris - an evil Tetris clone.
-    crispy-doom    # A Doom source port.
-    lutris         # Open Source gaming platform for GNU/Linux.
+    bastet # Bastard Tetris - an evil Tetris clone.
+    crispy-doom # A Doom source port.
+    lutris # Open Source gaming platform for GNU/Linux.
     ############################################################################
 
     ############################################################################
     # Utils
     # --------------------------------------------------------------------------
-    dxvk           # Vulkan-based translation layer for Direct3D
-    usbutils       # Linux USB utilities.
-    coreutils      # File, shell and text manipulation utilities.
-    xclip          # Command line interface to the X11 clipboard.
-    gtk3           # Toolkit for creating graphical UIs.
+    dxvk # Vulkan-based translation layer for Direct3D
+    usbutils # Linux USB utilities.
+    coreutils # File, shell and text manipulation utilities.
+    xclip # Command line interface to the X11 clipboard.
+    gtk3 # Toolkit for creating graphical UIs.
     prisma-engines # Engines behind Prisma (database toolkit).
-    zlib           # Library for compression.
-    libsodium      # Library for encryption.
-    ncurses        # Library for writing text-based UIs.
-    gmp            # Library for arbitrary precision arithmetic.
+    zlib # Library for compression.
+    libsodium # Library for encryption.
+    ncurses # Library for writing text-based UIs.
+    gmp # Library for arbitrary precision arithmetic.
+    ############################################################################
+
+    ############################################################################
+    # Nix
+    # --------------------------------------------------------------------------
+    alejandra # The Uncompromising Nix Code Formatter.
     ############################################################################
 
     ############################################################################
     # Lua
     # --------------------------------------------------------------------------
-    lua                 # A lightweight and embeddable scripting language.
+    lua # A lightweight and embeddable scripting language.
     lua-language-server # Language server for Lua.
-    stylua              # An opinionated Lua code formatter.
+    stylua # An opinionated Lua code formatter.
     ############################################################################
 
     ############################################################################
-    # C
+    # Rust
     # --------------------------------------------------------------------------
-    gcc       # GNU Compiler Collection.
-    glibc     # GNU C Library.
-    gnumake   # GNU make utility.
-    clang     # C, C++, and Objective-C compiler.
-    cmake     # A tool to manage the build process of software.
+    rustc # A safe, concurrent, practical language.
+    cargo # A tool for downloading project's dependencies and building.
+    rustfmt # A tool for formatting Rust code according to style guidelines.
+    rust-analyzer # A modular compiler frontend for the Rust language.
+    ############################################################################
+
+    ############################################################################
+    # Haskell
+    # --------------------------------------------------------------------------
+    (ghc.withPackages (ps:
+      with ps; [
+        cabal-install # A tool to compile and install Haskell libraries.
+        cabal2nix # Convert a Cabal file into a Nix build expression.
+        stack # A build tool for Haskell.
+        haskell-language-server # Haskell Language Server Protocol.
+      ]))
+    ############################################################################
+
+    ############################################################################
+    # OCaml
+    # --------------------------------------------------------------------------
+    ocaml # A functional and statically typed programming language.
+    opam # A package manager for OCaml.
+    dune_3 # A composable build system.
+    ocamlformat # Auto-formatter for OCaml code.
+    ocamlPackages.utop # Universal toplevel for OCaml.
+    ocamlPackages.ocaml-lsp # OCaml Language Server Protocol.
+    ############################################################################
+
+    ############################################################################
+    # C / C++
+    # --------------------------------------------------------------------------
+    gcc # GNU Compiler Collection.
+    glibc # GNU C Library.
+    gnumake # GNU make utility.
+    clang # C, C++, and Objective-C compiler.
+    cmake # A tool to manage the build process of software.
     libgccjit # Just-In-Time compilation support in GCC.
     clang-tools # Standalone command line tools for C development.
     ############################################################################
@@ -306,73 +344,26 @@ in
     ############################################################################
     # JavaScript / TypeScript
     # --------------------------------------------------------------------------
-    nodejs     # JavaScript runtime built on Chrome's V8 JavaScript engine.
+    nodejs # JavaScript runtime built on Chrome's V8 JavaScript engine.
     typescript # A superset of JavaScript that compiles to clean JavaScript.
-    prettierd  # Prettier, as a daemon, for improved formatting speed.
-    ############################################################################
-
-    ############################################################################
-    # Rust
-    # --------------------------------------------------------------------------
-    rustc   # A safe, concurrent, practical language.
-    cargo   # A tool for downloading project's dependencies and building.
-    rustfmt # A tool for formatting Rust code according to style guidelines.
-    rust-analyzer # A modular compiler frontend for the Rust language.
-    ############################################################################
-
-    ############################################################################
-    # OCaml
-    # --------------------------------------------------------------------------
-    ocaml       # A functional and statically typed programming language.
-    opam        # A package manager for OCaml.
-    dune_3      # A composable build system.
-    ocamlformat # Auto-formatter for OCaml code.
-    ocamlPackages.utop      # Universal toplevel for OCaml.
-    ocamlPackages.ocaml-lsp # OCaml Language Server Protocol.
-    ############################################################################
-
-    ############################################################################
-    # Haskell
-    # --------------------------------------------------------------------------
-    (ghc.withPackages (ps: with ps; [
-      cabal-install # A tool to compile and install Haskell libraries.
-      cabal2nix     # Convert a Cabal file into a Nix build expression.
-      stack         # A build tool for Haskell.
-      haskell-language-server # Haskell Language Server Protocol.
-    ]))
-    ############################################################################
-
-    ############################################################################
-    # Python
-    # --------------------------------------------------------------------------
-    (python3.withPackages (ps: with ps; with python3Packages; [
-      ipython
-      pandas
-      numpy
-      matplotlib
-      pyodbc
-      sqlalchemy
-      tabulate
-      scikit-learn
-      xgboost
-    ]))
-    ############################################################################
-
-    ############################################################################
-    # Julia
-    # --------------------------------------------------------------------------
-    julia_18 # A high-level, high-performance, dynamically typed language.
+    prettierd # Prettier, as a daemon, for improved formatting speed.
     ############################################################################
 
     ############################################################################
     # Agda
     # --------------------------------------------------------------------------
-    (agda.withPackages [ agdaPackages.standard-library ]) # A proof assistant.
+    (agda.withPackages [agdaPackages.standard-library]) # A proof assistant.
+    ############################################################################
+
+    ############################################################################
+    # TOML
+    # --------------------------------------------------------------------------
+    taplo # A TOML toolkit written in Rust.
     ############################################################################
   ];
 
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
   # Enables zsh.
   programs.zsh = {
@@ -380,15 +371,15 @@ in
     autosuggestions.enable = true;
     ohMyZsh = {
       enable = true;
-      };
+    };
     syntaxHighlighting.enable = true;
   };
 
   # Enables hyprland.
   programs.hyprland = {
-      enable = true;
-      xwayland.enable = true;
-      enableNvidiaPatches = true;
+    enable = true;
+    xwayland.enable = true;
+    enableNvidiaPatches = true;
   };
 
   # Enables Noisetorch.
