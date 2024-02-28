@@ -85,8 +85,6 @@ require("packer").startup(function()
 			require("nvim-tree").setup({})
 		end,
 	})
-	-- Auto trim trailing whitespaces and lines.
-	use("cappyzawa/trim.nvim")
 	-- GitSigns.
 	use("lewis6991/gitsigns.nvim")
 	-- Auto pairs.
@@ -245,7 +243,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- Conform Formatting.
 require("conform").setup({
 	formatters_by_ft = {
+		nix = { "alejandra" },
 		lua = { "stylua" },
+		rust = { "rustfmt" },
+		haskell = { "fourmolu" },
+		ocaml = { "ocamlformat" },
+		c = { "clang_format" },
+		cpp = { "clang_format" },
 		javascript = { "prettierd" },
 		typescript = { "prettierd" },
 		markdown = { "prettierd" },
@@ -253,11 +257,7 @@ require("conform").setup({
 		html = { "prettierd" },
 		json = { "prettierd" },
 		yaml = { "prettierd" },
-		c = { "clang_format" },
-		cpp = { "clang_format" },
-		rust = { "rustfmt" },
-		ocaml = { "ocamlformat" },
-		haskell = { "fourmolu" },
+		toml = { "taplo" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
@@ -421,10 +421,6 @@ require("indent_blankline").setup({
 	show_trailing_blankline_indent = false,
 	show_first_indent_level = false,
 	use_treesitter = true,
-})
-
-require("trim").setup({
-	ft_blocklist = { "markdown" },
 })
 
 require("nvim-autopairs").setup({
