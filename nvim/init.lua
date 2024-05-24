@@ -24,6 +24,8 @@ require("packer").startup(function()
 	use("wbthomason/packer.nvim")
 	-- TokyoNight Color Scheme.
 	use("folke/tokyonight.nvim")
+	-- Sonokai Color Scheme.
+	use("sainnhe/sonokai")
 	-- Status line plugin.
 	use({
 		"nvim-lualine/lualine.nvim",
@@ -87,6 +89,8 @@ require("packer").startup(function()
 	})
 	-- GitSigns.
 	use("lewis6991/gitsigns.nvim")
+	-- Auto trim trailing whitespaces and lines.
+	use("cappyzawa/trim.nvim")
 	-- Auto pairs.
 	use("windwp/nvim-autopairs")
 	-- Direnv.
@@ -94,10 +98,11 @@ require("packer").startup(function()
 	-- Necessary plugins for Agda.
 	use("kana/vim-textobj-user")
 	use("neovimhaskell/nvim-hs.vim")
-	use({
-		"isovector/cornelis",
-		run = "stack build",
-	})
+	-- use({
+	-- 	"isovector/cornelis",
+	-- 	commit = "8202a421d5a96077857a508a68354b3bd1b2996e",
+	-- 	run = "stack build",
+	-- })
 	-- Aiken Programming Language Support.
 	use("aiken-lang/editor-integration-nvim")
 end)
@@ -108,7 +113,7 @@ end)
 -- Set color scheme to Kanagawa.
 vim.cmd([[
   syntax enable
-  colorscheme tokyonight
+  colorscheme sonokai
 ]])
 
 -- Disable netrw at the very start of your init.lua (strongly advised).
@@ -126,7 +131,7 @@ vim.wo.relativenumber = true
 vim.o.clipboard = "unnamedplus"
 
 -- 80 characters per line limit.
-vim.wo.colorcolumn = "81"
+-- vim.wo.colorcolumn = "81"
 
 -- Set default indentation
 vim.opt.tabstop = 2 -- Set the number of spaces for <Tab> in the file.
@@ -205,7 +210,7 @@ lspconfig.lua_ls.setup({
 			},
 			diagnostics = {
 				globals = { "vim", "use" },
-				disable = { "missing-fields" },
+				disable = { "missing-fields", "undefined-field" },
 			},
 			workspace = {
 				library = vim.api.nvim_get_runtime_file("", true),
@@ -233,12 +238,12 @@ lspconfig.hls.setup({})
 -- Aiken LSP
 lspconfig.aiken.setup({})
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*.ak",
-	callback = function()
-		vim.lsp.buf.format({ async = false })
-	end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+-- 	pattern = "*.ak",
+-- 	callback = function()
+-- 		vim.lsp.buf.format({ async = false })
+-- 	end,
+-- })
 
 -- Conform Formatting.
 require("conform").setup({
@@ -261,7 +266,7 @@ require("conform").setup({
 	},
 	format_on_save = {
 		timeout_ms = 500,
-		lsp_fallback = true,
+		lsp_fallback = false,
 	},
 })
 
@@ -306,6 +311,8 @@ require("transparent").setup({
 		"NvimTreeWinSeparator",
 		"TelescopeNormal",
 		"TelescopeBorder",
+		"TelescopePromptTitle",
+		"TelescopePromptBorder",
 		"GitSignsAdd",
 		"GitSignsChange",
 		"GitSignsDelete",
@@ -412,7 +419,19 @@ require("noice").setup({
 			},
 			opts = { skip = true },
 		},
+		{
+			filter = {
+				event = "msg_show",
+				kind = "",
+				find = "Checking",
+			},
+			opts = { skip = true },
+		},
 	},
+})
+
+require("notify").setup({
+	background_colour = "#000000",
 })
 
 require("indent_blankline").setup({
@@ -421,6 +440,10 @@ require("indent_blankline").setup({
 	show_trailing_blankline_indent = false,
 	show_first_indent_level = false,
 	use_treesitter = true,
+})
+
+require("trim").setup({
+	ft_blocklist = { "markdown" },
 })
 
 require("nvim-autopairs").setup({

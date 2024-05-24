@@ -47,9 +47,8 @@ precmd() { print -Pn "\e]0;%~\a" }
 export PATH=$PATH:~/bins/oura/target/release
 
 # Add different directories to PATH.
-export PATH=$PATH:$(pwd)/result/bin
+# export PATH=$PATH:$(pwd)/result/bin
 export PATH=$PATH:~/.cargo/bin
-export GRDIR=$PATH:~/.julia/packages/GR
 
 # Shell integration for direnv.
 eval "$(direnv hook zsh)"

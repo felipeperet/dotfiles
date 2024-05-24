@@ -1,4 +1,4 @@
-@theme "/nix/store/j3m1y3zx2b2387w5caqdk0s0b10m3h9d-rofi-1.7.5+wayland2/share/rofi/themes/Arc-Dark.rasi"
+@theme "/nix/store/khs5gl4cdm7m9wy5100akiw178fw8kgx-rofi-1.7.5+wayland2/share/rofi/themes/Arc-Dark.rasi"
 
 element-icon {
     size: 3.5ch;

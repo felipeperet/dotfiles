@@ -123,6 +123,16 @@ in {
     packages = with pkgs; [firefox neovim];
   };
 
+  # Allow non-root users to adjust screen brightness using 'light'.
+  security.wrappers = {
+    light = {
+      source = "${pkgs.light}/bin/light";
+      owner = "root";
+      group = "root";
+      setuid = true;
+    };
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -181,6 +191,7 @@ in {
     blueberry # Bluetooth configuration tool.
     grim # A tool to capture screenshots in Wayland.
     slurp # Select a region in Wayland.
+    light # GNU/Linux application to control backlights.
     wl-clipboard # Wayland clipboard utilities.
     swayimg # Wayland image viewer.
     zathura # A lightweight document viewer.
@@ -251,11 +262,14 @@ in {
     spotify # A digital music service.
     popcorntime # A BitTorrent client with a nice interface.
     transmission-qt # A lightweight BitTorrent client - Qt GUI.
+    telegram-desktop # Telegram Desktop messaging app.
     dbeaver # Free multi-platform database tool.
     discord # Voice and text chat for gamers.
     android-studio # The official Android IDE.
     obs-studio # Open Broadcaster Software Studio.
     lxappearance-gtk2 # GTK theme switcher.
+    libreoffice # Comprehensive variant of openoffice.org.
+    zoom-us # Video conferencing application.
     ############################################################################
 
     ############################################################################
@@ -274,6 +288,7 @@ in {
     dxvk # Vulkan-based translation layer for Direct3D
     usbutils # Linux USB utilities.
     coreutils # File, shell and text manipulation utilities.
+    libffi # A foreign function call interface library.
     xclip # Command line interface to the X11 clipboard.
     gtk3 # Toolkit for creating graphical UIs.
     prisma-engines # Engines behind Prisma (database toolkit).
@@ -350,6 +365,26 @@ in {
     ############################################################################
 
     ############################################################################
+    # Python
+    # --------------------------------------------------------------------------
+    (python3.withPackages (ps:
+      with ps;
+      with python3Packages; [
+        jupyter
+        ipython
+        pandas
+        numpy
+        matplotlib
+        scikit-image
+        pyodbc
+        sqlalchemy
+        tabulate
+        scikit-learn
+        xgboost
+      ]))
+    ############################################################################
+
+    ############################################################################
     # Agda
     # --------------------------------------------------------------------------
     (agda.withPackages [agdaPackages.standard-library]) # A proof assistant.
@@ -360,6 +395,10 @@ in {
     # --------------------------------------------------------------------------
     taplo # A TOML toolkit written in Rust.
     ############################################################################
+  ];
+
+  fonts.packages = with pkgs; [
+    font-awesome
   ];
 
   xdg.portal.enable = true;
