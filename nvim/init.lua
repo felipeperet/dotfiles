@@ -1,119 +1,105 @@
 --------------------------------------------------------------------------------
--- 1. Installing Packer
+-- 1. Installing Lazy
 --------------------------------------------------------------------------------
--- Install packer if not installed.
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
-if fn.empty(fn.glob(install_path)) > 0 then
-	fn.system({
+-- Install lazy.nvim if not installed.
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
 		"git",
 		"clone",
-		"https://github.com/wbthomason/packer.nvim",
-		install_path,
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
 	})
-	vim.cmd("packadd packer.nvim")
 end
+vim.opt.rtp:prepend(lazypath)
 
 --------------------------------------------------------------------------------
 -- 2. Plugin Management
 --------------------------------------------------------------------------------
--- Using Packer to manage plugins.
-require("packer").startup(function()
-	-- Packer can manage itself.
-	use("wbthomason/packer.nvim")
+-- Using Lazy to manage plugins.
+require("lazy").setup({
+	-- Lazy can manage itself.
+	"folke/lazy.nvim",
 	-- TokyoNight Color Scheme.
-	use("folke/tokyonight.nvim")
+	"folke/tokyonight.nvim",
 	-- Sonokai Color Scheme.
-	use("sainnhe/sonokai")
+	"sainnhe/sonokai",
 	-- Status line plugin.
-	use({
+	{
 		"nvim-lualine/lualine.nvim",
-		requires = { "nvim-tree/nvim-web-devicons", opt = true },
-	})
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
 	-- LSP.
-	use({
+	{
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v2.x",
-		requires = {
-			-- LSP Support.
-			{ "neovim/nvim-lspconfig" },
+		dependencies = {
+			"neovim/nvim-lspconfig",
 			{
 				"williamboman/mason.nvim",
-				run = function()
-					pcall(function()
-						vim.cmd("MasonUpdate")
-					end)
-				end,
+				build = ":MasonUpdate",
 			},
-			{ "williamboman/mason-lspconfig.nvim" },
+			"williamboman/mason-lspconfig.nvim",
 
 			-- Autocompletion.
-			{ "hrsh7th/nvim-cmp" },
-			{ "hrsh7th/cmp-nvim-lsp" },
-			{ "L3MON4D3/LuaSnip" },
+			"hrsh7th/nvim-cmp",
+			"hrsh7th/cmp-nvim-lsp",
+			"L3MON4D3/LuaSnip",
 		},
-	})
+	},
 	-- Formatting.
-	use("stevearc/conform.nvim")
+	"stevearc/conform.nvim",
 	-- Fancy notification popups.
-	use("rcarriga/nvim-notify")
+	"rcarriga/nvim-notify",
 	-- Better UI.
-	use({
+	{
 		"folke/noice.nvim",
-		requires = { "MunifTanjim/nui.nvim" },
-	})
+		dependencies = { "MunifTanjim/nui.nvim" },
+	},
 	-- Tree sitter.
-	use("nvim-treesitter/nvim-treesitter")
+	"nvim-treesitter/nvim-treesitter",
 	-- Neovim comments.
-	use("terrortylor/nvim-comment")
+	"terrortylor/nvim-comment",
 	-- Transparent.
-	use("xiyaowong/transparent.nvim")
+	"xiyaowong/transparent.nvim",
 	-- Indentation guide.
-	use({
+	{
 		"lukas-reineke/indent-blankline.nvim",
 		commit = "9637670896b68805430e2f72cf5d16be5b97a22a",
-	})
+	},
 	-- Telescope.
-	use({
+	{
 		"nvim-telescope/telescope.nvim",
-		requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
-	})
+		dependencies = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
+	},
 	-- Nvim Tree.
-	use({
+	{
 		"nvim-tree/nvim-tree.lua",
-		requires = { "nvim-tree/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("nvim-tree").setup({})
 		end,
-	})
+	},
 	-- GitSigns.
-	use("lewis6991/gitsigns.nvim")
+	"lewis6991/gitsigns.nvim",
 	-- Auto trim trailing whitespaces and lines.
-	use("cappyzawa/trim.nvim")
+	"cappyzawa/trim.nvim",
 	-- Auto pairs.
-	use("windwp/nvim-autopairs")
+	"windwp/nvim-autopairs",
 	-- Direnv.
-	use("direnv/direnv.vim")
-	-- Necessary plugins for Agda.
-	use("kana/vim-textobj-user")
-	use("neovimhaskell/nvim-hs.vim")
-	-- use({
-	-- 	"isovector/cornelis",
-	-- 	commit = "8202a421d5a96077857a508a68354b3bd1b2996e",
-	-- 	run = "stack build",
-	-- })
+	"direnv/direnv.vim",
 	-- Aiken Programming Language Support.
-	use("aiken-lang/editor-integration-nvim")
-end)
-
+	"aiken-lang/editor-integration-nvim",
+})
 --------------------------------------------------------------------------------
 -- 3. Neovim Settings
 --------------------------------------------------------------------------------
 -- Set color scheme to Kanagawa.
 vim.cmd([[
   syntax enable
-  colorscheme sonokai
+  colorscheme tokyonight-storm
 ]])
 
 -- Disable netrw at the very start of your init.lua (strongly advised).
@@ -131,7 +117,7 @@ vim.wo.relativenumber = true
 vim.o.clipboard = "unnamedplus"
 
 -- 80 characters per line limit.
--- vim.wo.colorcolumn = "81"
+vim.wo.colorcolumn = "81"
 
 -- Set default indentation
 vim.opt.tabstop = 2 -- Set the number of spaces for <Tab> in the file.
