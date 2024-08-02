@@ -92,7 +92,21 @@ require("lazy").setup({
 	"direnv/direnv.vim",
 	-- Aiken Programming Language Support.
 	"aiken-lang/editor-integration-nvim",
+	-- Lean Theorem Prover.
+	{
+		"Julian/lean.nvim",
+		event = { "BufReadPre *.lean", "BufNewFile *.lean" },
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"nvim-lua/plenary.nvim",
+		},
+		opts = {
+			lsp = {},
+			mappings = true,
+		},
+	},
 })
+
 --------------------------------------------------------------------------------
 -- 3. Neovim Settings
 --------------------------------------------------------------------------------
@@ -164,12 +178,12 @@ end
 setupColorColumn()
 
 -- Setting comment symbols for Aiken and Nix.
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
 	[[
-  autocmd FileType aiken setlocal commentstring=//%s
-  autocmd FileType nix setlocal commentstring=#%s
-]],
-	false
+    autocmd FileType aiken setlocal commentstring=//%s
+    autocmd FileType nix setlocal commentstring=#%s
+  ]],
+	{}
 )
 
 --------------------------------------------------------------------------------
@@ -482,7 +496,11 @@ require("lualine").setup({
 	},
 	sections = {
 		lualine_a = { "mode" },
-		lualine_b = { "branch", "diff", "diagnostics" },
+		lualine_b = {
+			{ "branch", icon = "" }, -- nf-pl-branch is broken
+			"diff",
+			"diagnostics",
+		},
 		lualine_c = { "filename" },
 		lualine_x = { "encoding", "fileformat", "filetype" },
 		lualine_y = { "progress" },
