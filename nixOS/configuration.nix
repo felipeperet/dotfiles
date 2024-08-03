@@ -80,8 +80,8 @@ in {
       enable = true;
       wayland = true;
     };
-    layout = "br";
-    xkbVariant = "";
+    xkb.layout = "br";
+    xkb.variant = "";
   };
 
   # Configure console keymap.
@@ -106,7 +106,7 @@ in {
   };
 
   # Enabling libinput.
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Enable PostgreSQL.
   services.postgresql = {
@@ -120,7 +120,7 @@ in {
     shell = pkgs.zsh;
     description = "Felipe Sasdelli";
     extraGroups = ["networkmanager" "wheel" "input" "docker" "audio"];
-    packages = with pkgs; [firefox neovim];
+    packages = with pkgs; [firefox];
   };
 
   # Allow non-root users to adjust screen brightness using 'light'.
@@ -165,7 +165,7 @@ in {
     # Editors
     # --------------------------------------------------------------------------
     vim # A highly configurable text editor.
-    neovim # Vim-fork focused on extensibility and usability.
+    # neovim # Vim-fork focused on extensibility and usability.
     vscode # Visual Studio Code.
     emacs # An extensible, customizable text editor.
     emacsPackages.engrave-faces
@@ -240,7 +240,7 @@ in {
     imagemagick # A tool to create, edit, and compose bitmap images.
     ffmpeg # A solution to record, convert, and stream audio and video.
     pandoc # A universal document converter.
-    libinput # A tool for for handling input devices
+    libinput # A tool for for handling input devices.
     evtest # A tool for testing input device.
     glxinfo # Display information about the GLX implementation.
     wine # Software for running Windows applications on Linux.
@@ -263,7 +263,7 @@ in {
     popcorntime # A BitTorrent client with a nice interface.
     transmission-qt # A lightweight BitTorrent client - Qt GUI.
     telegram-desktop # Telegram Desktop messaging app.
-    dbeaver # Free multi-platform database tool.
+    dbeaver-bin # Free multi-platform database tool.
     discord # Voice and text chat for gamers.
     android-studio # The official Android IDE.
     obs-studio # Open Broadcaster Software Studio.
@@ -280,12 +280,13 @@ in {
     bastet # Bastard Tetris - an evil Tetris clone.
     crispy-doom # A Doom source port.
     lutris # Open Source gaming platform for GNU/Linux.
+    runelite # Open source Old School RuneScape client.
     ############################################################################
 
     ############################################################################
     # Utils
     # --------------------------------------------------------------------------
-    dxvk # Vulkan-based translation layer for Direct3D
+    dxvk # Vulkan-based translation layer for Direct3D.
     usbutils # Linux USB utilities.
     coreutils # File, shell and text manipulation utilities.
     libffi # A foreign function call interface library.
@@ -360,6 +361,7 @@ in {
     # JavaScript / TypeScript
     # --------------------------------------------------------------------------
     nodejs # JavaScript runtime built on Chrome's V8 JavaScript engine.
+    nodePackages.ts-node
     typescript # A superset of JavaScript that compiles to clean JavaScript.
     prettierd # Prettier, as a daemon, for improved formatting speed.
     ############################################################################
@@ -391,6 +393,12 @@ in {
     ############################################################################
 
     ############################################################################
+    # Lean4
+    # --------------------------------------------------------------------------
+    lean4
+    ############################################################################
+
+    ############################################################################
     # TOML
     # --------------------------------------------------------------------------
     taplo # A TOML toolkit written in Rust.
@@ -398,7 +406,7 @@ in {
   ];
 
   fonts.packages = with pkgs; [
-    font-awesome
+    nerdfonts
   ];
 
   xdg.portal.enable = true;
@@ -418,7 +426,6 @@ in {
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
-    enableNvidiaPatches = true;
   };
 
   # Enables Noisetorch.
