@@ -26,6 +26,8 @@ require("lazy").setup({
 	"folke/tokyonight.nvim",
 	-- Sonokai Color Scheme.
 	"sainnhe/sonokai",
+	-- Seoul256 Color Scheme.
+	"junegunn/seoul256.vim",
 	-- Status line plugin.
 	{
 		"nvim-lualine/lualine.nvim",
@@ -82,6 +84,48 @@ require("lazy").setup({
 			require("nvim-tree").setup({})
 		end,
 	},
+	-- Nvim UFO.
+	{
+		"kevinhwang91/nvim-ufo",
+		dependencies = {
+			"kevinhwang91/promise-async",
+			{
+				"luukvbaal/statuscol.nvim",
+				config = function()
+					local builtin = require("statuscol.builtin")
+					require("statuscol").setup({
+						relculright = true,
+						segments = {
+							{
+								text = { builtin.foldfunc },
+								click = "v:lua.ScFa",
+							},
+							{ text = { "%s" }, click = "v:lua.ScSa" },
+							{
+								text = { builtin.lnumfunc, " " },
+								click = "v:lua.ScLa",
+							},
+						},
+					})
+				end,
+			},
+		},
+		event = "BufReadPost",
+		opts = {
+			provider_selector = function()
+				return { "treesitter", "indent" }
+			end,
+		},
+
+		init = function()
+			vim.keymap.set("n", "zR", function()
+				require("ufo").openAllFolds()
+			end)
+			vim.keymap.set("n", "zM", function()
+				require("ufo").closeAllFolds()
+			end)
+		end,
+	},
 	-- GitSigns.
 	"lewis6991/gitsigns.nvim",
 	-- Auto trim trailing whitespaces and lines.
@@ -105,6 +149,10 @@ require("lazy").setup({
 			mappings = true,
 		},
 	},
+	-- Agda Theorem Prover.
+	"kana/vim-textobj-user",
+	"neovimhaskell/nvim-hs.vim",
+	"isovector/cornelis",
 })
 
 --------------------------------------------------------------------------------
@@ -133,11 +181,32 @@ vim.o.clipboard = "unnamedplus"
 -- 80 characters per line limit.
 vim.wo.colorcolumn = "81"
 
+-- UFO settings.
+-- Disable folding and foldcolumn globally by default.
+vim.opt.foldmethod = "manual"
+vim.opt.foldenable = false
+vim.opt.foldcolumn = "0"
+vim.opt.foldlevel = 0
+vim.opt.foldlevelstart = 0
+
+-- Enable specific folding settings.
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "aiken", "rust", "typescript", "lua" },
+	callback = function()
+		vim.opt_local.foldcolumn = "1"
+		vim.opt_local.foldlevel = 99
+		vim.opt_local.foldlevelstart = 99
+		vim.opt_local.foldenable = true
+		vim.opt_local.fillchars =
+			[[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+	end,
+})
+
 -- Set default indentation
-vim.opt.tabstop = 2 -- Set the number of spaces for <Tab> in the file.
-vim.opt.softtabstop = 2 -- Set the number of spaces for a <Tab> in insert mode.
-vim.opt.shiftwidth = 2 -- Set the number of spaces for autoindenting.
-vim.opt.expandtab = true -- Converts tabs to spaces.
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
 
 -- Settings for agda-mode.
 vim.g.cornelis_split_location = "right"
@@ -173,6 +242,8 @@ local function setupColorColumn()
 			)
 		)
 	end
+
+	vim.cmd("autocmd FileType markdown setlocal colorcolumn=")
 end
 
 setupColorColumn()
@@ -277,6 +348,12 @@ require("gitsigns").setup()
 
 require("nvim_comment").setup()
 
+require("ufo").setup({
+	provider_selector = function(_, _, _)
+		return { "treesitter", "indent" }
+	end,
+})
+
 require("transparent").setup({
 	groups = {
 		"Normal",
@@ -333,6 +410,7 @@ require("transparent").setup({
 		"NotifyINFOBody",
 		"NotifyDEBUGBody",
 		"NotifyTRACEBody",
+		"FoldColumn",
 	},
 	exclude_groups = {},
 })
@@ -497,7 +575,7 @@ require("lualine").setup({
 	sections = {
 		lualine_a = { "mode" },
 		lualine_b = {
-			{ "branch", icon = "" }, -- nf-pl-branch is broken
+			"branch",
 			"diff",
 			"diagnostics",
 		},
