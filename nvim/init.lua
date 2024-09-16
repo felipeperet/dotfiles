@@ -76,6 +76,33 @@ require("lazy").setup({
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
 	},
+	-- Yazi.
+	{
+		"mikavilpas/yazi.nvim",
+		event = "VeryLazy",
+		keys = {
+			{
+				"<Space>yf",
+				"<cmd>Yazi<cr>",
+				desc = "Open yazi at the current file",
+			},
+			{
+				"<Space>yd",
+				"<cmd>Yazi cwd<cr>",
+				desc = "Open the file manager in nvim's working directory",
+			},
+			{
+				"<Space>yr",
+				"<cmd>Yazi toggle<cr>",
+				desc = "Resume the last yazi session",
+			},
+		},
+		opts = {
+			open_for_directories = false,
+			keymaps = { show_help = "<f1>" },
+			yazi_args = {},
+		},
+	},
 	-- Nvim Tree.
 	{
 		"nvim-tree/nvim-tree.lua",
@@ -135,7 +162,10 @@ require("lazy").setup({
 	-- Direnv.
 	"direnv/direnv.vim",
 	-- Aiken Programming Language Support.
-	"aiken-lang/editor-integration-nvim",
+	{
+		"aiken-lang/editor-integration-nvim",
+		event = { "BufReadPre *.ak", "BufNewFile *.ak" },
+	},
 	-- Lean Theorem Prover.
 	{
 		"Julian/lean.nvim",
@@ -150,9 +180,14 @@ require("lazy").setup({
 		},
 	},
 	-- Agda Theorem Prover.
-	"kana/vim-textobj-user",
-	"neovimhaskell/nvim-hs.vim",
-	"isovector/cornelis",
+	{
+		"isovector/cornelis",
+		event = { "BufReadPre *.agda", "BufNewFile *.agda" },
+		dependencies = {
+			"kana/vim-textobj-user",
+			"neovimhaskell/nvim-hs.vim",
+		},
+	},
 })
 
 --------------------------------------------------------------------------------
@@ -191,7 +226,7 @@ vim.opt.foldlevelstart = 0
 
 -- Enable specific folding settings.
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "aiken", "rust", "typescript", "lua" },
+	pattern = { "aiken", "rust", "typescript", "c", "cpp", "hpp", "lua", "nix" },
 	callback = function()
 		vim.opt_local.foldcolumn = "1"
 		vim.opt_local.foldlevel = 99
