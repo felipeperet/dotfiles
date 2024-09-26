@@ -28,6 +28,8 @@ require("lazy").setup({
 	"sainnhe/sonokai",
 	-- Seoul256 Color Scheme.
 	"junegunn/seoul256.vim",
+	-- Catputccin Color Scheme.
+	"catppuccin/nvim",
 	-- Status line plugin.
 	{
 		"nvim-lualine/lualine.nvim",
@@ -60,6 +62,41 @@ require("lazy").setup({
 		"folke/noice.nvim",
 		dependencies = { "MunifTanjim/nui.nvim" },
 	},
+	-- Dashboard UI.
+	{
+		"goolord/alpha-nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			local alpha = require("alpha")
+			local dashboard = require("alpha.themes.dashboard")
+
+			-- Set header
+			dashboard.section.header.val = {
+				"                                                     ",
+				"  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
+				"  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
+				"  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
+				"  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+				"  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+				"  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
+				"                                                     ",
+			}
+
+			-- Set menu
+			dashboard.section.buttons.val = {
+				dashboard.button("e", "  > New file", ":ene <BAR> startinsert <CR>"),
+				dashboard.button("f", "?  > Find file", ":Yazi cwd<CR>"),
+				dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
+				dashboard.button("s", "  > Settings", ":e $MYVIMRC<CR>"),
+				dashboard.button("q", "⏻  > Quit NVIM", ":qa<CR>"),
+			}
+
+			-- Send config to alpha
+			alpha.setup(dashboard.opts)
+		end,
+	},
+	-- ToggleTerm.
+	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 	-- Tree sitter.
 	"nvim-treesitter/nvim-treesitter",
 	-- Neovim comments.
@@ -196,7 +233,7 @@ require("lazy").setup({
 -- Set color scheme to Kanagawa.
 vim.cmd([[
   syntax enable
-  colorscheme tokyonight-storm
+  colorscheme seoul256
 ]])
 
 -- Disable netrw at the very start of your init.lua (strongly advised).
@@ -232,8 +269,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.foldlevel = 99
 		vim.opt_local.foldlevelstart = 99
 		vim.opt_local.foldenable = true
-		vim.opt_local.fillchars =
-			[[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+		vim.opt_local.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 	end,
 })
 
@@ -251,11 +287,8 @@ vim.g.cornelis_max_width = 52
 local function setupFourSpacesIndentation()
 	local four_spaces_languages = { "c", "cpp", "rust", "haskell" }
 	for _, lang in ipairs(four_spaces_languages) do
-		local cmd = string.format(
-			"autocmd FileType %s setlocal tabstop=4 "
-				.. "shiftwidth=4 softtabstop=4 expandtab",
-			lang
-		)
+		local cmd =
+			string.format("autocmd FileType %s setlocal tabstop=4 " .. "shiftwidth=4 softtabstop=4 expandtab", lang)
 		vim.cmd(cmd)
 	end
 end
@@ -264,18 +297,11 @@ setupFourSpacesIndentation()
 
 -- Function to create autocmd for setting colorcolumn based on the language.
 local function setupColorColumn()
-	local languages =
-		{ "rust", "aiken", "javascript", "typescript", "typescriptreact" }
+	local languages = { "rust", "aiken", "javascript", "typescript", "typescriptreact" }
 	local col = 101
 
 	for _, lang in ipairs(languages) do
-		vim.cmd(
-			string.format(
-				"autocmd FileType %s setlocal colorcolumn=%s",
-				lang,
-				tostring(col)
-			)
-		)
+		vim.cmd(string.format("autocmd FileType %s setlocal colorcolumn=%s", lang, tostring(col)))
 	end
 
 	vim.cmd("autocmd FileType markdown setlocal colorcolumn=")
@@ -291,6 +317,22 @@ vim.api.nvim_exec2(
   ]],
 	{}
 )
+
+-- Disable ~ symbols in the Alpha buffer
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "alpha",
+	callback = function()
+		vim.opt_local.fillchars = "eob: "
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "alpha",
+	callback = function()
+		vim.api.nvim_buf_set_keymap(0, "n", "j", "j", { noremap = true, silent = true })
+		vim.api.nvim_buf_set_keymap(0, "n", "k", "k", { noremap = true, silent = true })
+	end,
+})
 
 --------------------------------------------------------------------------------
 -- 4. LSP Configuration
@@ -458,10 +500,7 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 		["<Tab>"] = function(fallback)
 			if vim.fn.pumvisible() == 1 then
-				vim.fn.feedkeys(
-					vim.api.nvim_replace_termcodes("<C-n>", true, true, true),
-					"n"
-				)
+				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
 			elseif cmp.visible() then
 				cmp.select_next_item()
 			else
@@ -470,10 +509,7 @@ cmp.setup({
 		end,
 		["|"] = function(fallback)
 			if vim.fn.pumvisible() == 1 then
-				vim.fn.feedkeys(
-					vim.api.nvim_replace_termcodes("<C-p>", true, true, true),
-					"n"
-				)
+				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
 			elseif cmp.visible() then
 				cmp.select_prev_item()
 			else
@@ -550,6 +586,7 @@ require("notify").setup({
 require("indent_blankline").setup({
 	char = "│",
 	buftype_exclude = { "terminal" },
+	filetype_exclude = { "alpha" },
 	show_trailing_blankline_indent = false,
 	show_first_indent_level = false,
 	use_treesitter = true,
@@ -670,21 +707,15 @@ keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>:sleep 5m<CR>zz", opts)
 -- Keymap for applying LSP code action.
 keymap("n", "<C-a>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
+-- Toggle Terminal.
+keymap("n", "<Space>t", ":ToggleTerm<CR>", opts)
+
+-- Go to Dashboard.
+keymap("n", "<Space>a", ":Alpha<CR>", opts)
+
 -- GitSigns Keymaps.
-keymap(
-	"n",
-	"<C-f>",
-	":Gitsigns next_hunk<CR>:sleep 5m<CR>"
-		.. ":Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz",
-	opts
-)
-keymap(
-	"n",
-	"<C-b>",
-	":Gitsigns prev_hunk<CR>:sleep 5m<CR>"
-		.. ":Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz",
-	opts
-)
+keymap("n", "<C-f>", ":Gitsigns next_hunk<CR>:sleep 5m<CR>" .. ":Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz", opts)
+keymap("n", "<C-b>", ":Gitsigns prev_hunk<CR>:sleep 5m<CR>" .. ":Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz", opts)
 keymap("n", "<S-f>", ":Gitsigns preview_hunk_inline<CR>", opts)
 keymap({ "n", "x" }, "<S-p>", ":Gitsigns reset_hunk<CR>", opts)
 
