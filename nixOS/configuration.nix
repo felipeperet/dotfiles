@@ -18,14 +18,8 @@ in {
 
   nix = {
     settings = {
-      substituters = [
-        "https://cache.iog.io"
-        "https://cache.zw3rk.com"
-        "https://cache.nixos.org"
-      ];
+      substituters = ["https://cache.nixos.org"];
       trusted-public-keys = [
-        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-        "loony-tools:pr9m4BkM/5/eSTZlkQyRt57Jz7OMBxNSUiMC4FkcNfk="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     };
@@ -102,7 +96,7 @@ in {
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
+    jack.enable = false;
   };
 
   # Enabling libinput.
@@ -113,6 +107,9 @@ in {
     enable = true;
     package = pkgs.postgresql;
   };
+
+  # Enable Flatpak.
+  services.flatpak.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sasdelli = {
@@ -135,6 +132,11 @@ in {
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Permitted Insecure Packages
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.1.1w"
+  ];
 
   # Enable Steam
   programs.steam = {
@@ -166,6 +168,7 @@ in {
     # --------------------------------------------------------------------------
     vim # A highly configurable text editor.
     # neovim # Vim-fork focused on extensibility and usability.
+    neovide # A simple graphical user interface for Neovim.
     vscode # Visual Studio Code.
     emacs # An extensible, customizable text editor.
     emacsPackages.engrave-faces
@@ -177,6 +180,7 @@ in {
     # --------------------------------------------------------------------------
     firefox # A popular web browser.
     google-chrome # Google's web browser.
+    tor-browser # Privacy-focused browser routing traffic.
     ############################################################################
 
     ############################################################################
@@ -211,14 +215,21 @@ in {
     ############################################################################
     # CLI
     # --------------------------------------------------------------------------
+    neofetch # A command-line system information tool.
+    # yazi # Blazing fast terminal file manager written in Rust.
     zoxide # A fast cd command that learns your habits.
-    cloc # A program that counts lines of source code.
     tldr # Simplified and community-driven man pages.
     wget # A tool to retrieve files using HTTP, HTTPS, FTP, and FTPS.
     curl # A tool and library for transferring data with URL syntax.
     git # A distributed version control system.
-    htop # An interactive process viewer.
+    git-filter-repo # Quickly rewrite git repository history.
+    lazygit # Simple terminal UI for git commands.
+    loc # Count lines of code quickly.
+    ncdu # Disk usage analyzer with an ncurses interface.
     duf # A disk usage utility.
+    htop # An interactive process viewer.
+    trash-cli # Command line interface to the freedesktop.org trashcan.
+    gdown # A CLI tool for downloading large files from Google Drive.
     zip # A compression utility.
     unzip # A decompression utility.
     rar # Utility for RAR archives.
@@ -231,8 +242,6 @@ in {
     pkg-config # Tool to compile and link library flags.
     appimage-run # A tool to run AppImages.
     appimagekit # Tools for working with AppImages.
-    openssl # A toolkit for TLS and SSL protocols.
-    neofetch # A command-line system information tool.
     docker # A platform to develop, ship, and run applications.
     docker-compose # Tool for defining and running Docker applications.
     postgresql # A powerful, open source object-relational database system.
@@ -262,25 +271,20 @@ in {
     spotify # A digital music service.
     popcorntime # A BitTorrent client with a nice interface.
     transmission-qt # A lightweight BitTorrent client - Qt GUI.
-    telegram-desktop # Telegram Desktop messaging app.
     dbeaver-bin # Free multi-platform database tool.
     discord # Voice and text chat for gamers.
-    android-studio # The official Android IDE.
     obs-studio # Open Broadcaster Software Studio.
     lxappearance-gtk2 # GTK theme switcher.
-    libreoffice # Comprehensive variant of openoffice.org.
     zoom-us # Video conferencing application.
+    keepass # GUI password manager with strong cryptography.
     ############################################################################
 
     ############################################################################
     # Games
     # --------------------------------------------------------------------------
     ttyper # A terminal typing game.
-    tetrio-desktop # Desktop version of TETR.IO, an online Tetris game.
-    bastet # Bastard Tetris - an evil Tetris clone.
-    crispy-doom # A Doom source port.
-    lutris # Open Source gaming platform for GNU/Linux.
-    runelite # Open source Old School RuneScape client.
+    dsda-doom # An Doom source port with a focus on speedrunning.
+    gzdoom # Modder-friendly source port based on the DOOM engine.
     ############################################################################
 
     ############################################################################
@@ -330,7 +334,8 @@ in {
         cabal-install # A tool to compile and install Haskell libraries.
         cabal2nix # Convert a Cabal file into a Nix build expression.
         stack # A build tool for Haskell.
-        haskell-language-server # Haskell Language Server Protocol.
+        fourmolu # A formatter for Haskell source code.
+        # haskell-language-server # Haskell Language Server Protocol.
       ]))
     ############################################################################
 
@@ -341,7 +346,6 @@ in {
     opam # A package manager for OCaml.
     dune_3 # A composable build system.
     ocamlformat # Auto-formatter for OCaml code.
-    ocamlPackages.utop # Universal toplevel for OCaml.
     ocamlPackages.ocaml-lsp # OCaml Language Server Protocol.
     ############################################################################
 
@@ -361,7 +365,8 @@ in {
     # JavaScript / TypeScript
     # --------------------------------------------------------------------------
     nodejs # JavaScript runtime built on Chrome's V8 JavaScript engine.
-    nodePackages.ts-node
+    nodePackages.ts-node # TypeScript execution environment and REPL for nodejs.
+    deno # A secure runtime for JavaScript and TypeScript.
     typescript # A superset of JavaScript that compiles to clean JavaScript.
     prettierd # Prettier, as a daemon, for improved formatting speed.
     ############################################################################
@@ -372,17 +377,21 @@ in {
     (python3.withPackages (ps:
       with ps;
       with python3Packages; [
+        pip
         jupyter
         ipython
         pandas
         numpy
         matplotlib
+        scikit-learn
         scikit-image
         pyodbc
         sqlalchemy
         tabulate
-        scikit-learn
         xgboost
+        torch
+        torchvision
+        gdown
       ]))
     ############################################################################
 
@@ -395,7 +404,8 @@ in {
     ############################################################################
     # Lean4
     # --------------------------------------------------------------------------
-    lean4
+    # lean4
+    elan
     ############################################################################
 
     ############################################################################
@@ -407,6 +417,7 @@ in {
 
   fonts.packages = with pkgs; [
     nerdfonts
+    monaspace
   ];
 
   xdg.portal.enable = true;
@@ -430,6 +441,12 @@ in {
 
   # Enables Noisetorch.
   programs.noisetorch.enable = true;
+
+  # Enables unpatched dynamic binaries.
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    openssl_1_1 # A library that implements the SSL and TLS protocols.
+  ];
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
