@@ -24,12 +24,12 @@ require("lazy").setup({
 	"folke/lazy.nvim",
 	-- TokyoNight Color Scheme.
 	"folke/tokyonight.nvim",
+	-- Catppuccin Color Scheme.
+	"catppuccin/nvim",
 	-- Sonokai Color Scheme.
 	"sainnhe/sonokai",
 	-- Seoul256 Color Scheme.
 	"junegunn/seoul256.vim",
-	-- Catputccin Color Scheme.
-	"catppuccin/nvim",
 	-- Status line plugin.
 	{
 		"nvim-lualine/lualine.nvim",
@@ -66,34 +66,6 @@ require("lazy").setup({
 	{
 		"goolord/alpha-nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			local alpha = require("alpha")
-			local dashboard = require("alpha.themes.dashboard")
-
-			-- Set header
-			dashboard.section.header.val = {
-				"                                                     ",
-				"  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
-				"  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
-				"  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
-				"  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
-				"  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
-				"  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
-				"                                                     ",
-			}
-
-			-- Set menu
-			dashboard.section.buttons.val = {
-				dashboard.button("e", "  > New file", ":ene <BAR> startinsert <CR>"),
-				dashboard.button("f", "?  > Find file", ":Yazi cwd<CR>"),
-				dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
-				dashboard.button("s", "  > Settings", ":e $MYVIMRC<CR>"),
-				dashboard.button("q", "⏻  > Quit NVIM", ":qa<CR>"),
-			}
-
-			-- Send config to alpha
-			alpha.setup(dashboard.opts)
-		end,
 	},
 	-- ToggleTerm.
 	{ "akinsho/toggleterm.nvim", version = "*", config = true },
@@ -101,8 +73,6 @@ require("lazy").setup({
 	"nvim-treesitter/nvim-treesitter",
 	-- Neovim comments.
 	"terrortylor/nvim-comment",
-	-- Transparent.
-	"xiyaowong/transparent.nvim",
 	-- Indentation guide.
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -119,17 +89,17 @@ require("lazy").setup({
 		event = "VeryLazy",
 		keys = {
 			{
-				"<Space>yf",
+				"<Space>f",
 				"<cmd>Yazi<cr>",
 				desc = "Open yazi at the current file",
 			},
 			{
-				"<Space>yd",
+				"<Space>d",
 				"<cmd>Yazi cwd<cr>",
 				desc = "Open the file manager in nvim's working directory",
 			},
 			{
-				"<Space>yr",
+				"<Space>r",
 				"<cmd>Yazi toggle<cr>",
 				desc = "Resume the last yazi session",
 			},
@@ -230,15 +200,51 @@ require("lazy").setup({
 --------------------------------------------------------------------------------
 -- 3. Neovim Settings
 --------------------------------------------------------------------------------
--- Set color scheme to Kanagawa.
+-- Set color scheme to Catppuccin.
 vim.cmd([[
   syntax enable
-  colorscheme seoul256
+  colorscheme catppuccin
 ]])
 
+-- Set the colors for Yazi to match TokyoNight-Storm.
+vim.api.nvim_create_autocmd("User", {
+	pattern = "YaziReady",
+	callback = function()
+		vim.api.nvim_set_hl(0, "YaziDirectory", { fg = "#7aa2f7", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziFile", { fg = "#c0caf5", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziSymlink", { fg = "#bb9af7", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziSocket", { fg = "#9ece6a", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziBlock", { fg = "#e0af68", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziFifo", { fg = "#7dcfff", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziChar", { fg = "#bb9af7", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziMissing", { fg = "#f7768e", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziCursorLine", { bg = "#2a2e45" })
+		vim.api.nvim_set_hl(0, "YaziNormal", { fg = "#c0caf5", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziBorder", { fg = "#3b4261", bg = "NONE" })
+	end,
+})
+
+-- Set the colors for ToggleTerm to match TokyoNight-Storm.
+vim.api.nvim_set_var("terminal_color_0", "#1d202f")
+vim.api.nvim_set_var("terminal_color_1", "#f7768e")
+vim.api.nvim_set_var("terminal_color_2", "#9ece6a")
+vim.api.nvim_set_var("terminal_color_3", "#e0af68")
+vim.api.nvim_set_var("terminal_color_4", "#7aa2f7")
+vim.api.nvim_set_var("terminal_color_5", "#bb9af7")
+vim.api.nvim_set_var("terminal_color_6", "#7dcfff")
+vim.api.nvim_set_var("terminal_color_7", "#a9b1d6")
+vim.api.nvim_set_var("terminal_color_8", "#414868")
+vim.api.nvim_set_var("terminal_color_9", "#f7768e")
+vim.api.nvim_set_var("terminal_color_10", "#9ece6a")
+vim.api.nvim_set_var("terminal_color_11", "#e0af68")
+vim.api.nvim_set_var("terminal_color_12", "#7aa2f7")
+vim.api.nvim_set_var("terminal_color_13", "#bb9af7")
+vim.api.nvim_set_var("terminal_color_14", "#7dcfff")
+vim.api.nvim_set_var("terminal_color_15", "#c0caf5")
+
 -- Disable netrw at the very start of your init.lua (strongly advised).
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+vim.api.nvim_set_var("loaded_netrw", 1)
+vim.api.nvim_set_var("loaded_netrwPlugin", 1)
 
 -- Set termguicolors to enable highlight groups.
 vim.opt.termguicolors = true
@@ -246,6 +252,12 @@ vim.opt.termguicolors = true
 -- Enable relative line numbers.
 vim.wo.number = true
 vim.wo.relativenumber = true
+
+-- Set the font family and size
+vim.o.guifont = "Hack Nerd Font:h17"
+
+-- Set Neovide's PATH to be the same as your terminal's PATH
+vim.env.PATH = vim.env.PATH .. ":" .. os.getenv("PATH")
 
 -- Use system's clipboard.
 vim.o.clipboard = "unnamedplus"
@@ -280,8 +292,8 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 -- Settings for agda-mode.
-vim.g.cornelis_split_location = "right"
-vim.g.cornelis_max_width = 52
+vim.api.nvim_set_var("cornelis_split_location", "right")
+vim.api.nvim_set_var("cornelis_max_width", 52)
 
 -- Function to create autocmd for 4 spaces indentation.
 local function setupFourSpacesIndentation()
@@ -421,6 +433,36 @@ require("conform").setup({
 --------------------------------------------------------------------------------
 -- 5. Plugin Configuration
 --------------------------------------------------------------------------------
+require("alpha").setup(require("alpha.themes.dashboard").opts)
+
+local alpha = require("alpha")
+local dashboard = require("alpha.themes.dashboard")
+
+-- Set header
+dashboard.section.header.val = {
+	"                                                     ",
+	"  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
+	"  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
+	"  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
+	"  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+	"  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+	"  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
+	"                                                     ",
+}
+
+-- Set menu
+dashboard.section.buttons.val = {
+	dashboard.button("e", "  > New file", ":ene <BAR> startinsert <CR>"),
+	dashboard.button("f", "  > Find file", "<Cmd>Telescope find_files<CR>"),
+	dashboard.button("d", "  > Find directory", ":Yazi cwd<CR>"),
+	dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
+	dashboard.button("s", "  > Settings", ":e $MYVIMRC<CR>"),
+	dashboard.button("q", "⏻  > Quit NVIM", ":qa<CR>"),
+}
+
+-- Apply the updated settings to Alpha
+alpha.setup(dashboard.opts)
+
 require("gitsigns").setup()
 
 require("nvim_comment").setup()
@@ -431,65 +473,14 @@ require("ufo").setup({
 	end,
 })
 
-require("transparent").setup({
-	groups = {
-		"Normal",
-		"NormalNC",
-		"Comment",
-		"Constant",
-		"Special",
-		"Identifier",
-		"Statement",
-		"PreProc",
-		"Type",
-		"Underlined",
-		"Todo",
-		"String",
-		"Function",
-		"Conditional",
-		"Repeat",
-		"Operator",
-		"Structure",
-		"LineNr",
-		"NonText",
-		"SignColumn",
-		"CursorLineNr",
-		"EndOfBuffer",
+require("toggleterm").setup({
+	direction = "float",
+	float_opts = {
+		border = "curved",
+		width = 100,
+		height = 25,
+		winblend = 0,
 	},
-	extra_groups = {
-		"NormalFloat",
-		"FloatBorder",
-		"NvimTreeNormal",
-		"NvimTreeNormalNC",
-		"NvimTreeEndOfBuffer",
-		"NvimTreeWinSeparator",
-		"TelescopeNormal",
-		"TelescopeBorder",
-		"TelescopePromptTitle",
-		"TelescopePromptBorder",
-		"GitSignsAdd",
-		"GitSignsChange",
-		"GitSignsDelete",
-		"DiagnosticSignError",
-		"DiagnosticSignWarn",
-		"DiagnosticSignHint",
-		"DiagnosticVirtualTextError",
-		"DiagnosticVirtualTextWarn",
-		"DiagnosticVirtualTextInfo",
-		"DiagnosticVirtualTextHint",
-		"NotifyERRORBorder",
-		"NotifyWARNBorder",
-		"NotifyINFOBorder",
-		"NotifyDEBUGBorder",
-		"NotifyTRACEBorder",
-		"NotifyERRORBody",
-		"NotifyWARNBody",
-		"NotifyINFOBody",
-		"NotifyDEBUGBody",
-		"NotifyTRACEBody",
-		"FoldColumn",
-	},
-	exclude_groups = {},
 })
 
 local cmp = require("cmp")
@@ -633,7 +624,7 @@ require("nvim-tree").setup({
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
-		theme = "tokyonight",
+		theme = "catppuccin",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		always_divide_middle = true,
@@ -707,8 +698,17 @@ keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>:sleep 5m<CR>zz", opts)
 -- Keymap for applying LSP code action.
 keymap("n", "<C-a>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
--- Toggle Terminal.
-keymap("n", "<Space>t", ":ToggleTerm<CR>", opts)
+-- Keybinding to toggle the terminal and open it in the current file's directory.
+keymap("n", "<Space>t", function()
+	local current_dir = vim.fn.expand("%:p:h")
+	require("toggleterm.terminal").Terminal:new({ dir = current_dir }):toggle()
+end, opts)
+
+-- Switch to previous buffer (code) when in the terminal with <C-h>.
+keymap("t", "<C-h>", [[<C-\><C-n><C-w>h]], opts)
+
+-- Switch to terminal from code with <C-l>.
+keymap("n", "<C-l>", "<Cmd>ToggleTerm direction=float<CR>", opts)
 
 -- Go to Dashboard.
 keymap("n", "<Space>a", ":Alpha<CR>", opts)
