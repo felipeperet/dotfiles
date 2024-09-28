@@ -26,10 +26,6 @@ require("lazy").setup({
 	"folke/tokyonight.nvim",
 	-- Catppuccin Color Scheme.
 	"catppuccin/nvim",
-	-- Sonokai Color Scheme.
-	"sainnhe/sonokai",
-	-- Seoul256 Color Scheme.
-	"junegunn/seoul256.vim",
 	-- Status line plugin.
 	{
 		"nvim-lualine/lualine.nvim",
@@ -206,41 +202,41 @@ vim.cmd([[
   colorscheme catppuccin
 ]])
 
--- Set the colors for Yazi to match TokyoNight-Storm.
+-- Set the colors for Yazi to match Catppuccin.
 vim.api.nvim_create_autocmd("User", {
 	pattern = "YaziReady",
 	callback = function()
-		vim.api.nvim_set_hl(0, "YaziDirectory", { fg = "#7aa2f7", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziFile", { fg = "#c0caf5", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziSymlink", { fg = "#bb9af7", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziSocket", { fg = "#9ece6a", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziBlock", { fg = "#e0af68", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziFifo", { fg = "#7dcfff", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziChar", { fg = "#bb9af7", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziMissing", { fg = "#f7768e", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziCursorLine", { bg = "#2a2e45" })
-		vim.api.nvim_set_hl(0, "YaziNormal", { fg = "#c0caf5", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziBorder", { fg = "#3b4261", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziDirectory", { fg = "#89b4fa", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziFile", { fg = "#d9e0ee", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziSymlink", { fg = "#cba6f7", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziSocket", { fg = "#a6e3a1", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziBlock", { fg = "#fab387", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziFifo", { fg = "#89dceb", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziChar", { fg = "#cba6f7", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziMissing", { fg = "#f38ba8", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziCursorLine", { bg = "#302d41" })
+		vim.api.nvim_set_hl(0, "YaziNormal", { fg = "#d9e0ee", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziBorder", { fg = "#585b70", bg = "NONE" })
 	end,
 })
 
--- Set the colors for ToggleTerm to match TokyoNight-Storm.
-vim.api.nvim_set_var("terminal_color_0", "#1d202f")
-vim.api.nvim_set_var("terminal_color_1", "#f7768e")
-vim.api.nvim_set_var("terminal_color_2", "#9ece6a")
-vim.api.nvim_set_var("terminal_color_3", "#e0af68")
-vim.api.nvim_set_var("terminal_color_4", "#7aa2f7")
-vim.api.nvim_set_var("terminal_color_5", "#bb9af7")
-vim.api.nvim_set_var("terminal_color_6", "#7dcfff")
-vim.api.nvim_set_var("terminal_color_7", "#a9b1d6")
-vim.api.nvim_set_var("terminal_color_8", "#414868")
-vim.api.nvim_set_var("terminal_color_9", "#f7768e")
-vim.api.nvim_set_var("terminal_color_10", "#9ece6a")
-vim.api.nvim_set_var("terminal_color_11", "#e0af68")
-vim.api.nvim_set_var("terminal_color_12", "#7aa2f7")
-vim.api.nvim_set_var("terminal_color_13", "#bb9af7")
-vim.api.nvim_set_var("terminal_color_14", "#7dcfff")
-vim.api.nvim_set_var("terminal_color_15", "#c0caf5")
+-- Set the colors for ToggleTerm to match Catppuccin.
+vim.api.nvim_set_var("terminal_color_0", "#1e1e2e")
+vim.api.nvim_set_var("terminal_color_1", "#f38ba8")
+vim.api.nvim_set_var("terminal_color_2", "#a6e3a1")
+vim.api.nvim_set_var("terminal_color_3", "#f9e2af")
+vim.api.nvim_set_var("terminal_color_4", "#89b4fa")
+vim.api.nvim_set_var("terminal_color_5", "#cba6f7")
+vim.api.nvim_set_var("terminal_color_6", "#89dceb")
+vim.api.nvim_set_var("terminal_color_7", "#cdd6f4")
+vim.api.nvim_set_var("terminal_color_8", "#585b70")
+vim.api.nvim_set_var("terminal_color_9", "#f38ba8")
+vim.api.nvim_set_var("terminal_color_10", "#a6e3a1")
+vim.api.nvim_set_var("terminal_color_11", "#f9e2af")
+vim.api.nvim_set_var("terminal_color_12", "#89b4fa")
+vim.api.nvim_set_var("terminal_color_13", "#cba6f7")
+vim.api.nvim_set_var("terminal_color_14", "#89dceb")
+vim.api.nvim_set_var("terminal_color_15", "#d9e0ee")
 
 -- Disable netrw at the very start of your init.lua (strongly advised).
 vim.api.nvim_set_var("loaded_netrw", 1)
@@ -253,10 +249,11 @@ vim.opt.termguicolors = true
 vim.wo.number = true
 vim.wo.relativenumber = true
 
--- Set the font family and size
+-- Set the font family and size.
 vim.o.guifont = "Hack Nerd Font:h17"
 
--- Set Neovide's PATH to be the same as your terminal's PATH
+-- Set Neovide's PATH to be the same as your terminal's PATH.
+-- (Seems not to be working)
 vim.env.PATH = vim.env.PATH .. ":" .. os.getenv("PATH")
 
 -- Use system's clipboard.
@@ -477,8 +474,8 @@ require("toggleterm").setup({
 	direction = "float",
 	float_opts = {
 		border = "curved",
-		width = 100,
-		height = 25,
+		width = 105,
+		height = 26,
 		winblend = 0,
 	},
 })
