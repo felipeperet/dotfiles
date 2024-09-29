@@ -4,6 +4,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   # Define the overridden waybar package.
@@ -14,9 +15,12 @@ in {
   system.stateVersion = "24.05";
   home-manager.users.sasdelli.home.stateVersion = "24.05";
 
+  home-manager.backupFileExtension = "backup";
+
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    # Include home-manager module.
     ./home.nix
   ];
 
@@ -24,6 +28,12 @@ in {
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
   stylix.image = /home/sasdelli/Wallpapers/nixOS-wallpaper.png;
+  stylix.polarity = "dark";
+  stylix.cursor = {
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice";
+    size = 30;
+  };
 
   nix = {
     settings = {
@@ -157,7 +167,11 @@ in {
     dedicatedServer.openFirewall = true;
   };
 
-  environment.variables.GDK_BACKEND = "wayland";
+  environment.variables = {
+    GDK_BACKEND = "wayland";
+    # XCURSOR_THEME = lib.mkForce "Bibata-Modern-Ice"; # The cursor theme name set in Stylix
+    # XCURSOR_SIZE = lib.mkForce "24"; # Force the cursor size to 24
+  };
 
   environment.sessionVariables = {
     # If your cursor becomes invisible

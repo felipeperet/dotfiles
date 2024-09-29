@@ -94,7 +94,7 @@
         inherit (config.lib.formats.rasi) mkLiteral;
       in {
         element-icon = {
-          size = mkLiteral "3.5ch";
+          size = mkLiteral "5ch";
         };
 
         window = {
@@ -102,7 +102,13 @@
         };
 
         inputbar = {
-          children = [mkLiteral "entry"];
+          children = [(mkLiteral "entry")];
+        };
+
+        entry = {
+          padding = mkLiteral "6px";
+          margin = mkLiteral "20px 0px 0px 20px";
+          border-radius = mkLiteral "15px";
         };
       };
     };
