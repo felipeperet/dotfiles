@@ -11,13 +11,23 @@
     mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
   });
 in {
+  system.stateVersion = "24.05";
+  home-manager.users.sasdelli.home.stateVersion = "24.05";
+
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./home.nix
   ];
+
+  # Stylix Configuration
+  stylix.enable = true;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+  stylix.image = /home/sasdelli/Wallpapers/nixOS-wallpaper.png;
 
   nix = {
     settings = {
+      experimental-features = ["nix-command" "flakes"];
       substituters = ["https://cache.nixos.org"];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -58,13 +68,14 @@ in {
   };
 
   # Enabling Graphics Cards
-  hardware.opengl.enable = true;
-  # hardware.nvidia.optimus_prime.enable = true;
+  hardware.graphics.enable = true;
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-
-  # nvidia-drm.modeset=1 is required for some wayland compositors, e.g. sway
-  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    modesetting.enable = true;
+    # open = true; # Set to true for open-source drivers or false for closed-source drivers.
+    open = false; # Use closed-source drivers
+  };
 
   # Configure xserver.
   services.xserver = {
@@ -88,7 +99,6 @@ in {
   hardware.bluetooth.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -200,7 +210,7 @@ in {
     swayimg # Wayland image viewer.
     zathura # A lightweight document viewer.
     mpv # A media player.
-    cinnamon.nemo # The Nemo file manager from the Cinnamon desktop.
+    nemo # The Nemo file manager from the Cinnamon desktop.
     ############################################################################
 
     ############################################################################
@@ -215,6 +225,7 @@ in {
     ############################################################################
     # CLI
     # --------------------------------------------------------------------------
+    home-manager
     neofetch # A command-line system information tool.
     # yazi # Blazing fast terminal file manager written in Rust.
     zoxide # A fast cd command that learns your habits.
@@ -270,7 +281,7 @@ in {
     # --------------------------------------------------------------------------
     spotify # A digital music service.
     popcorntime # A BitTorrent client with a nice interface.
-    transmission-qt # A lightweight BitTorrent client - Qt GUI.
+    transmission_3-qt # A lightweight BitTorrent client - Qt GUI.
     dbeaver-bin # Free multi-platform database tool.
     discord # Voice and text chat for gamers.
     obs-studio # Open Broadcaster Software Studio.
@@ -459,12 +470,4 @@ in {
 
   # List services that you want to enable:
   virtualisation.docker.enable = true;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
 }
