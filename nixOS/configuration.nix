@@ -1,6 +1,10 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+#  _   _ _______   _______ _____
+# | \ | |_   _\ \ / /  _  /  ___|
+# |  \| | | |  \ V /| | | \ `--.
+# | . ` | | |  /   \| | | |`--. \
+# | |\  |_| |_/ /^\ \ \_/ /\__/ /
+# \_| \_/\___/\/   \/\___/\____/
+################################################################################
 {
   config,
   pkgs,
@@ -24,28 +28,34 @@ in {
     ./home.nix
   ];
 
-  # Stylix Configuration
-  stylix.enable = true;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-  stylix.image = /home/sasdelli/Wallpapers/nixOS-wallpaper.png;
-  stylix.polarity = "dark";
-  stylix.cursor = {
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Ice";
-    size = 30;
-  };
-  stylix.fonts = {
-    monospace = {
-      package = pkgs.nerdfonts.override {fonts = ["Hack"];};
-      name = "Hack Nerd Font";
+  # Stylix Configuration.
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+    image = /home/sasdelli/Wallpapers/nixOS-wallpaper.png;
+    polarity = "dark";
+    cursor = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 30;
     };
-    sansSerif = config.stylix.fonts.monospace;
-    serif = config.stylix.fonts.monospace;
-    sizes = {
-      applications = 14;
-      terminal = 17;
-      desktop = 12;
-      popups = 12;
+    fonts = {
+      monospace = {
+        package = pkgs.nerdfonts.override {fonts = ["Hack"];};
+        name = "Hack Nerd Font";
+      };
+      sansSerif = config.stylix.fonts.monospace;
+      serif = config.stylix.fonts.monospace;
+      emoji = {
+        package = pkgs.noto-fonts-emoji;
+        name = "Noto Color Emoji";
+      };
+      sizes = {
+        applications = 14;
+        terminal = 17;
+        desktop = 12;
+        popups = 12;
+      };
     };
   };
 
