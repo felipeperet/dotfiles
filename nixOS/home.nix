@@ -9,11 +9,6 @@
     programs.kitty = lib.mkForce {
       enable = true;
 
-      font = {
-        name = "Hack Nerd Font";
-        size = 17;
-      };
-
       settings = {
         adjust_line_height = 0;
         adjust_column_width = 0;
@@ -94,7 +89,7 @@
         inherit (config.lib.formats.rasi) mkLiteral;
       in {
         element-icon = {
-          size = mkLiteral "5ch";
+          size = mkLiteral "4ch";
         };
 
         window = {

@@ -34,6 +34,20 @@ in {
     name = "Bibata-Modern-Ice";
     size = 30;
   };
+  stylix.fonts = {
+    monospace = {
+      package = pkgs.nerdfonts.override {fonts = ["Hack"];};
+      name = "Hack Nerd Font";
+    };
+    sansSerif = config.stylix.fonts.monospace;
+    serif = config.stylix.fonts.monospace;
+    sizes = {
+      applications = 14;
+      terminal = 17;
+      desktop = 12;
+      popups = 12;
+    };
+  };
 
   nix = {
     settings = {
@@ -169,8 +183,6 @@ in {
 
   environment.variables = {
     GDK_BACKEND = "wayland";
-    # XCURSOR_THEME = lib.mkForce "Bibata-Modern-Ice"; # The cursor theme name set in Stylix
-    # XCURSOR_SIZE = lib.mkForce "24"; # Force the cursor size to 24
   };
 
   environment.sessionVariables = {
