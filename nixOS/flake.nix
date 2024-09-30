@@ -14,13 +14,15 @@
   } @ inputs: {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
         system = "x86_64-linux";
+
         modules = [
-          ./configuration.nix
+          ./configuration.nix # Path to your main configuration file
           home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix
         ];
+
+        specialArgs = {inherit inputs;};
       };
     };
   };
