@@ -182,8 +182,7 @@
             format-icons = {
               default = ["" " " " "];
             };
-            on-click = "pavucontrol";
-            on-click-right = "pactl set-sink-mute 3 toggle";
+            on-click = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
           };
         };
       };

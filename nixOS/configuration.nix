@@ -261,6 +261,7 @@ in {
     pulsemixer # CLI and curses mixer for PulseAudio.
     playerctl # MPRIS command-line controller for media players.
     mpd # Music Player Daemon.
+    cava # Console-based Audio Visualizer for Alsa.
     ############################################################################
 
     ############################################################################
