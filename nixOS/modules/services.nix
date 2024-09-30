@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   services = {
     # Configure xserver.
     xserver = {

@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  # Define the overridden waybar package.
+  customWaybar = pkgs.waybar.overrideAttrs (oldAttrs: {
+    mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
+  });
+in {
   environment.systemPackages = with pkgs; [
     ############################################################################
     # Wayland + Hyprland

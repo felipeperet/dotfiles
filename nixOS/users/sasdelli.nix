@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   # Main user account.
   users.users.sasdelli = {
     isNormalUser = true;

@@ -58,6 +58,16 @@
     '';
   };
 
+  nixpkgs = {
+    # Allow unfree packages.
+    config.allowUnfree = true;
+
+    # Permitted Insecure Packages.
+    config.permittedInsecurePackages = [
+      "openssl-1.1.1w"
+    ];
+  };
+
   # Stylix Configuration.
   stylix = {
     enable = true;
