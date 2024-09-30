@@ -33,6 +33,8 @@ require("lazy").setup({
 	"folke/tokyonight.nvim",
 	-- Catppuccin Color Scheme.
 	"catppuccin/nvim",
+	-- Gruvbox Material Color Scheme.
+	"sainnhe/gruvbox-material",
 	-- Status line plugin.
 	{
 		"nvim-lualine/lualine.nvim",
@@ -206,44 +208,44 @@ require("lazy").setup({
 -- Set color scheme to Catppuccin.
 vim.cmd([[
   syntax enable
-  colorscheme catppuccin
+  colorscheme gruvbox-material
 ]])
 
--- Set the colors for Yazi to match Catppuccin.
-vim.api.nvim_create_autocmd("User", {
-	pattern = "YaziReady",
-	callback = function()
-		vim.api.nvim_set_hl(0, "YaziDirectory", { fg = "#89b4fa", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziFile", { fg = "#d9e0ee", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziSymlink", { fg = "#cba6f7", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziSocket", { fg = "#a6e3a1", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziBlock", { fg = "#fab387", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziFifo", { fg = "#89dceb", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziChar", { fg = "#cba6f7", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziMissing", { fg = "#f38ba8", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziCursorLine", { bg = "#302d41" })
-		vim.api.nvim_set_hl(0, "YaziNormal", { fg = "#d9e0ee", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziBorder", { fg = "#585b70", bg = "NONE" })
-	end,
-})
+-- Set the colors for Yazi to match Gruvbox.
+-- vim.api.nvim_create_autocmd("User", {
+-- 	pattern = "YaziReady",
+-- 	callback = function()
+-- 		vim.api.nvim_set_hl(0, "YaziDirectory", { fg = "#83a598", bg = "NONE" }) -- Blue
+-- 		vim.api.nvim_set_hl(0, "YaziFile", { fg = "#ebdbb2", bg = "NONE" }) -- Light foreground
+-- 		vim.api.nvim_set_hl(0, "YaziSymlink", { fg = "#d3869b", bg = "NONE" }) -- Purple
+-- 		vim.api.nvim_set_hl(0, "YaziSocket", { fg = "#b8bb26", bg = "NONE" }) -- Green
+-- 		vim.api.nvim_set_hl(0, "YaziBlock", { fg = "#fe8019", bg = "NONE" }) -- Orange
+-- 		vim.api.nvim_set_hl(0, "YaziFifo", { fg = "#8ec07c", bg = "NONE" }) -- Aqua
+-- 		vim.api.nvim_set_hl(0, "YaziChar", { fg = "#d3869b", bg = "NONE" }) -- Purple
+-- 		vim.api.nvim_set_hl(0, "YaziMissing", { fg = "#fb4934", bg = "NONE" }) -- Red
+-- 		vim.api.nvim_set_hl(0, "YaziCursorLine", { bg = "#3c3836" }) -- Dark background
+-- 		vim.api.nvim_set_hl(0, "YaziNormal", { fg = "#ebdbb2", bg = "NONE" }) -- Light foreground
+-- 		vim.api.nvim_set_hl(0, "YaziBorder", { fg = "#504945", bg = "NONE" }) -- Dark gray
+-- 	end,
+-- })
 
--- Set the colors for ToggleTerm to match Catppuccin.
-vim.api.nvim_set_var("terminal_color_0", "#1e1e2e")
-vim.api.nvim_set_var("terminal_color_1", "#f38ba8")
-vim.api.nvim_set_var("terminal_color_2", "#a6e3a1")
-vim.api.nvim_set_var("terminal_color_3", "#f9e2af")
-vim.api.nvim_set_var("terminal_color_4", "#89b4fa")
-vim.api.nvim_set_var("terminal_color_5", "#cba6f7")
-vim.api.nvim_set_var("terminal_color_6", "#89dceb")
-vim.api.nvim_set_var("terminal_color_7", "#cdd6f4")
-vim.api.nvim_set_var("terminal_color_8", "#585b70")
-vim.api.nvim_set_var("terminal_color_9", "#f38ba8")
-vim.api.nvim_set_var("terminal_color_10", "#a6e3a1")
-vim.api.nvim_set_var("terminal_color_11", "#f9e2af")
-vim.api.nvim_set_var("terminal_color_12", "#89b4fa")
-vim.api.nvim_set_var("terminal_color_13", "#cba6f7")
-vim.api.nvim_set_var("terminal_color_14", "#89dceb")
-vim.api.nvim_set_var("terminal_color_15", "#d9e0ee")
+-- Set the colors for ToggleTerm to match Gruvbox.
+-- vim.api.nvim_set_var("terminal_color_0", "#282828")
+-- vim.api.nvim_set_var("terminal_color_1", "#cc241d")
+-- vim.api.nvim_set_var("terminal_color_2", "#98971a")
+-- vim.api.nvim_set_var("terminal_color_3", "#d79921")
+-- vim.api.nvim_set_var("terminal_color_4", "#458588")
+-- vim.api.nvim_set_var("terminal_color_5", "#b16286")
+-- vim.api.nvim_set_var("terminal_color_6", "#689d6a")
+-- vim.api.nvim_set_var("terminal_color_7", "#a89984")
+-- vim.api.nvim_set_var("terminal_color_8", "#928374")
+-- vim.api.nvim_set_var("terminal_color_9", "#fb4934")
+-- vim.api.nvim_set_var("terminal_color_10", "#b8bb26")
+-- vim.api.nvim_set_var("terminal_color_11", "#fabd2f")
+-- vim.api.nvim_set_var("terminal_color_12", "#83a598")
+-- vim.api.nvim_set_var("terminal_color_13", "#d3869b")
+-- vim.api.nvim_set_var("terminal_color_14", "#8ec07c")
+-- vim.api.nvim_set_var("terminal_color_15", "#ebdbb2")
 
 -- Disable netrw at the very start of your init.lua (strongly advised).
 vim.api.nvim_set_var("loaded_netrw", 1)
@@ -628,9 +630,9 @@ require("nvim-tree").setup({
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
-		theme = "catppuccin",
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
+		theme = "gruvbox-material",
+		component_separators = { left = "", right = "" },
+		section_separators = { left = "", right = "" },
 		always_divide_middle = true,
 		globalstatus = false,
 		refresh = {
