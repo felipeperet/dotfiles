@@ -16,8 +16,8 @@
     mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
   });
 in {
-  system.stateVersion = "24.05";
-  home-manager.users.sasdelli.home.stateVersion = "24.05";
+  system.stateVersion = "24.11";
+  home-manager.users.sasdelli.home.stateVersion = "24.11";
 
   home-manager.backupFileExtension = "backup";
 
@@ -27,37 +27,6 @@ in {
     # Include home-manager module.
     ./home.nix
   ];
-
-  # Stylix Configuration.
-  stylix = {
-    enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-    image = /home/sasdelli/Wallpapers/nixOS-wallpaper.png;
-    polarity = "dark";
-    cursor = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Ice";
-      size = 30;
-    };
-    fonts = {
-      monospace = {
-        package = pkgs.nerdfonts.override {fonts = ["Hack"];};
-        name = "Hack Nerd Font";
-      };
-      sansSerif = config.stylix.fonts.monospace;
-      serif = config.stylix.fonts.monospace;
-      emoji = {
-        package = pkgs.noto-fonts-emoji;
-        name = "Noto Color Emoji";
-      };
-      sizes = {
-        applications = 14;
-        terminal = 17;
-        desktop = 12;
-        popups = 12;
-      };
-    };
-  };
 
   nix = {
     settings = {
@@ -70,6 +39,43 @@ in {
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+  };
+
+  # Stylix Configuration.
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+    image = /home/sasdelli/gruv.png;
+    polarity = "dark";
+    cursor = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 30;
+    };
+    fonts = {
+      serif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
+      };
+      sansSerif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans";
+      };
+      monospace = {
+        package = pkgs.nerdfonts.override {fonts = ["Hack"];};
+        name = "Hack Nerd Font";
+      };
+      emoji = {
+        package = pkgs.noto-fonts-emoji;
+        name = "Noto Color Emoji";
+      };
+      sizes = {
+        applications = 14;
+        terminal = 17;
+        desktop = 12;
+        popups = 12;
+      };
+    };
   };
 
   # Bootloader.
@@ -107,8 +113,7 @@ in {
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     modesetting.enable = true;
-    # open = true; # Set to true for open-source drivers or false for closed-source drivers.
-    open = false; # Use closed-source drivers
+    open = false; # Use closed-source drivers.
   };
 
   # Configure xserver.
@@ -213,7 +218,7 @@ in {
     # Editors
     # --------------------------------------------------------------------------
     vim # A highly configurable text editor.
-    # neovim # Vim-fork focused on extensibility and usability.
+    neovim # Vim-fork focused on extensibility and usability.
     neovide # A simple graphical user interface for Neovim.
     vscode # Visual Studio Code.
     emacs # An extensible, customizable text editor.
@@ -261,9 +266,8 @@ in {
     ############################################################################
     # CLI
     # --------------------------------------------------------------------------
-    home-manager
     neofetch # A command-line system information tool.
-    # yazi # Blazing fast terminal file manager written in Rust.
+    yazi # Blazing fast terminal file manager written in Rust.
     zoxide # A fast cd command that learns your habits.
     tldr # Simplified and community-driven man pages.
     wget # A tool to retrieve files using HTTP, HTTPS, FTP, and FTPS.
@@ -382,7 +386,7 @@ in {
         cabal2nix # Convert a Cabal file into a Nix build expression.
         stack # A build tool for Haskell.
         fourmolu # A formatter for Haskell source code.
-        # haskell-language-server # Haskell Language Server Protocol.
+        haskell-language-server # Haskell Language Server Protocol.
       ]))
     ############################################################################
 
@@ -494,15 +498,6 @@ in {
   programs.nix-ld.libraries = with pkgs; [
     openssl_1_1 # A library that implements the SSL and TLS protocols.
   ];
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # List services that you want to enable:
   virtualisation.docker.enable = true;
