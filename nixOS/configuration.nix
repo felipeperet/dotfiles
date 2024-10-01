@@ -150,8 +150,8 @@
     };
   };
 
-  # Enabling Graphics Cards.
   hardware = {
+    # Enable Graphics Cards.
     graphics.enable = true;
 
     nvidia = {
@@ -159,6 +159,12 @@
       modesetting.enable = true;
       open = false; # Use closed-source drivers.
     };
+
+    # Enable Bluetooth.
+    bluetooth.enable = true;
+
+    # Disable pulseaudio.
+    pulseaudio.enable = false;
   };
 
   environment = {
