@@ -29,17 +29,16 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	-- Lazy can manage itself.
 	"folke/lazy.nvim",
-	-- TokyoNight Color Scheme.
-	"folke/tokyonight.nvim",
-	-- Catppuccin Color Scheme.
-	"catppuccin/nvim",
 	-- Gruvbox Material Color Scheme.
 	"sainnhe/gruvbox-material",
+	-- Gruvbox Color Scheme.
+	"ellisonleao/gruvbox.nvim",
+	-- Catppuccin Color Scheme.
+	"catppuccin/nvim",
+	-- TokyoNight Color Scheme.
+	"folke/tokyonight.nvim",
 	-- Status line plugin.
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
+	"nvim-lualine/lualine.nvim",
 	-- LSP.
 	{
 		"VonHeikemen/lsp-zero.nvim",
@@ -68,10 +67,9 @@ require("lazy").setup({
 		dependencies = { "MunifTanjim/nui.nvim" },
 	},
 	-- Dashboard UI.
-	{
-		"goolord/alpha-nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
+	"goolord/alpha-nvim",
+	-- Render Markdown.
+	"MeanderingProgrammer/render-markdown.nvim",
 	-- ToggleTerm.
 	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 	-- Tree sitter.
@@ -211,42 +209,6 @@ vim.cmd([[
   colorscheme gruvbox-material
 ]])
 
--- Set the colors for Yazi to match Gruvbox.
--- vim.api.nvim_create_autocmd("User", {
--- 	pattern = "YaziReady",
--- 	callback = function()
--- 		vim.api.nvim_set_hl(0, "YaziDirectory", { fg = "#83a598", bg = "NONE" }) -- Blue
--- 		vim.api.nvim_set_hl(0, "YaziFile", { fg = "#ebdbb2", bg = "NONE" }) -- Light foreground
--- 		vim.api.nvim_set_hl(0, "YaziSymlink", { fg = "#d3869b", bg = "NONE" }) -- Purple
--- 		vim.api.nvim_set_hl(0, "YaziSocket", { fg = "#b8bb26", bg = "NONE" }) -- Green
--- 		vim.api.nvim_set_hl(0, "YaziBlock", { fg = "#fe8019", bg = "NONE" }) -- Orange
--- 		vim.api.nvim_set_hl(0, "YaziFifo", { fg = "#8ec07c", bg = "NONE" }) -- Aqua
--- 		vim.api.nvim_set_hl(0, "YaziChar", { fg = "#d3869b", bg = "NONE" }) -- Purple
--- 		vim.api.nvim_set_hl(0, "YaziMissing", { fg = "#fb4934", bg = "NONE" }) -- Red
--- 		vim.api.nvim_set_hl(0, "YaziCursorLine", { bg = "#3c3836" }) -- Dark background
--- 		vim.api.nvim_set_hl(0, "YaziNormal", { fg = "#ebdbb2", bg = "NONE" }) -- Light foreground
--- 		vim.api.nvim_set_hl(0, "YaziBorder", { fg = "#504945", bg = "NONE" }) -- Dark gray
--- 	end,
--- })
-
--- Set the colors for ToggleTerm to match Gruvbox.
--- vim.api.nvim_set_var("terminal_color_0", "#282828")
--- vim.api.nvim_set_var("terminal_color_1", "#cc241d")
--- vim.api.nvim_set_var("terminal_color_2", "#98971a")
--- vim.api.nvim_set_var("terminal_color_3", "#d79921")
--- vim.api.nvim_set_var("terminal_color_4", "#458588")
--- vim.api.nvim_set_var("terminal_color_5", "#b16286")
--- vim.api.nvim_set_var("terminal_color_6", "#689d6a")
--- vim.api.nvim_set_var("terminal_color_7", "#a89984")
--- vim.api.nvim_set_var("terminal_color_8", "#928374")
--- vim.api.nvim_set_var("terminal_color_9", "#fb4934")
--- vim.api.nvim_set_var("terminal_color_10", "#b8bb26")
--- vim.api.nvim_set_var("terminal_color_11", "#fabd2f")
--- vim.api.nvim_set_var("terminal_color_12", "#83a598")
--- vim.api.nvim_set_var("terminal_color_13", "#d3869b")
--- vim.api.nvim_set_var("terminal_color_14", "#8ec07c")
--- vim.api.nvim_set_var("terminal_color_15", "#ebdbb2")
-
 -- Disable netrw at the very start of your init.lua (strongly advised).
 vim.api.nvim_set_var("loaded_netrw", 1)
 vim.api.nvim_set_var("loaded_netrwPlugin", 1)
@@ -258,12 +220,8 @@ vim.opt.termguicolors = true
 vim.wo.number = true
 vim.wo.relativenumber = true
 
--- Set the font family and size.
+-- Set the font family and size in neovide.
 vim.o.guifont = "Hack Nerd Font:h17"
-
--- Set Neovide's PATH to be the same as your terminal's PATH.
--- (Seems not to be working)
-vim.env.PATH = vim.env.PATH .. ":" .. os.getenv("PATH")
 
 -- Use system's clipboard.
 vim.o.clipboard = "unnamedplus"
@@ -281,13 +239,17 @@ vim.opt.foldlevelstart = 0
 
 -- Enable specific folding settings.
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "aiken", "rust", "typescript", "c", "cpp", "hpp", "lua", "nix" },
+	pattern = { "aiken", "rust", "typescript", "c", "cpp", "hpp", "lua", "nix", "markdown" },
 	callback = function()
-		vim.opt_local.foldcolumn = "1"
 		vim.opt_local.foldlevel = 99
 		vim.opt_local.foldlevelstart = 99
 		vim.opt_local.foldenable = true
 		vim.opt_local.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+		if vim.bo.filetype == "markdown" then
+			vim.opt_local.foldcolumn = "0"
+		else
+			vim.opt_local.foldcolumn = "1"
+		end
 	end,
 })
 
@@ -662,6 +624,18 @@ require("lualine").setup({
 	},
 })
 
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "*",
+	callback = function()
+		local colorscheme = vim.g.colors_name
+		require("lualine").setup({
+			options = {
+				theme = colorscheme,
+			},
+		})
+	end,
+})
+
 --------------------------------------------------------------------------------
 -- 6. Keymaps
 --------------------------------------------------------------------------------
@@ -718,6 +692,9 @@ keymap("n", "<C-l>", "<Cmd>ToggleTerm direction=float<CR>", opts)
 
 -- Go to Dashboard.
 keymap("n", "<Space>a", ":Alpha<CR>", opts)
+
+-- Deletes all buffers and restart all LSP servers.
+keymap("n", "<Space>bd", ":bufdo bd<CR>:LspRestart<CR>:Alpha<CR>:bdelete#<CR>", opts)
 
 -- GitSigns Keymaps.
 keymap("n", "<C-f>", ":Gitsigns next_hunk<CR>:sleep 5m<CR>" .. ":Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz", opts)
