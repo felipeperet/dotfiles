@@ -17,7 +17,7 @@
         system = "x86_64-linux";
 
         modules = [
-          ./configuration.nix # Path to your main configuration file
+          ./configuration.nix
           home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix
         ];
