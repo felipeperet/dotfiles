@@ -213,6 +213,9 @@ vim.cmd([[
 vim.api.nvim_set_var("loaded_netrw", 1)
 vim.api.nvim_set_var("loaded_netrwPlugin", 1)
 
+-- Enable the Neovim module loader.
+vim.loader.enable()
+
 -- Set termguicolors to enable highlight groups.
 vim.opt.termguicolors = true
 
