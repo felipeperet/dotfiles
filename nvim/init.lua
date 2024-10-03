@@ -245,12 +245,23 @@ vim.opt.foldlevelstart = 0
 
 -- Enable specific folding settings.
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "aiken", "rust", "typescript", "c", "cpp", "hpp", "lua", "nix", "markdown" },
+	pattern = {
+		"aiken",
+		"rust",
+		"typescript",
+		"c",
+		"cpp",
+		"hpp",
+		"lua",
+		"nix",
+		"markdown",
+	},
 	callback = function()
 		vim.opt_local.foldlevel = 99
 		vim.opt_local.foldlevelstart = 99
 		vim.opt_local.foldenable = true
-		vim.opt_local.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+		vim.opt_local.fillchars =
+			[[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 		if vim.bo.filetype == "markdown" then
 			vim.opt_local.foldcolumn = "0"
 		else
@@ -273,8 +284,11 @@ vim.api.nvim_set_var("cornelis_max_width", 52)
 local function setupFourSpacesIndentation()
 	local four_spaces_languages = { "c", "cpp", "rust", "haskell" }
 	for _, lang in ipairs(four_spaces_languages) do
-		local cmd =
-			string.format("autocmd FileType %s setlocal tabstop=4 " .. "shiftwidth=4 softtabstop=4 expandtab", lang)
+		local cmd = string.format(
+			"autocmd FileType %s setlocal tabstop=4 "
+				.. "shiftwidth=4 softtabstop=4 expandtab",
+			lang
+		)
 		vim.cmd(cmd)
 	end
 end
@@ -283,11 +297,18 @@ setupFourSpacesIndentation()
 
 -- Function to create autocmd for setting colorcolumn based on the language.
 local function setupColorColumn()
-	local languages = { "rust", "aiken", "javascript", "typescript", "typescriptreact" }
+	local languages =
+		{ "rust", "aiken", "javascript", "typescript", "typescriptreact" }
 	local col = 101
 
 	for _, lang in ipairs(languages) do
-		vim.cmd(string.format("autocmd FileType %s setlocal colorcolumn=%s", lang, tostring(col)))
+		vim.cmd(
+			string.format(
+				"autocmd FileType %s setlocal colorcolumn=%s",
+				lang,
+				tostring(col)
+			)
+		)
 	end
 
 	vim.cmd("autocmd FileType markdown setlocal colorcolumn=")
@@ -316,8 +337,20 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "alpha",
 	callback = function()
-		vim.api.nvim_buf_set_keymap(0, "n", "j", "j", { noremap = true, silent = true })
-		vim.api.nvim_buf_set_keymap(0, "n", "k", "k", { noremap = true, silent = true })
+		vim.api.nvim_buf_set_keymap(
+			0,
+			"n",
+			"j",
+			"j",
+			{ noremap = true, silent = true }
+		)
+		vim.api.nvim_buf_set_keymap(
+			0,
+			"n",
+			"k",
+			"k",
+			{ noremap = true, silent = true }
+		)
 	end,
 })
 
@@ -466,7 +499,10 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 		["<Tab>"] = function(fallback)
 			if vim.fn.pumvisible() == 1 then
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
+				vim.fn.feedkeys(
+					vim.api.nvim_replace_termcodes("<C-n>", true, true, true),
+					"n"
+				)
 			elseif cmp.visible() then
 				cmp.select_next_item()
 			else
@@ -475,7 +511,10 @@ cmp.setup({
 		end,
 		["|"] = function(fallback)
 			if vim.fn.pumvisible() == 1 then
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
+				vim.fn.feedkeys(
+					vim.api.nvim_replace_termcodes("<C-p>", true, true, true),
+					"n"
+				)
 			elseif cmp.visible() then
 				cmp.select_prev_item()
 			else
@@ -703,11 +742,28 @@ keymap("n", "<C-l>", "<Cmd>ToggleTerm direction=float<CR>", opts)
 keymap("n", "<Space>a", ":Alpha<CR>", opts)
 
 -- Deletes all buffers and restart all LSP servers.
-keymap("n", "<Space>bd", ":bufdo bd<CR>:LspRestart<CR>:Alpha<CR>:bdelete#<CR>", opts)
+keymap(
+	"n",
+	"<Space>bd",
+	":bufdo bd<CR>:LspRestart<CR>:Alpha<CR>:bdelete#<CR>",
+	opts
+)
 
 -- GitSigns Keymaps.
-keymap("n", "<C-f>", ":Gitsigns next_hunk<CR>:sleep 5m<CR>" .. ":Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz", opts)
-keymap("n", "<C-b>", ":Gitsigns prev_hunk<CR>:sleep 5m<CR>" .. ":Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz", opts)
+keymap(
+	"n",
+	"<C-f>",
+	":Gitsigns next_hunk<CR>:sleep 5m<CR>"
+		.. ":Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz",
+	opts
+)
+keymap(
+	"n",
+	"<C-b>",
+	":Gitsigns prev_hunk<CR>:sleep 5m<CR>"
+		.. ":Gitsigns preview_hunk_inline<CR>:sleep 5m<CR>zz",
+	opts
+)
 keymap("n", "<S-f>", ":Gitsigns preview_hunk_inline<CR>", opts)
 keymap({ "n", "x" }, "<S-p>", ":Gitsigns reset_hunk<CR>", opts)
 
