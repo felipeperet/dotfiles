@@ -226,6 +226,9 @@ vim.wo.relativenumber = true
 -- Set the font family and size in neovide.
 vim.o.guifont = "Hack Nerd Font:h17"
 
+-- Decrease the neovide cursor trail size.
+vim.api.nvim_set_var("neovide_cursor_trail_size", 0.15)
+
 -- Use system's clipboard.
 vim.o.clipboard = "unnamedplus"
 
@@ -309,6 +312,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- Disables the screen centering while pressing 'j' 'k' in the Alpha Dashboard.
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "alpha",
 	callback = function()
@@ -449,7 +453,7 @@ require("toggleterm").setup({
 	float_opts = {
 		border = "curved",
 		width = 105,
-		height = 26,
+		height = 27,
 		winblend = 0,
 	},
 })
@@ -681,10 +685,12 @@ keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>:sleep 5m<CR>zz", opts)
 -- Keymap for applying LSP code action.
 keymap("n", "<C-a>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
--- Keybinding to toggle the terminal and open it in the current file's directory.
+-- Keybinding to toggle the terminal and open it in the home directory if in the
+-- Alpha buffer, otherwise in the current file's directory.
 keymap("n", "<Space>t", function()
-	local current_dir = vim.fn.expand("%:p:h")
-	require("toggleterm.terminal").Terminal:new({ dir = current_dir }):toggle()
+	local is_alpha = vim.bo.filetype == "alpha"
+	local term_dir = is_alpha and vim.fn.expand("~") or vim.fn.expand("%:p:h")
+	require("toggleterm.terminal").Terminal:new({ dir = term_dir }):toggle()
 end, opts)
 
 -- Switch to previous buffer (code) when in the terminal with <C-h>.
