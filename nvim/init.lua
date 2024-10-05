@@ -33,10 +33,14 @@ require("lazy").setup({
 	"sainnhe/gruvbox-material",
 	-- Gruvbox Color Scheme.
 	"ellisonleao/gruvbox.nvim",
-	-- Catppuccin Color Scheme.
-	"catppuccin/nvim",
+	-- Melange Color Scheme.
+	"savq/melange-nvim",
 	-- TokyoNight Color Scheme.
 	"folke/tokyonight.nvim",
+	-- Catppuccin Color Scheme.
+	"catppuccin/nvim",
+	-- Rose-Pine Color Scheme.
+	"rose-pine/neovim",
 	-- Status line plugin.
 	"nvim-lualine/lualine.nvim",
 	-- LSP.
@@ -224,7 +228,7 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 -- Set the font family and size in neovide.
-vim.o.guifont = "Hack Nerd Font:h17"
+vim.o.guifont = "Hack Nerd Font:h18"
 
 -- Decrease the neovide cursor trail size.
 vim.api.nvim_set_var("neovide_cursor_trail_size", 0.15)
