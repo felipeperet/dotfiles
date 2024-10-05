@@ -98,7 +98,7 @@
       };
       sizes = {
         applications = 14;
-        terminal = 17;
+        terminal = 18;
         desktop = 12;
         popups = 12;
       };
