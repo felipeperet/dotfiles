@@ -39,8 +39,6 @@ require("lazy").setup({
 	"folke/tokyonight.nvim",
 	-- Catppuccin Color Scheme.
 	"catppuccin/nvim",
-	-- Rose-Pine Color Scheme.
-	"rose-pine/neovim",
 	-- Status line plugin.
 	"nvim-lualine/lualine.nvim",
 	-- LSP.
@@ -227,8 +225,11 @@ vim.opt.termguicolors = true
 vim.wo.number = true
 vim.wo.relativenumber = true
 
+-- Highlight the text line of the cursor
+vim.opt.cursorline = false
+
 -- Set the font family and size in neovide.
-vim.o.guifont = "Hack Nerd Font:h18"
+vim.o.guifont = "Hack Nerd Font:h17"
 
 -- Decrease the neovide cursor trail size.
 vim.api.nvim_set_var("neovide_cursor_trail_size", 0.15)
@@ -250,14 +251,15 @@ vim.opt.foldlevelstart = 0
 -- Enable specific folding settings.
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = {
-		"aiken",
+		"nix",
+		"lua",
 		"rust",
+		"gleam",
+		"aiken",
 		"typescript",
 		"c",
 		"cpp",
 		"hpp",
-		"lua",
-		"nix",
 		"markdown",
 	},
 	callback = function()
@@ -320,11 +322,12 @@ end
 
 setupColorColumn()
 
--- Setting comment symbols for Aiken and Nix.
+-- Setting comment symbols for Nix, Gleam and Aiken.
 vim.api.nvim_exec2(
 	[[
-    autocmd FileType aiken setlocal commentstring=//%s
     autocmd FileType nix setlocal commentstring=#%s
+    autocmd FileType gleam setlocal commentstring=//%s
+    autocmd FileType aiken setlocal commentstring=//%s
   ]],
 	{}
 )
@@ -395,20 +398,23 @@ lspconfig.lua_ls.setup({
 	},
 })
 
--- C/C++ LSP
-lspconfig.clangd.setup({})
-
 -- Rust LSP
 lspconfig.rust_analyzer.setup({})
 
--- OCaml LSP
-lspconfig.ocamllsp.setup({})
+-- Gleam LSP
+lspconfig.gleam.setup({})
+
+-- Aiken LSP
+lspconfig.aiken.setup({})
 
 -- Haskell LSP
 lspconfig.hls.setup({})
 
--- Aiken LSP
-lspconfig.aiken.setup({})
+-- OCaml LSP
+lspconfig.ocamllsp.setup({})
+
+-- C/C++ LSP
+lspconfig.clangd.setup({})
 
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 -- 	pattern = "*.ak",
@@ -423,12 +429,13 @@ require("conform").setup({
 		nix = { "alejandra" },
 		lua = { "stylua" },
 		rust = { "rustfmt" },
+		gleam = { "gleam" },
 		haskell = { "fourmolu" },
 		ocaml = { "ocamlformat" },
+		typescript = { "prettierd" },
+		javascript = { "prettierd" },
 		c = { "clang_format" },
 		cpp = { "clang_format" },
-		javascript = { "prettierd" },
-		typescript = { "prettierd" },
 		markdown = { "prettierd" },
 		css = { "prettierd" },
 		html = { "prettierd" },
@@ -546,8 +553,13 @@ require("nvim-treesitter.configs").setup({
 		"rust",
 		"ocaml",
 		"haskell",
+		"gleam",
 	},
 	highlight = {
+		enable = true,
+		disable = {},
+	},
+	indent = {
 		enable = true,
 		disable = {},
 	},
