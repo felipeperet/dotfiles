@@ -24,6 +24,18 @@
     ############################################################################
 
     ############################################################################
+    # Gleam
+    # --------------------------------------------------------------------------
+    gleam # A statically typed language for the Erlang VM.
+    ############################################################################
+
+    ############################################################################
+    # Erlang
+    # --------------------------------------------------------------------------
+    erlang # Programming language used for massively scalable real-time systems.
+    ############################################################################
+
+    ############################################################################
     # Haskell
     # --------------------------------------------------------------------------
     (ghc.withPackages (ps:
@@ -47,6 +59,16 @@
     ############################################################################
 
     ############################################################################
+    # JavaScript / TypeScript
+    # --------------------------------------------------------------------------
+    nodejs # JavaScript runtime built on Chrome's V8 JavaScript engine.
+    nodePackages.ts-node # TypeScript execution environment and REPL for nodejs.
+    deno # A secure runtime for JavaScript and TypeScript.
+    typescript # A superset of JavaScript that compiles to clean JavaScript.
+    prettierd # Prettier, as a daemon, for improved formatting speed.
+    ############################################################################
+
+    ############################################################################
     # C / C++
     # --------------------------------------------------------------------------
     gcc # GNU Compiler Collection.
@@ -56,16 +78,6 @@
     cmake # A tool to manage the build process of software.
     libgccjit # Just-In-Time compilation support in GCC.
     clang-tools # Standalone command line tools for C development.
-    ############################################################################
-
-    ############################################################################
-    # JavaScript / TypeScript
-    # --------------------------------------------------------------------------
-    nodejs # JavaScript runtime built on Chrome's V8 JavaScript engine.
-    nodePackages.ts-node # TypeScript execution environment and REPL for nodejs.
-    deno # A secure runtime for JavaScript and TypeScript.
-    typescript # A superset of JavaScript that compiles to clean JavaScript.
-    prettierd # Prettier, as a daemon, for improved formatting speed.
     ############################################################################
 
     ############################################################################
