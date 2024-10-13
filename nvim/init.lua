@@ -182,7 +182,7 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 		},
 		keys = {
-			{ "<Space>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+			{ "<Space>lg", "<cmd>LazyGitCurrentFile<cr>", desc = "LazyGit" },
 		},
 	},
 	-- Auto trim trailing whitespaces and lines.
