@@ -14,7 +14,6 @@
     lazygit # Simple terminal UI for git commands.
     loc # Count lines of code quickly.
     ncdu # Disk usage analyzer with an ncurses interface.
-    duf # A disk usage utility.
     btop # Monitor of resources.
     trash-cli # Command line interface to the freedesktop.org trashcan.
     gdown # A CLI tool for downloading large files from Google Drive.
