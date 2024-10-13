@@ -167,6 +167,24 @@ require("lazy").setup({
 	},
 	-- GitSigns.
 	"lewis6991/gitsigns.nvim",
+	-- LazyGit.
+	{
+		"kdheepak/lazygit.nvim",
+		lazy = true,
+		cmd = {
+			"LazyGit",
+			"LazyGitConfig",
+			"LazyGitCurrentFile",
+			"LazyGitFilter",
+			"LazyGitFilterCurrentFile",
+		},
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		keys = {
+			{ "<Space>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+		},
+	},
 	-- Auto trim trailing whitespaces and lines.
 	"cappyzawa/trim.nvim",
 	-- Auto pairs.
@@ -205,7 +223,7 @@ require("lazy").setup({
 --------------------------------------------------------------------------------
 -- 3. Neovim Settings
 --------------------------------------------------------------------------------
--- Set color scheme to Catppuccin.
+-- Set color scheme to Gruvbox Material.
 vim.cmd([[
   syntax enable
   colorscheme gruvbox-material
@@ -225,11 +243,11 @@ vim.opt.termguicolors = true
 vim.wo.number = true
 vim.wo.relativenumber = true
 
--- Highlight the text line of the cursor
+-- Highlight the text line of the cursor.
 vim.opt.cursorline = false
 
 -- Set the font family and size in neovide.
-vim.o.guifont = "Hack Nerd Font:h17"
+vim.o.guifont = "Hack Nerd Font:h18"
 
 -- Decrease the neovide cursor trail size.
 vim.api.nvim_set_var("neovide_cursor_trail_size", 0.15)
