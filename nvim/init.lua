@@ -209,15 +209,6 @@ require("lazy").setup({
 			mappings = true,
 		},
 	},
-	-- Agda Theorem Prover.
-	{
-		"isovector/cornelis",
-		event = { "BufReadPre *.agda", "BufNewFile *.agda" },
-		dependencies = {
-			"kana/vim-textobj-user",
-			"neovimhaskell/nvim-hs.vim",
-		},
-	},
 })
 
 --------------------------------------------------------------------------------
@@ -299,10 +290,6 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
-
--- Settings for agda-mode.
-vim.api.nvim_set_var("cornelis_split_location", "right")
-vim.api.nvim_set_var("cornelis_max_width", 52)
 
 -- Function to create autocmd for 4 spaces indentation.
 local function setupFourSpacesIndentation()
@@ -800,19 +787,3 @@ keymap(
 )
 keymap("n", "<S-f>", ":Gitsigns preview_hunk_inline<CR>", opts)
 keymap({ "n", "x" }, "<S-p>", ":Gitsigns reset_hunk<CR>", opts)
-
--- Cornelis Agda Keymaps.
-keymap("n", "<C-c><C-l>", "<Cmd>CornelisLoad<CR>", opts)
-keymap("n", "<C-c><C-g>", "<Cmd>CornelisGoals<CR>", opts)
-keymap("n", "<C-c><C-s>", "<Cmd>CornelisSolve<CR>", opts)
-keymap("n", "<C-c><C-d>", "<Cmd>CornelisGoToDefinition<CR>", opts)
-keymap("n", "<C-c><C-b>", "<Cmd>CornelisPrevGoal<CR>:sleep 5m<CR>zz", opts)
-keymap("n", "<C-c><C-f>", "<Cmd>CornelisNextGoal<CR>:sleep 5m<CR>zz", opts)
-keymap("n", "<C-c><C-r>", "<Cmd>CornelisRefine<CR>", opts)
-keymap("n", "<C-c><C-a>", "<Cmd>CornelisAuto<CR>", opts)
-keymap("n", "<C-c><C-c>", "<Cmd>CornelisMakeCase<CR>", opts)
-keymap("n", "<C-c><C-,>", "<Cmd>CornelisTypeContext<CR>", opts)
-keymap("n", "<C-c><C-i>", "<Cmd>CornelisTypeInfer<CR>", opts)
-keymap("n", "<C-c><C-n>", "<Cmd>CornelisNormalize<CR>", opts)
-keymap("n", "<C-c><C-k>", "<Cmd>CornelisQuestionToMeta<CR>", opts)
-keymap("n", "<C-c><C-x><C-r>", "<Cmd>CornelisRestart<CR>", opts)
