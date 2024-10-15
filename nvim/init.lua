@@ -787,3 +787,31 @@ keymap(
 )
 keymap("n", "<S-f>", ":Gitsigns preview_hunk_inline<CR>", opts)
 keymap({ "n", "x" }, "<S-p>", ":Gitsigns reset_hunk<CR>", opts)
+
+-- Function to increase the font size.
+local function increase_font_size()
+	local current_font = vim.o.guifont
+	local font, size = string.match(current_font, "([^:]+):h(%d+)")
+	size = tonumber(size) + 1
+	vim.o.guifont = font .. ":h" .. size
+	print("Font size increased to: " .. size)
+end
+
+-- Function to decrease the font size.
+local function decrease_font_size()
+	local current_font = vim.o.guifont
+	local font, size = string.match(current_font, "([^:]+):h(%d+)")
+	size = tonumber(size) - 1
+	if size > 8 then
+		vim.o.guifont = font .. ":h" .. size
+		print("Font size decreased to: " .. size)
+	else
+		print("Font size is already at the minimum!")
+	end
+end
+
+-- Keymap for Ctrl-Shift-+ to increase the font size.
+keymap("n", "<C-+>", increase_font_size, opts)
+
+-- Keymap for Ctrl-Shift-- to decrease the font size.
+keymap("n", "<C-_>", decrease_font_size, opts)
