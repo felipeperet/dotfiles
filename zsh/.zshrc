@@ -43,12 +43,13 @@ alias opam-nix='nix flake init -t github:tweag/opam-nix'
 # Set the terminal title to the current directory
 precmd() { print -Pn "\e]0;%~\a" }
 
-# Add Oura to PATH.
-export PATH=$PATH:~/bins/oura/target/release
-
 # Add different directories to PATH.
-# export PATH=$PATH:$(pwd)/result/bin
+export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:~/.cargo/bin
+source $HOME/.aiken/bin/env
+
+# Setting Neovim as the default text editor.
+export EDITOR="nvim"
 
 # Shell integration for direnv.
 eval "$(direnv hook zsh)"
