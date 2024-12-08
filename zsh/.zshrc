@@ -46,13 +46,15 @@ precmd() { print -Pn "\e]0;%~\a" }
 # Add different directories to PATH.
 export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:~/.cargo/bin
-source $HOME/.aiken/bin/env
 
 # Setting Neovim as the default text editor.
 export EDITOR="nvim"
 
 # Shell integration for direnv.
 eval "$(direnv hook zsh)"
+
+# Git Credential Store.
+export GCM_CREDENTIAL_STORE=cache
 
 # Shell integration for opam.
 eval "$(opam env)"

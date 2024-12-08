@@ -71,8 +71,8 @@
   # Stylix Configuration.
   stylix = {
     enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
-    image = /home/sasdelli/Wallpapers/gruv.png;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
+    image = /home/sasdelli/Wallpapers/wallpaper.jpg;
     polarity = "dark";
     cursor = {
       package = pkgs.bibata-cursors;
@@ -89,8 +89,8 @@
         name = "DejaVu Sans";
       };
       monospace = {
-        package = pkgs.nerdfonts.override {fonts = ["Hack"];};
-        name = "Hack Nerd Font";
+        package = pkgs.nerdfonts.override {fonts = ["VictorMono"];};
+        name = "VictorMono Nerd Font";
       };
       emoji = {
         package = pkgs.noto-fonts-emoji;
@@ -108,10 +108,7 @@
   # Bootloader.
   boot.loader = {
     systemd-boot.enable = true;
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi";
-    };
+    efi.canTouchEfiVariables = true;
   };
 
   # Define your hostname.

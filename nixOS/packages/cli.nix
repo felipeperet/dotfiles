@@ -10,7 +10,9 @@
     wget # A tool to retrieve files using HTTP, HTTPS, FTP, and FTPS.
     curl # A tool and library for transferring data with URL syntax.
     git # A distributed version control system.
+    git-credential-manager # Secure Git credential storage with authentication.
     git-filter-repo # Quickly rewrite git repository history.
+    act # Run your GitHub Actions locally.
     lazygit # Simple terminal UI for git commands.
     loc # Count lines of code quickly.
     ncdu # Disk usage analyzer with an ncurses interface.
