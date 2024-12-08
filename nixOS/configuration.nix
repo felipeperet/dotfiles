@@ -89,7 +89,7 @@
         name = "DejaVu Sans";
       };
       monospace = {
-        package = pkgs.nerdfonts.override {fonts = ["VictorMono"];};
+        package = pkgs.nerd-fonts.victor-mono;
         name = "VictorMono Nerd Font";
       };
       emoji = {
@@ -107,7 +107,11 @@
 
   # Bootloader.
   boot.loader = {
-    systemd-boot.enable = true;
+    grub = {
+      enable = true;
+      device = "nodev";
+      efiSupport = true;
+    };
     efi.canTouchEfiVariables = true;
   };
 
@@ -177,7 +181,8 @@
 
   # Configuring fonts.
   fonts.packages = with pkgs; [
-    nerdfonts
+    pkgs.nerd-fonts.victor-mono
+    pkgs.nerd-fonts.fira-code
     monaspace
   ];
 
