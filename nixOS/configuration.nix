@@ -162,7 +162,10 @@
     };
 
     # Enable Bluetooth.
-    bluetooth.enable = true;
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
 
     # Disable pulseaudio.
     pulseaudio.enable = false;
