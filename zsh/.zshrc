@@ -44,8 +44,9 @@ alias opam-nix='nix flake init -t github:tweag/opam-nix'
 precmd() { print -Pn "\e]0;%~\a" }
 
 # Add different directories to PATH.
+export PATH="$HOME/.aiken/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH=$PATH:~/.cargo/bin
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # Setting Neovim as the default text editor.
 export EDITOR="nvim"
