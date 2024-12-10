@@ -11,10 +11,10 @@
   lib,
   ...
 }: {
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 
   home-manager = {
-    users.sasdelli.home.stateVersion = "24.11";
+    users.sasdelli.home.stateVersion = "25.05";
     backupFileExtension = "backup";
   };
 
