@@ -37,7 +37,6 @@
     yt-dlp # A youtube-dl fork with various improvements.
     imagemagick # A tool to create, edit, and compose bitmap images.
     ffmpeg # A solution to record, convert, and stream audio and video.
-    pandoc # A universal document converter.
     libinput # A tool for for handling input devices.
     evtest # A tool for testing input device.
     glxinfo # Display information about the GLX implementation.
@@ -45,6 +44,7 @@
     wine64 # 64-bit version of Wine.
     winetricks # Script to help install various Windows software on Wine.
     cmatrix # Console-based Matrix-style animation.
+    cava # Console-based Audio Visualizer for Alsa
     xdotool # Command-line X11 automation tool.
     xbindkeys # Binds keys to shell commands.
     xorg.xev # Print contents of X events.
