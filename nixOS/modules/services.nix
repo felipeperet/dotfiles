@@ -12,6 +12,9 @@
       xkb.variant = "";
     };
 
+    # Enable smart card support for GPG.
+    pcscd.enable = true;
+
     # Enable sound with pipewire.
     pipewire = {
       enable = true;

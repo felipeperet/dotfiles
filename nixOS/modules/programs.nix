@@ -16,6 +16,13 @@
       xwayland.enable = true;
     };
 
+    # Enable GPG agent for password management and SSH key support.
+    gnupg.agent = {
+      enable = true;
+      pinentryPackage = pkgs.pinentry-curses;
+      enableSSHSupport = true;
+    };
+
     # Enable Steam.
     steam = {
       enable = true;
