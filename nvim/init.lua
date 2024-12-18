@@ -29,16 +29,14 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	-- Lazy can manage itself.
 	"folke/lazy.nvim",
+	-- Catppuccin Color Scheme.
+	"catppuccin/nvim",
+	-- TokyoNight Color Scheme.
+	"folke/tokyonight.nvim",
 	-- Gruvbox Material Color Scheme.
 	"sainnhe/gruvbox-material",
 	-- Gruvbox Color Scheme.
 	"ellisonleao/gruvbox.nvim",
-	-- Melange Color Scheme.
-	"savq/melange-nvim",
-	-- TokyoNight Color Scheme.
-	"folke/tokyonight.nvim",
-	-- Catppuccin Color Scheme.
-	"catppuccin/nvim",
 	-- Status line plugin.
 	"nvim-lualine/lualine.nvim",
 	-- LSP.
@@ -151,11 +149,13 @@ require("lazy").setup({
 		},
 		event = "BufReadPost",
 		opts = {
-			provider_selector = function()
+			provider_selector = function(_, _, buftype)
+				if buftype == "nofile" then
+					return ""
+				end
 				return { "treesitter", "indent" }
 			end,
 		},
-
 		init = function()
 			vim.keymap.set("n", "zR", function()
 				require("ufo").openAllFolds()
@@ -316,15 +316,24 @@ vim.api.nvim_create_autocmd("FileType", {
 		"markdown",
 	},
 	callback = function()
-		vim.opt_local.foldlevel = 99
-		vim.opt_local.foldlevelstart = 99
-		vim.opt_local.foldenable = true
-		vim.opt_local.fillchars =
-			[[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-		if vim.bo.filetype == "markdown" then
-			vim.opt_local.foldcolumn = "0"
-		else
-			vim.opt_local.foldcolumn = "1"
+		if vim.bo.buftype ~= "nofile" then
+			vim.opt_local.foldlevel = 99
+			vim.opt_local.foldlevelstart = 99
+			vim.opt_local.foldenable = true
+
+			vim.opt_local.fillchars:append({
+				eob = " ",
+				fold = " ",
+				foldopen = "",
+				foldsep = " ",
+				foldclose = "",
+			})
+
+			if vim.bo.filetype == "markdown" then
+				vim.opt_local.foldcolumn = "0"
+			else
+				vim.opt_local.foldcolumn = "1"
+			end
 		end
 	end,
 })
@@ -535,11 +544,7 @@ require("gitsigns").setup()
 
 require("nvim_comment").setup()
 
-require("ufo").setup({
-	provider_selector = function(_, _, _)
-		return { "treesitter", "indent" }
-	end,
-})
+require("ufo").setup()
 
 require("toggleterm").setup({
 	direction = "float",
