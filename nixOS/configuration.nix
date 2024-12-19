@@ -105,6 +105,21 @@
     };
   };
 
+  # Sets power management of the CPU to performance mode.
+  powerManagement.cpuFreqGovernor = "performance";
+
+  # Kernel Parameters.
+  boot.kernelParams = [
+    # Reduces CPU power state problems.
+    "intel_idle.max_cstate=1"
+    # Better energy control for Intel CPUs.
+    "intel_pstate=active"
+    # Improves how Linux communicates with the computer's firmware.
+    "acpi_osi=Linux"
+    # Can help with SMBus issues.
+    "i8042.nopnp"
+  ];
+
   # Bootloader.
   boot.loader = {
     grub = {
