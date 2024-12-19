@@ -191,7 +191,11 @@ require("lazy").setup({
 	-- Auto trim trailing whitespaces and lines.
 	"cappyzawa/trim.nvim",
 	-- Auto pairs.
-	"windwp/nvim-autopairs",
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = true,
+	},
 	-- Direnv.
 	"direnv/direnv.vim",
 	-- Quarto mode for Neovim.
@@ -393,7 +397,7 @@ vim.api.nvim_exec2(
 	{}
 )
 
--- Disable ~ symbols in the Alpha buffer
+-- Disable ~ symbols in the Alpha buffer.
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "alpha",
 	callback = function()
@@ -719,26 +723,7 @@ require("trim").setup({
 	ft_blocklist = { "markdown" },
 })
 
-require("nvim-autopairs").setup({
-	check_ts = true,
-	ts_config = {
-		lua = { "string", "source" },
-		javascript = { "string", "template_string" },
-		java = false,
-	},
-	disable_filetype = { "TelescopePrompt", "spectre_panel" },
-	fast_wrap = {
-		map = "<M-e>",
-		chars = { "{", "[", "(", '"', "'" },
-		pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-		offset = 0,
-		end_key = "$",
-		keys = "qwertyuiopzxcvbnmasdfghjkl",
-		check_comma = true,
-		highlight = "PmenuSel",
-		highlight_grey = "LineNr",
-	},
-})
+require("nvim-autopairs").setup()
 
 require("nvim-tree").setup({
 	sort_by = "case_sensitive",
