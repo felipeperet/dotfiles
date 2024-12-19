@@ -79,7 +79,10 @@ require("lazy").setup({
 	-- Indentation guide.
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		commit = "9637670896b68805430e2f72cf5d16be5b97a22a",
+		main = "ibl",
+		---@module "ibl"
+		---@type ibl.config
+		opts = {},
 	},
 	-- Telescope.
 	{
@@ -687,14 +690,30 @@ require("notify").setup({
 	background_colour = "#000000",
 })
 
-require("indent_blankline").setup({
-	char = "│",
-	buftype_exclude = { "terminal" },
-	filetype_exclude = { "alpha" },
-	show_trailing_blankline_indent = false,
-	show_first_indent_level = false,
-	use_treesitter = true,
+require("ibl").setup({
+	indent = {
+		char = "│",
+		highlight = "LineNr",
+	},
+	exclude = {
+		buftypes = { "terminal" },
+		filetypes = { "alpha" },
+	},
+	whitespace = {
+		remove_blankline_trail = true,
+	},
+	scope = {
+		enabled = false,
+	},
 })
+
+-- Register hooks to hide first indent level.
+local hooks = require("ibl.hooks")
+hooks.register(
+	hooks.type.WHITESPACE,
+	hooks.builtin.hide_first_space_indent_level
+)
+hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_tab_indent_level)
 
 require("trim").setup({
 	ft_blocklist = { "markdown" },
