@@ -137,7 +137,7 @@ require("lazy").setup({
 								text = { builtin.foldfunc },
 								click = "v:lua.ScFa",
 							},
-							{ text = { "%s" }, click = "v:lua.ScSa" },
+							{ text = { "%s " }, click = "v:lua.ScSa" },
 							{
 								text = { builtin.lnumfunc, " " },
 								click = "v:lua.ScLa",
@@ -324,9 +324,9 @@ vim.api.nvim_create_autocmd("FileType", {
 			vim.opt_local.fillchars:append({
 				eob = " ",
 				fold = " ",
-				foldopen = "",
+				foldopen = "▾",
 				foldsep = " ",
-				foldclose = "",
+				foldclose = "▸",
 			})
 
 			if vim.bo.filetype == "markdown" then
@@ -540,7 +540,36 @@ dashboard.section.buttons.val = {
 -- Apply the updated settings to Alpha
 alpha.setup(dashboard.opts)
 
-require("gitsigns").setup()
+local signs = {
+	Error = " E",
+	Warn = " W",
+	Hint = " H",
+	Info = " I",
+}
+
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon })
+end
+
+require("gitsigns").setup({
+	signcolumn = true,
+	numhl = false,
+	linehl = false,
+	signs = {
+		add = { text = " │" },
+		change = {
+			text = " │",
+		},
+		delete = { text = " _" },
+		topdelete = {
+			text = " ‾",
+		},
+		changedelete = {
+			text = " ~",
+		},
+	},
+})
 
 require("nvim_comment").setup()
 
