@@ -368,8 +368,14 @@ setupFourSpacesIndentation()
 
 -- Function to create autocmd for setting colorcolumn based on the language.
 local function setupColorColumn()
-	local languages =
-		{ "rust", "aiken", "javascript", "typescript", "typescriptreact" }
+	local languages = {
+		"lean",
+		"rust",
+		"aiken",
+		"javascript",
+		"typescript",
+		"typescriptreact",
+	}
 	local col = 101
 
 	for _, lang in ipairs(languages) do
