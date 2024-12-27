@@ -389,6 +389,7 @@ local function setupColorColumn()
 	end
 
 	vim.cmd("autocmd FileType markdown setlocal colorcolumn=")
+	vim.cmd("autocmd BufNewFile,BufRead .env* setlocal colorcolumn=")
 end
 
 setupColorColumn()
