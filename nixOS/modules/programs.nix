@@ -38,7 +38,6 @@
     # Enable unpatched dynamic binaries.
     nix-ld.enable = true;
     nix-ld.libraries = with pkgs; [
-      openssl_1_1 # A library that implements the SSL and TLS protocols.
     ];
   };
 }

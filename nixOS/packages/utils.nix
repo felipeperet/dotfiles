@@ -14,6 +14,7 @@
     libsodium # Library for encryption.
     ncurses # Library for writing text-based UIs.
     gmp # Library for arbitrary precision arithmetic.
+    openssl # Cryptographic library that implements the SSL and TLS protocols.
     ############################################################################
   ];
 }

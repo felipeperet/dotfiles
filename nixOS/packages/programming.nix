@@ -83,25 +83,25 @@
     ############################################################################
     # Python
     # --------------------------------------------------------------------------
-    (python3.withPackages (ps:
-      with ps;
-      with python3Packages; [
-        pip
-        jupyter
-        ipython
-        pandas
-        numpy
-        matplotlib
-        scikit-learn
-        scikit-image
-        pyodbc
-        sqlalchemy
-        tabulate
-        xgboost
-        torch
-        torchvision
-        gdown
-      ]))
+    # (python3.withPackages (ps:
+    #   with ps;
+    #   with python3Packages; [
+    #     pip
+    #     jupyter
+    #     ipython
+    #     pandas
+    #     numpy
+    #     matplotlib
+    #     scikit-learn
+    #     scikit-image
+    #     pyodbc
+    #     sqlalchemy
+    #     tabulate
+    #     xgboost
+    #     torch
+    #     torchvision
+    #     gdown
+    #   ]))
     ############################################################################
 
     ############################################################################
