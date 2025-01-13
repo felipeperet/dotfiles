@@ -11,14 +11,14 @@
         mainBar = {
           layer = "top";
           position = "top";
-          height = 30;
+          height = 32;
           spacing = 4;
           margin-top = 6;
           margin-left = 8;
           margin-right = 8;
-          modules-left = ["hyprland/workspaces"];
+          modules-left = ["hyprland/workspaces" "tray"];
           modules-center = ["clock"];
-          modules-right = ["tray" "temperature" "cpu" "memory" "disk" "pulseaudio" "network" "battery"];
+          modules-right = ["temperature" "cpu" "memory" "disk" "pulseaudio" "network" "battery"];
           "hyprland/workspaces" = {
             disable-scroll = true;
             all-outputs = true;
@@ -35,10 +35,7 @@
           };
           "clock" = {
             tooltip-format = "<big>{:%d %B %Y}</big>\n<tt><small>{calendar}</small></tt>";
-            format = "{:%H:%M}";
-            format-alt = "{:%d/%m/%Y}";
-            on-click-right = "gnome-calendar";
-            on-click-middle = "gnome-clocks";
+            format = "󰅐  {:%I:%M %p     󰸗  %a, %d/%m/%Y}";
           };
           "cpu" = {
             format = "{usage}% ";
