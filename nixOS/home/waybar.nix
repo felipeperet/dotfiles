@@ -18,15 +18,15 @@
           margin-right = 8;
           modules-left = ["hyprland/workspaces"];
           modules-center = ["clock"];
-          modules-right = ["tray" "temperature" "cpu" "memory" "pulseaudio" "network" "battery"];
+          modules-right = ["tray" "temperature" "cpu" "memory" "disk" "pulseaudio" "network" "battery"];
           "hyprland/workspaces" = {
             disable-scroll = true;
             all-outputs = true;
             format = "{icon}";
             on-click = "activate";
             format-icons = {
-              urgent = " ";
-              default = " ";
+              urgent = "";
+              default = "";
             };
           };
           "tray" = {
@@ -35,19 +35,23 @@
           };
           "clock" = {
             tooltip-format = "<big>{:%d %B %Y}</big>\n<tt><small>{calendar}</small></tt>";
-            format = "{:%H:%M}  ";
+            format = "{:%H:%M}";
             format-alt = "{:%d/%m/%Y}";
             on-click-right = "gnome-calendar";
             on-click-middle = "gnome-clocks";
           };
           "cpu" = {
-            format = "{usage}%  ";
-            tooltip = false;
+            format = "{usage}% ";
             interval = 3;
           };
           "memory" = {
-            format = "{}%  ";
+            format = "{}% ";
             interval = 3;
+          };
+          "disk" = {
+            format = "{percentage_used}% 󱛟";
+            interval = 300;
+            path = "/";
           };
           "temperature" = {
             format = "{temperatureC}°C {icon}";
@@ -62,25 +66,25 @@
             };
             format = "{capacity}% {icon}";
             format-charging = "{capacity}% 󰂄";
-            format-plugged = "{capacity}%  ";
+            format-plugged = "{capacity}% ";
             format-alt = "{time} {icon}";
             format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
           };
           "network" = {
-            format-wifi = "{signalStrength}% 󰤨 ";
-            format-ethernet = "󰈀 ";
+            format-wifi = "{signalStrength}% 󰤨";
+            format-ethernet = "󰈀";
             tooltip-format = "{essid} via {gwaddr} ";
             format-linked = "{ifname} (No IP) ";
-            format-disconnected = "Disconnected 󰤭 ";
+            format-disconnected = "Disconnected 󰤭";
             format-alt = "{ipaddr}";
           };
           "pulseaudio" = {
             format = "{volume}% {icon}";
-            format-muted = "{volume}%  ";
+            format-muted = "{volume}% ";
             format-source = "{volume}% ";
-            format-source-muted = " ";
+            format-source-muted = "";
             format-icons = {
-              default = ["" " " " "];
+              default = ["" "" ""];
             };
             on-click = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
           };
