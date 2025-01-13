@@ -96,10 +96,10 @@
         name = "Noto Color Emoji";
       };
       sizes = {
-        applications = 14;
+        applications = 13;
         terminal = 18;
-        desktop = 12;
-        popups = 12;
+        desktop = 13;
+        popups = 13;
       };
     };
   };
@@ -109,7 +109,8 @@
 
   # Kernel Parameters.
   boot.kernelParams = [
-    # Reduces CPU power state problems.
+    # Prevents CPU from entering deep sleep states.
+    # Only use if experiencing freezes.
     "intel_idle.max_cstate=1"
     # Better energy control for Intel CPUs.
     "intel_pstate=active"
