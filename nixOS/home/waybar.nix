@@ -70,8 +70,8 @@
           "network" = {
             format-wifi = "{signalStrength}% 󰤨";
             format-ethernet = "󰈀";
-            tooltip-format = "{essid} via {gwaddr} ";
-            format-linked = "{ifname} (No IP) ";
+            tooltip-format = "{essid} via {gwaddr}";
+            format-linked = "{ifname} (No IP)";
             format-disconnected = "Disconnected 󰤭";
             format-alt = "{ipaddr}";
           };
