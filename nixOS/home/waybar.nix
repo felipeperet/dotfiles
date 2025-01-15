@@ -31,7 +31,7 @@
           };
           "tray" = {
             spacing = 10;
-            icon-size = 18;
+            icon-size = 20;
           };
           "clock" = {
             tooltip-format = "<big>{:%d %B %Y}</big>\n<tt><small>{calendar}</small></tt>";
@@ -51,7 +51,7 @@
             path = "/";
           };
           "temperature" = {
-            format = "{temperatureC}°C {icon}";
+            format = "{temperatureC}°C 󱃃";
             critical-threshold = 80;
             interval = 3;
             thermal-zone = 7;
