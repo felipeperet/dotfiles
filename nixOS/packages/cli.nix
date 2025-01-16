@@ -43,7 +43,6 @@
     wine64 # 64-bit version of Wine.
     winetricks # Script to help install various Windows software on Wine.
     cmatrix # Console-based Matrix-style animation.
-    cava # Console-based Audio Visualizer for Alsa
     xdotool # Command-line X11 automation tool.
     xbindkeys # Binds keys to shell commands.
     xorg.xev # Print contents of X events.
