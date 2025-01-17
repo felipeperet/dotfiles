@@ -21,7 +21,6 @@ in {
     swayimg # Wayland image viewer.
     zathura # A lightweight document viewer.
     mpv # A media player.
-    nemo # The Nemo file manager from the Cinnamon desktop.
     ############################################################################
   ];
 }

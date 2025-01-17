@@ -10,11 +10,17 @@
       syntaxHighlighting.enable = true;
     };
 
-    # Enable hyprland.
+    # Enable Hyprland.
     hyprland = {
       enable = true;
       xwayland.enable = true;
     };
+
+    # Enable Thunar.
+    thunar.enable = true;
+
+    # Enable Thunar to save preferences.
+    xfconf.enable = true;
 
     # Enable GPG agent for password management and SSH key support.
     gnupg.agent = {

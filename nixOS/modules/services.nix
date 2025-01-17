@@ -12,6 +12,10 @@
       xkb.variant = "";
     };
 
+    # Enable Thunar extra functionalities.
+    gvfs.enable = true; # Mount, trash, and other functionalities.
+    tumbler.enable = true; # Thumbnail support for images.
+
     # Enable smart card support for GPG.
     pcscd.enable = true;
 
