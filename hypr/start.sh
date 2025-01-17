@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 swww-daemon &
-swww img ~/Wallpapers/gruv.png &
+swww img ~/Wallpapers/cyber-gruv.png &
 
 nm-applet --indicator &
 blueman-applet &
