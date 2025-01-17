@@ -14,7 +14,6 @@ in {
     rofi-wayland # An application launcher, works with Wayland.
     swww # Efficient animated wallpaper daemon for wayland.
     networkmanagerapplet # Applet for managing network connections.
-    blueberry # Bluetooth configuration tool.
     grim # A tool to capture screenshots in Wayland.
     slurp # Select a region in Wayland.
     light # GNU/Linux application to control backlights.

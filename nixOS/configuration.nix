@@ -104,21 +104,12 @@
     };
   };
 
-  # Sets power management of the CPU to performance mode.
-  powerManagement.cpuFreqGovernor = "performance";
+  # Chaotic-Nyx Configuration.
+  chaotic.mesa-git.enable = false;
 
-  # Kernel Parameters.
-  boot.kernelParams = [
-    # Prevents CPU from entering deep sleep states.
-    # Only use if experiencing freezes.
-    "intel_idle.max_cstate=1"
-    # Better energy control for Intel CPUs.
-    "intel_pstate=active"
-    # Improves how Linux communicates with the computer's firmware.
-    "acpi_osi=Linux"
-    # Can help with SMBus issues.
-    "i8042.nopnp"
-  ];
+  # Setting a specific Kernel.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_cachyos;
 
   # Bootloader.
   boot.loader = {
@@ -129,6 +120,9 @@
     };
     efi.canTouchEfiVariables = true;
   };
+
+  # Sets power management of the CPU to performance mode.
+  powerManagement.cpuFreqGovernor = "performance";
 
   # Define your hostname.
   networking = {
@@ -181,9 +175,6 @@
       enable = true;
       powerOnBoot = true;
     };
-
-    # Disable pulseaudio.
-    pulseaudio.enable = false;
   };
 
   environment = {

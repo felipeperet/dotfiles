@@ -24,6 +24,9 @@
       jack.enable = false;
     };
 
+    # Enable Blueman for Bluetooh.
+    blueman.enable = true;
+
     # Enable libinput.
     libinput.enable = true;
 
@@ -35,5 +38,8 @@
 
     # Enable Flatpak.
     flatpak.enable = true;
+
+    # Disable Pulseaudio (using PipeWire instead).
+    pulseaudio.enable = false;
   };
 }

@@ -32,6 +32,9 @@
       dedicatedServer.openFirewall = true;
     };
 
+    # Enable Gamemode.
+    gamemode.enable = true;
+
     # Enable Noisetorch.
     noisetorch.enable = true;
 
