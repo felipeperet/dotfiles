@@ -30,7 +30,6 @@
     ./home/kitty.nix
     ./home/rofi.nix
     ./home/waybar.nix
-    ./home/wlogout.nix
     # Nix Packages
     # List packages installed in system profile. To search, run:
     # $ nix search wget
