@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-swww init &
-swww img ~/Wallpapers/nixOS-wallpaper.png &
+swww-daemon &
+swww img ~/Wallpapers/gruv.png &
 
 nm-applet --indicator &
+blueman-applet &
 
 waybar &
