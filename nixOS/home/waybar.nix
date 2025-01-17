@@ -18,7 +18,16 @@
           margin-right = 8;
           modules-left = ["hyprland/workspaces" "tray"];
           modules-center = ["clock"];
-          modules-right = ["temperature" "cpu" "memory" "disk" "pulseaudio" "network" "battery"];
+          modules-right = [
+            "temperature"
+            "cpu"
+            "memory"
+            "disk"
+            "pulseaudio"
+            "network"
+            "battery"
+            "custom/power"
+          ];
           "hyprland/workspaces" = {
             disable-scroll = true;
             all-outputs = true;
@@ -68,6 +77,11 @@
             format-alt = "{time} {icon}";
             format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
           };
+          "custom/power" = {
+            format = "";
+            on-click = "wlogout";
+            tooltip = false;
+          };
           "network" = {
             format-wifi = "{signalStrength}% 󰤨";
             format-ethernet = "󰈀";
@@ -99,10 +113,11 @@
         }
         #workspaces button {
           padding: 0 0.5rem;
-          border-radius: 6px;
+          border-radius: 10px;
           transition: all 0.2s ease;
         }
         #workspaces button.active {
+          color: @theme_selected_fg_color;
           background: @theme_selected_bg_color;
         }
         #workspaces button.urgent {
@@ -115,8 +130,27 @@
         #disk,
         #temperature,
         #network,
-        #pulseaudio,
         #tray {
+          padding: 0 0.7rem;
+        }
+        #pulseaudio {
+          color: @theme_fg_color;
+          background: @theme_bg_color;
+          padding: 0 0.7rem;
+        }
+        #pulseaudio:hover {
+          color: @theme_selected_bg_color;
+          background: @theme_bg_color;
+          padding: 0 0.7rem;
+        }
+        #custom-power {
+          color: @theme_fg_color;
+          background: @theme_bg_color;
+          padding: 0 0.7rem;
+        }
+        #custom-power:hover {
+          color: @theme_selected_bg_color;
+          background: @theme_bg_color;
           padding: 0 0.7rem;
         }
         #battery.charging, #battery.plugged {

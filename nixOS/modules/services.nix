@@ -3,7 +3,7 @@
     # Configure xserver.
     xserver = {
       enable = true;
-      videoDrivers = ["nvidia" "modesetting"];
+      videoDrivers = ["modesetting"];
       displayManager.gdm = {
         enable = true;
         wayland = true;

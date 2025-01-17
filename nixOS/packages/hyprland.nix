@@ -13,6 +13,7 @@ in {
     libnotify # Library for sending desktop notifications.
     rofi-wayland # An application launcher, works with Wayland.
     swww # Efficient animated wallpaper daemon for wayland.
+    wlogout # Wayland based logout menu.
     networkmanagerapplet # Applet for managing network connections.
     grim # A tool to capture screenshots in Wayland.
     slurp # Select a region in Wayland.

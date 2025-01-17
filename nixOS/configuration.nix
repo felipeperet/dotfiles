@@ -30,6 +30,7 @@
     ./home/kitty.nix
     ./home/rofi.nix
     ./home/waybar.nix
+    ./home/wlogout.nix
     # Nix Packages
     # List packages installed in system profile. To search, run:
     # $ nix search wget
@@ -120,9 +121,6 @@
     };
     efi.canTouchEfiVariables = true;
   };
-
-  # Sets power management of the CPU to performance mode.
-  powerManagement.cpuFreqGovernor = "performance";
 
   # Define your hostname.
   networking = {
