@@ -162,7 +162,7 @@
     graphics.enable = true;
 
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
       modesetting.enable = true;
       open = false; # Use closed-source drivers.
     };
