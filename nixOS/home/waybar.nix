@@ -61,7 +61,6 @@
           };
           "temperature" = {
             format = "{temperatureC}°C 󱃃";
-            critical-threshold = 80;
             interval = 3;
             thermal-zone = 7;
           };
@@ -157,9 +156,6 @@
           color: @success_color;
         }
         #battery.critical:not(.charging) {
-          color: @error_color;
-        }
-        #temperature.critical {
           color: @error_color;
         }
         #pulseaudio.muted {
