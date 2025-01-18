@@ -9,6 +9,9 @@
     tldr # Simplified and community-driven man pages.
     wget # A tool to retrieve files using HTTP, HTTPS, FTP, and FTPS.
     curl # A tool and library for transferring data with URL syntax.
+    zip # A compression utility.
+    unzip # A decompression utility.
+    rar # Utility for RAR archives.
     git # A distributed version control system.
     git-filter-repo # Quickly rewrite git repository history.
     act # Run your GitHub Actions locally.
@@ -17,11 +20,10 @@
     loc # Count lines of code quickly.
     ncdu # Disk usage analyzer with an ncurses interface.
     btop # Monitor of resources.
+    sysbench # Modular, cross-platform and multi-threaded benchmark tool.
+    glxinfo # Display information about the GLX implementation.
     trash-cli # Command line interface to the freedesktop.org trashcan.
     gdown # A CLI tool for downloading large files from Google Drive.
-    zip # A compression utility.
-    unzip # A decompression utility.
-    rar # Utility for RAR archives.
     unrar # Utility for RAR archives.
     killall # A tool to kill all instances of a process.
     direnv # An environment switcher for the shell.
@@ -38,7 +40,6 @@
     ffmpeg # A solution to record, convert, and stream audio and video.
     libinput # A tool for for handling input devices.
     evtest # A tool for testing input device.
-    glxinfo # Display information about the GLX implementation.
     wine # Software for running Windows applications on Linux.
     wine64 # 64-bit version of Wine.
     winetricks # Script to help install various Windows software on Wine.
