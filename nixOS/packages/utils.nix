@@ -15,9 +15,6 @@
     ncurses # Library for writing text-based UIs.
     gmp # Library for arbitrary precision arithmetic.
     openssl # Cryptographic library that implements the SSL and TLS protocols.
-    libunity # Library for integrating with all aspects of the Unity shell.
-    # Not sure if this last one will work.
-    # Trying it because of the notification badge of Vesktop.
     ############################################################################
   ];
 }
