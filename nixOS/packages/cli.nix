@@ -9,6 +9,7 @@
     tldr # Simplified and community-driven man pages.
     wget # A tool to retrieve files using HTTP, HTTPS, FTP, and FTPS.
     curl # A tool and library for transferring data with URL syntax.
+    kubo # IPFS implementation in Go.
     zip # A compression utility.
     unzip # A decompression utility.
     rar # Utility for RAR archives.
