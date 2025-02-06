@@ -119,6 +119,7 @@
       efiSupport = true;
     };
     efi.canTouchEfiVariables = true;
+    systemd-boot.enable = false;
   };
 
   # Define your hostname.
