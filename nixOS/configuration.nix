@@ -167,12 +167,7 @@
   hardware = {
     # Enable Graphics Cards.
     graphics.enable = true;
-
-    nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
-      modesetting.enable = true;
-      open = false; # Use closed-source drivers.
-    };
+    graphics.enable32Bit = true;
 
     # Enable Bluetooth.
     bluetooth = {
