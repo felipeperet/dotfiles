@@ -174,6 +174,20 @@
       enable = true;
       powerOnBoot = true;
     };
+
+    # Enable i2c (for OpenRGB).
+    i2c.enable = true;
+  };
+
+  # Enable DeepCool AK620 Digital monitoring.
+  systemd.services.deepcool-digital = {
+    description = "DeepCool Digital";
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      ExecStart = "/home/sasdelli/scripts/deepcool-digital-linux";
+      Type = "simple";
+      User = "sasdelli";
+    };
   };
 
   environment = {
