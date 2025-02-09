@@ -62,7 +62,7 @@
           "temperature" = {
             format = "{temperatureC}°C 󱃃";
             interval = 3;
-            thermal-zone = 7;
+            hwmon-path = "/sys/class/hwmon/hwmon1/temp1_input";
           };
           "battery" = {
             states = {
