@@ -13,6 +13,7 @@
     zip # A compression utility.
     unzip # A decompression utility.
     rar # Utility for RAR archives.
+    unrar # Utility for RAR archives.
     git # A distributed version control system.
     git-filter-repo # Quickly rewrite git repository history.
     act # Run your GitHub Actions locally.
@@ -21,12 +22,13 @@
     tokei # Program that allows you to count your code, quickly.
     ncdu # Disk usage analyzer with an ncurses interface.
     btop # Monitor of resources.
+    lm_sensors # Tools for reading hardware sensors.
+    dmidecode # Tool that reads information about your system's hardware.
     radeontop # Top-like tool for viewing AMD Radeon GPU utilization.
     sysbench # Modular, cross-platform and multi-threaded benchmark tool.
     glxinfo # Display information about the GLX implementation.
     trash-cli # Command line interface to the freedesktop.org trashcan.
     gdown # A CLI tool for downloading large files from Google Drive.
-    unrar # Utility for RAR archives.
     killall # A tool to kill all instances of a process.
     direnv # An environment switcher for the shell.
     tree # A recursive directory listing command.
