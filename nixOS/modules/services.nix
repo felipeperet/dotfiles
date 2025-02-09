@@ -3,7 +3,7 @@
     # Configure xserver.
     xserver = {
       enable = true;
-      videoDrivers = ["modesetting"];
+      videoDrivers = ["amdgpu"];
       displayManager.gdm = {
         enable = true;
         wayland = true;
@@ -42,6 +42,14 @@
 
     # Enable Flatpak.
     flatpak.enable = true;
+
+    # Enable OpenRGB.
+    hardware.openrgb.enable = true;
+
+    # Necessary for Rootless mode in DeepCool AK620 Digital monitoring.
+    udev.extraRules = ''
+      SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3633", MODE="0666"
+    '';
 
     # Disable Pulseaudio (using PipeWire instead).
     pulseaudio.enable = false;
