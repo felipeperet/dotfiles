@@ -18,9 +18,10 @@
     act # Run your GitHub Actions locally.
     lazygit # Simple terminal UI for git commands.
     gnupg # A GPL OpenPGP implementation.
-    loc # Count lines of code quickly.
+    tokei # Program that allows you to count your code, quickly.
     ncdu # Disk usage analyzer with an ncurses interface.
     btop # Monitor of resources.
+    radeontop # Top-like tool for viewing AMD Radeon GPU utilization.
     sysbench # Modular, cross-platform and multi-threaded benchmark tool.
     glxinfo # Display information about the GLX implementation.
     trash-cli # Command line interface to the freedesktop.org trashcan.
