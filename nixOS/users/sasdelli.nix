@@ -4,7 +4,7 @@
     isNormalUser = true;
     shell = pkgs.zsh;
     description = "Felipe Sasdelli";
-    extraGroups = ["networkmanager" "wheel" "input" "docker" "audio"];
+    extraGroups = ["networkmanager" "wheel" "input" "docker" "audio" "i2c"];
     packages = with pkgs; [firefox];
   };
 }
