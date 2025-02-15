@@ -25,7 +25,9 @@
     lm_sensors # Tools for reading hardware sensors.
     dmidecode # Tool that reads information about your system's hardware.
     radeontop # Top-like tool for viewing AMD Radeon GPU utilization.
+    cpu-x # Gathers information on CPU, motherboard and more.
     sysbench # Modular, cross-platform and multi-threaded benchmark tool.
+    stress-ng # Stress test a computer system.
     glxinfo # Display information about the GLX implementation.
     trash-cli # Command line interface to the freedesktop.org trashcan.
     gdown # A CLI tool for downloading large files from Google Drive.
