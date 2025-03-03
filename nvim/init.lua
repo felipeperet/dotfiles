@@ -232,44 +232,44 @@ require("lazy").setup({
 -- Set color scheme to Gruvbox Material.
 vim.cmd([[
   syntax enable
-  colorscheme gruvbox-material
+  colorscheme catppuccin-frappe
 ]])
 
 -- Set the colors for Yazi to match Catppuccin.
--- vim.api.nvim_create_autocmd("User", {
--- 	pattern = "YaziReady",
--- 	callback = function()
--- 		vim.api.nvim_set_hl(0, "YaziDirectory", { fg = "#8caaee", bg = "NONE" })
--- 		vim.api.nvim_set_hl(0, "YaziFile", { fg = "#c6d0f5", bg = "NONE" })
--- 		vim.api.nvim_set_hl(0, "YaziSymlink", { fg = "#ca9ee6", bg = "NONE" })
--- 		vim.api.nvim_set_hl(0, "YaziSocket", { fg = "#a6d189", bg = "NONE" })
--- 		vim.api.nvim_set_hl(0, "YaziBlock", { fg = "#ef9f76", bg = "NONE" })
--- 		vim.api.nvim_set_hl(0, "YaziFifo", { fg = "#99d1db", bg = "NONE" })
--- 		vim.api.nvim_set_hl(0, "YaziChar", { fg = "#ca9ee6", bg = "NONE" })
--- 		vim.api.nvim_set_hl(0, "YaziMissing", { fg = "#e78284", bg = "NONE" })
--- 		vim.api.nvim_set_hl(0, "YaziCursorLine", { bg = "#414559" })
--- 		vim.api.nvim_set_hl(0, "YaziNormal", { fg = "#c6d0f5", bg = "NONE" })
--- 		vim.api.nvim_set_hl(0, "YaziBorder", { fg = "#626880", bg = "NONE" })
--- 	end,
--- })
+vim.api.nvim_create_autocmd("User", {
+	pattern = "YaziReady",
+	callback = function()
+		vim.api.nvim_set_hl(0, "YaziDirectory", { fg = "#8caaee", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziFile", { fg = "#c6d0f5", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziSymlink", { fg = "#ca9ee6", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziSocket", { fg = "#a6d189", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziBlock", { fg = "#ef9f76", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziFifo", { fg = "#99d1db", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziChar", { fg = "#ca9ee6", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziMissing", { fg = "#e78284", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziCursorLine", { bg = "#414559" })
+		vim.api.nvim_set_hl(0, "YaziNormal", { fg = "#c6d0f5", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziBorder", { fg = "#626880", bg = "NONE" })
+	end,
+})
 
 -- Set the colors for ToggleTerm to match Catppuccin.
--- vim.api.nvim_set_var("terminal_color_0", "#303446")
--- vim.api.nvim_set_var("terminal_color_1", "#e78284")
--- vim.api.nvim_set_var("terminal_color_2", "#a6d189")
--- vim.api.nvim_set_var("terminal_color_3", "#e5c890")
--- vim.api.nvim_set_var("terminal_color_4", "#8caaee")
--- vim.api.nvim_set_var("terminal_color_5", "#ca9ee6")
--- vim.api.nvim_set_var("terminal_color_6", "#99d1db")
--- vim.api.nvim_set_var("terminal_color_7", "#c6d0f5")
--- vim.api.nvim_set_var("terminal_color_8", "#626880")
--- vim.api.nvim_set_var("terminal_color_9", "#e78284")
--- vim.api.nvim_set_var("terminal_color_10", "#a6d189")
--- vim.api.nvim_set_var("terminal_color_11", "#e5c890")
--- vim.api.nvim_set_var("terminal_color_12", "#8caaee")
--- vim.api.nvim_set_var("terminal_color_13", "#ca9ee6")
--- vim.api.nvim_set_var("terminal_color_14", "#99d1db")
--- vim.api.nvim_set_var("terminal_color_15", "#c6d0f5")
+vim.api.nvim_set_var("terminal_color_0", "#303446")
+vim.api.nvim_set_var("terminal_color_1", "#e78284")
+vim.api.nvim_set_var("terminal_color_2", "#a6d189")
+vim.api.nvim_set_var("terminal_color_3", "#e5c890")
+vim.api.nvim_set_var("terminal_color_4", "#8caaee")
+vim.api.nvim_set_var("terminal_color_5", "#ca9ee6")
+vim.api.nvim_set_var("terminal_color_6", "#99d1db")
+vim.api.nvim_set_var("terminal_color_7", "#c6d0f5")
+vim.api.nvim_set_var("terminal_color_8", "#626880")
+vim.api.nvim_set_var("terminal_color_9", "#e78284")
+vim.api.nvim_set_var("terminal_color_10", "#a6d189")
+vim.api.nvim_set_var("terminal_color_11", "#e5c890")
+vim.api.nvim_set_var("terminal_color_12", "#8caaee")
+vim.api.nvim_set_var("terminal_color_13", "#ca9ee6")
+vim.api.nvim_set_var("terminal_color_14", "#99d1db")
+vim.api.nvim_set_var("terminal_color_15", "#c6d0f5")
 
 -- Disable netrw at the very start of your init.lua (strongly advised).
 vim.api.nvim_set_var("loaded_netrw", 1)
@@ -748,7 +748,7 @@ require("nvim-tree").setup({
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
-		theme = "gruvbox-material",
+		theme = "catppuccin-frappe",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		always_divide_middle = true,
