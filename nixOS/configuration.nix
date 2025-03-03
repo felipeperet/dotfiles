@@ -70,7 +70,7 @@
   # Stylix Configuration.
   stylix = {
     enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-medium.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
     image = /home/sasdelli/Wallpapers/gruv.png;
     polarity = "dark";
     cursor = {
