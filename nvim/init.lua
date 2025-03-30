@@ -232,7 +232,7 @@ require("lazy").setup({
 -- Set color scheme to Gruvbox Material.
 vim.cmd([[
   syntax enable
-  colorscheme catppuccin-frappe
+  colorscheme catppuccin-macchiato
 ]])
 
 -- Set the colors for Yazi to match Catppuccin.
@@ -748,7 +748,7 @@ require("nvim-tree").setup({
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
-		theme = "catppuccin-frappe",
+		theme = "catppuccin-macchiato",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		always_divide_middle = true,
