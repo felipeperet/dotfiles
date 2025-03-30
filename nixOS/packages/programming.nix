@@ -100,7 +100,9 @@
         xgboost
         torch
         torchvision
+        torchsummary
         gdown
+        ipykernel
       ]))
     ############################################################################
 
