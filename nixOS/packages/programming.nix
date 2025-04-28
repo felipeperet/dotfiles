@@ -84,8 +84,7 @@
     # Python
     # --------------------------------------------------------------------------
     (python3.withPackages (ps:
-      with ps;
-      with python3Packages; [
+      with ps; [
         pip
         jupyter
         ipython
