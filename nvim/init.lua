@@ -211,6 +211,15 @@ require("lazy").setup({
 		"aiken-lang/editor-integration-nvim",
 		event = { "BufReadPre *.ak", "BufNewFile *.ak" },
 	},
+	-- Agda Theorem Prover.
+	{
+		"isovector/cornelis",
+		name = "cornelis",
+		ft = "agda",
+		build = "stack install",
+		dependencies = { "neovimhaskell/nvim-hs.vim", "kana/vim-textobj-user" },
+		version = "*",
+	},
 	-- Lean Theorem Prover.
 	{
 		"Julian/lean.nvim",
@@ -351,6 +360,9 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
+-- Settings for agda-mode.
+vim.api.nvim_set_var("cornelis_split_location", "bottom")
+
 -- Function to create autocmd for 4 spaces indentation.
 local function setupFourSpacesIndentation()
 	local four_spaces_languages = { "c", "cpp", "rust", "haskell" }
@@ -369,6 +381,7 @@ setupFourSpacesIndentation()
 -- Function to create autocmd for setting colorcolumn based on the language.
 local function setupColorColumn()
 	local languages = {
+		"agda",
 		"lean",
 		"rust",
 		"aiken",
@@ -886,6 +899,22 @@ keymap(
 )
 keymap("n", "<S-f>", ":Gitsigns preview_hunk_inline<CR>", opts)
 keymap({ "n", "x" }, "<S-p>", ":Gitsigns reset_hunk<CR>", opts)
+
+-- Cornelis Agda Keymaps.
+keymap("n", "<C-c><C-l>", "<Cmd>CornelisLoad<CR>", opts)
+keymap("n", "<C-c><C-g>", "<Cmd>CornelisGoals<CR>", opts)
+keymap("n", "<C-c><C-s>", "<Cmd>CornelisSolve<CR>", opts)
+keymap("n", "<C-c><C-d>", "<Cmd>CornelisGoToDefinition<CR>", opts)
+keymap("n", "<C-c><C-b>", "<Cmd>CornelisPrevGoal<CR>:sleep 5m<CR>zz", opts)
+keymap("n", "<C-c><C-f>", "<Cmd>CornelisNextGoal<CR>:sleep 5m<CR>zz", opts)
+keymap("n", "<C-c><C-r>", "<Cmd>CornelisRefine<CR>", opts)
+keymap("n", "<C-c><C-a>", "<Cmd>CornelisAuto<CR>", opts)
+keymap("n", "<C-c><C-c>", "<Cmd>CornelisMakeCase<CR>", opts)
+keymap("n", "<C-c><C-,>", "<Cmd>CornelisTypeContext<CR>", opts)
+keymap("n", "<C-c><C-i>", "<Cmd>CornelisTypeInfer<CR>", opts)
+keymap("n", "<C-c><C-n>", "<Cmd>CornelisNormalize<CR>", opts)
+keymap("n", "<C-c><C-k>", "<Cmd>CornelisQuestionToMeta<CR>", opts)
+keymap("n", "<C-c><C-x><C-r>", "<Cmd>CornelisRestart<CR>", opts)
 
 -- Function to increase the font size.
 local function increase_font_size()
