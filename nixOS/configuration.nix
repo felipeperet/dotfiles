@@ -71,7 +71,7 @@
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
-    image = /home/sasdelli/Wallpapers/gruv.png;
+    image = /home/sasdelli/Wallpapers/Gruvbox/gruv.png;
     polarity = "dark";
     cursor = {
       package = pkgs.bibata-cursors;
