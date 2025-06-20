@@ -4,7 +4,6 @@
     # CLI
     # --------------------------------------------------------------------------
     fastfetch # Like neofetch, but much faster because written in C.
-    yazi # Blazing fast terminal file manager written in Rust.
     zoxide # A fast cd command that learns your habits.
     tldr # Simplified and community-driven man pages.
     wget # A tool to retrieve files using HTTP, HTTPS, FTP, and FTPS.

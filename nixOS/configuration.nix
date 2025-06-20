@@ -30,6 +30,7 @@
     ./home/kitty.nix
     ./home/rofi.nix
     ./home/waybar.nix
+    ./home/yazi.nix
     # Nix Packages
     # List packages installed in system profile. To search, run:
     # $ nix search wget
@@ -70,7 +71,7 @@
   # Stylix Configuration.
   stylix = {
     enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     image = /home/sasdelli/Wallpapers/Gruvbox/gruv.png;
     polarity = "dark";
     cursor = {
@@ -203,9 +204,10 @@
 
   # Configuring fonts.
   fonts.packages = with pkgs; [
-    pkgs.nerd-fonts.victor-mono
-    pkgs.nerd-fonts.fira-code
-    monaspace
+    nerd-fonts.victor-mono
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.monaspace
   ];
 
   xdg = {
