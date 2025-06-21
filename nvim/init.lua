@@ -891,7 +891,7 @@ keymap("n", "<leader>a", ":Alpha<CR>", opts)
 -- Deletes all buffers and restart all LSP servers.
 keymap(
 	"n",
-	"<leader>abd",
+	"<leader>0",
 	":bufdo bd<CR>:LspRestart<CR>:Alpha<CR>:bdelete#<CR>",
 	opts
 )
