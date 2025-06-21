@@ -419,14 +419,6 @@ vim.api.nvim_exec2(
 	{}
 )
 
--- Enables autoformatting for Aiken files.
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*.ak",
-	callback = function()
-		vim.lsp.buf.format({ async = false })
-	end,
-})
-
 -- Disable ~ symbols in the Alpha buffer.
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "alpha",
@@ -511,12 +503,13 @@ lspconfig.ocamllsp.setup({})
 -- C/C++ LSP
 lspconfig.clangd.setup({})
 
--- vim.api.nvim_create_autocmd("BufWritePre", {
--- 	pattern = "*.ak",
--- 	callback = function()
--- 		vim.lsp.buf.format({ async = false })
--- 	end,
--- })
+-- Enables autoformatting for Aiken files.
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*.ak",
+	callback = function()
+		vim.lsp.buf.format({ async = false })
+	end,
+})
 
 -- Conform Formatting.
 require("conform").setup({
