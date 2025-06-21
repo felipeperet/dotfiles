@@ -89,23 +89,28 @@ require("lazy").setup({
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
 	},
+	-- Harpoon.
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+	},
 	-- Yazi.
 	{
 		"mikavilpas/yazi.nvim",
 		event = "VeryLazy",
 		keys = {
 			{
-				"<Space>f",
+				"<leader>f",
 				"<cmd>Yazi<cr>",
 				desc = "Open yazi at the current file",
 			},
 			{
-				"<Space>d",
+				"<leader>d",
 				"<cmd>Yazi cwd<cr>",
 				desc = "Open the file manager in nvim's working directory",
 			},
 			{
-				"<Space>r",
+				"<leader>r",
 				"<cmd>Yazi toggle<cr>",
 				desc = "Resume the last yazi session",
 			},
@@ -184,9 +189,6 @@ require("lazy").setup({
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
-		keys = {
-			{ "<Space>lg", "<cmd>LazyGitCurrentFile<cr>", desc = "LazyGit" },
-		},
 	},
 	-- Auto trim trailing whitespaces and lines.
 	"cappyzawa/trim.nvim",
@@ -241,7 +243,7 @@ require("lazy").setup({
 -- Set color scheme to Gruvbox Material.
 vim.cmd([[
   syntax enable
-  colorscheme catppuccin-macchiato
+  colorscheme catppuccin-mocha
 ]])
 
 -- Set the colors for Yazi to match Catppuccin.
@@ -620,6 +622,14 @@ require("toggleterm").setup({
 	},
 })
 
+local harpoon = require("harpoon")
+harpoon:setup({
+	settings = {
+		save_on_toggle = false,
+		sync_on_ui_close = false,
+	},
+})
+
 local cmp = require("cmp")
 
 cmp.setup({
@@ -770,8 +780,6 @@ require("lualine").setup({
 	options = {
 		icons_enabled = true,
 		theme = "catppuccin-macchiato",
-		-- component_separators = { left = "", right = "" },
-		-- section_separators = { left = "", right = "" },
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		always_divide_middle = true,
@@ -798,9 +806,6 @@ require("lualine").setup({
 		lualine_c = { "filename" },
 		lualine_x = { "location" },
 	},
-	tabline = {
-		lualine_a = { "buffers" },
-	},
 })
 
 vim.api.nvim_create_autocmd("ColorScheme", {
@@ -818,6 +823,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 --------------------------------------------------------------------------------
 -- 6. Keymaps
 --------------------------------------------------------------------------------
+-- Set the leader key to Space.
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 -- Shorten function name.
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
@@ -831,9 +840,14 @@ keymap({ "n", "x" }, "}", "}zz", opts)
 -- Move to end of file while maintaining the cursor centered.
 keymap("n", "<S-g>", "<S-g>zz", opts)
 
--- Keybindings for searching files and words with Telescope.
-keymap("n", "<Space>sf", "<Cmd>Telescope find_files<CR>", opts)
-keymap("n", "<Space>sw", "<Cmd>Telescope live_grep<CR>", opts)
+-- Keybindings for searching with Telescope.
+keymap("n", "<leader>sf", "<Cmd>Telescope find_files<CR>", opts)
+keymap("n", "<leader>sw", "<Cmd>Telescope live_grep<CR>", opts)
+keymap("n", "<leader>sb", "<Cmd>Telescope buffers<CR>", opts)
+keymap("n", "<leader>sg", "<Cmd>Telescope git_status<CR>", opts)
+
+-- Open LazyGit.
+keymap("n", "<leader>lg", "<cmd>LazyGitCurrentFile<cr>", opts)
 
 -- Keybindings for hovering LSP information with <Shift-k>.
 keymap("n", "<S-k>", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
@@ -859,7 +873,7 @@ keymap("n", "<C-a>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
 -- Keybinding to toggle the terminal and open it in the home directory if in the
 -- Alpha buffer, otherwise in the current file's directory.
-keymap("n", "<Space>t", function()
+keymap("n", "<leader>t", function()
 	local is_alpha = vim.bo.filetype == "alpha"
 	local term_dir = is_alpha and vim.fn.expand("~") or vim.fn.expand("%:p:h")
 	require("toggleterm.terminal").Terminal:new({ dir = term_dir }):toggle()
@@ -872,12 +886,12 @@ keymap("t", "<C-h>", [[<C-\><C-n><C-w>h]], opts)
 keymap("n", "<C-l>", "<Cmd>ToggleTerm direction=float<CR>", opts)
 
 -- Go to Dashboard.
-keymap("n", "<Space>a", ":Alpha<CR>", opts)
+keymap("n", "<leader>a", ":Alpha<CR>", opts)
 
 -- Deletes all buffers and restart all LSP servers.
 keymap(
 	"n",
-	"<Space>bd",
+	"<leader>abd",
 	":bufdo bd<CR>:LspRestart<CR>:Alpha<CR>:bdelete#<CR>",
 	opts
 )
@@ -899,6 +913,29 @@ keymap(
 )
 keymap("n", "<S-f>", ":Gitsigns preview_hunk_inline<CR>", opts)
 keymap({ "n", "x" }, "<S-p>", ":Gitsigns reset_hunk<CR>", opts)
+
+-- Harpoon Keymaps.
+keymap("n", "<leader>h", function()
+	harpoon:list():add()
+end, opts)
+keymap("n", "<leader><leader>", function()
+	harpoon.ui:toggle_quick_menu(harpoon:list())
+end, opts)
+keymap("n", "<leader>1", function()
+	harpoon:list():select(1)
+end, opts)
+keymap("n", "<leader>2", function()
+	harpoon:list():select(2)
+end, opts)
+keymap("n", "<leader>3", function()
+	harpoon:list():select(3)
+end, opts)
+keymap("n", "<leader>4", function()
+	harpoon:list():select(4)
+end, opts)
+keymap("n", "<leader>5", function()
+	harpoon:list():select(5)
+end, opts)
 
 -- Cornelis Agda Keymaps.
 keymap("n", "<C-c><C-l>", "<Cmd>CornelisLoad<CR>", opts)
@@ -945,4 +982,16 @@ keymap("n", "<C-+>", increase_font_size, opts)
 keymap("n", "<C-_>", decrease_font_size, opts)
 
 -- Keymap for splitting the window (vertically).
-keymap("n", "<Space>v", ":vs<CR>", opts)
+keymap("n", "<leader>v", ":vs<CR>", opts)
+
+-- Save.
+keymap("n", "<leader>w", ":w<CR>", opts)
+
+-- Quit.
+keymap("n", "<leader>q", ":q<CR>", opts)
+
+-- Delete buffer.
+keymap("n", "<leader>bd", ":bd<CR>", opts)
+
+-- Erase highlight.
+keymap("n", "<leader>noh", ":noh<CR>", opts)
