@@ -836,7 +836,12 @@ keymap("n", "<S-g>", "<S-g>zz", opts)
 -- Keybindings for searching with Telescope.
 keymap("n", "<leader>sf", "<Cmd>Telescope find_files<CR>", opts)
 keymap("n", "<leader>sw", "<Cmd>Telescope live_grep<CR>", opts)
-keymap("n", "<leader>sb", "<Cmd>Telescope buffers<CR>", opts)
+keymap(
+	"n",
+	"<leader>sb",
+	"<Cmd>Telescope buffers sort_mru=true sort_lastused=true<CR>",
+	opts
+)
 keymap("n", "<leader>sg", "<Cmd>Telescope git_status<CR>", opts)
 
 -- Open LazyGit.
