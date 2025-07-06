@@ -232,7 +232,7 @@ require("lazy").setup({
 		},
 		opts = {
 			lsp = {},
-			mappings = true,
+			mappings = false,
 		},
 	},
 })
@@ -984,6 +984,9 @@ keymap("n", "<leader>v", ":vs<CR>", opts)
 
 -- Save.
 keymap("n", "<leader>w", ":w<CR>", opts)
+
+-- Edit.
+keymap("n", "<leader>e", ":e<CR>", opts)
 
 -- Quit.
 keymap("n", "<leader>q", ":q<CR>", opts)
