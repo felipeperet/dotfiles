@@ -11,7 +11,8 @@
     obs-studio # Open Broadcaster Software Studio.
     lxappearance-gtk2 # GTK theme switcher.
     zoom-us # Video conferencing application.
-    keepass # GUI password manager with strong cryptography.
+    keepassxc # Offline password manager with many features.
+    zotero # Collect, organize, cite, and share your research sources.
     ############################################################################
   ];
 }
