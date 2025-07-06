@@ -13,6 +13,7 @@
     zoom-us # Video conferencing application.
     keepassxc # Offline password manager with many features.
     zotero # Collect, organize, cite, and share your research sources.
+    libreoffice # Comprehensive, professional-quality productivity suite.
     ############################################################################
   ];
 }
