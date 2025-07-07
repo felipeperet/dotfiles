@@ -13,6 +13,7 @@
     unzip # A decompression utility.
     rar # Utility for RAR archives.
     unrar # Utility for RAR archives.
+    protonmail-bridge # Use your ProtonMail account with your local client.
     git # A distributed version control system.
     git-filter-repo # Quickly rewrite git repository history.
     act # Run your GitHub Actions locally.
