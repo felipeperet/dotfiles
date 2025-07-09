@@ -3,6 +3,7 @@
     ############################################################################
     # Utils
     # --------------------------------------------------------------------------
+    redlib # Private front-end for Reddit (Continued fork of Libreddit).
     dxvk # Vulkan-based translation layer for Direct3D.
     usbutils # Linux USB utilities.
     coreutils # File, shell and text manipulation utilities.
