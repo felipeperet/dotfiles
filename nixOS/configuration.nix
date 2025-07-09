@@ -191,6 +191,19 @@
     };
   };
 
+  # Enable Proton Bridge.
+  systemd.user.services.protonmail-bridge = {
+    description = "Proton Mail Bridge";
+    after = ["graphical-session.target"];
+    wantedBy = ["default.target"];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge -n";
+      Restart = "on-failure";
+      RestartSec = 5;
+    };
+  };
+
   environment = {
     variables = {
       GDK_BACKEND = "wayland";

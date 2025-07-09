@@ -16,6 +16,9 @@
     gvfs.enable = true; # Mount, trash, and other functionalities.
     tumbler.enable = true; # Thumbnail support for images.
 
+    # Enable Gnome Keyring.
+    gnome.gnome-keyring.enable = true;
+
     # Enable smart card support for GPG.
     pcscd.enable = true;
 

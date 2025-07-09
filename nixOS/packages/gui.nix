@@ -4,6 +4,7 @@
     # GUI
     # --------------------------------------------------------------------------
     spotify # A digital music service.
+    freetube # Open Source YouTube app for privacy.
     popcorntime # A BitTorrent client with a nice interface.
     transmission_3-qt # A lightweight BitTorrent client - Qt GUI.
     dbeaver-bin # Free multi-platform database tool.
