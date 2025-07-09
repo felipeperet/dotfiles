@@ -209,14 +209,12 @@
     description = "Redlib - Alternative Reddit frontend";
     after = ["network.target"];
     wantedBy = ["multi-user.target"];
-
     serviceConfig = {
       Type = "simple";
       ExecStart = "${pkgs.redlib}/bin/redlib";
       Restart = "on-failure";
       RestartSec = 5;
-      User = "redlib";
-      Group = "redlib";
+      User = "sasdelli";
       NoNewPrivileges = true;
       ProtectSystem = "strict";
       ProtectHome = true;
