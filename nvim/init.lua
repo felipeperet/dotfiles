@@ -240,7 +240,7 @@ require("lazy").setup({
 --------------------------------------------------------------------------------
 -- 3. Neovim Settings
 --------------------------------------------------------------------------------
--- Set color scheme to Gruvbox Material.
+-- Set color scheme to Catppuccin Mocha.
 vim.cmd([[
   syntax enable
   colorscheme catppuccin-mocha
@@ -563,6 +563,7 @@ dashboard.section.buttons.val = {
 	dashboard.button("f", "  > Find file", "<Cmd>Telescope find_files<CR>"),
 	dashboard.button("d", "  > Find directory", ":Yazi cwd<CR>"),
 	dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
+	dashboard.button("n", "  > Notes", ":e ~/Notes.md<CR>"),
 	dashboard.button("s", "  > Settings", ":e $MYVIMRC<CR>"),
 	dashboard.button("q", "⏻  > Quit NVIM", ":qa<CR>"),
 }
@@ -772,7 +773,7 @@ require("nvim-tree").setup({
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
-		theme = "catppuccin-macchiato",
+		theme = "catppuccin-mocha",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		always_divide_middle = true,
