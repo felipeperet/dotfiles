@@ -1,13 +1,14 @@
 {pkgs, ...}: {
   services = {
+    displayManager.gdm = {
+      enable = true;
+      wayland = true;
+    };
+
     # Configure xserver.
     xserver = {
       enable = true;
       videoDrivers = ["amdgpu"];
-      displayManager.gdm = {
-        enable = true;
-        wayland = true;
-      };
       xkb.layout = "br";
       xkb.variant = "";
     };

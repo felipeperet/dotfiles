@@ -1,26 +1,24 @@
 {
   inputs,
   lib,
+  pkgs,
   ...
-}: {
-  home-manager.users.sasdelli = {
-    pkgs,
-    config,
-    lib,
-    ...
-  }: let
-    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
-  in {
-    programs.spicetify = {
-      enable = true;
-      # theme = lib.mkForce spicePkgs.themes.catppuccin;
-      # colorScheme = lib.mkForce "lavender";
+}: let
+  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+in {
+  programs.spicetify = {
+    enable = true;
+    theme = lib.mkForce spicePkgs.themes.catppuccin;
+    colorScheme = lib.mkForce "mocha";
 
-      enabledExtensions = with spicePkgs.extensions; [
-        adblock
-        hidePodcasts
-        shuffle
-      ];
-    };
+    enabledExtensions = with spicePkgs.extensions; [
+      adblock
+      fullAppDisplay
+      hidePodcasts
+      keyboardShortcut
+      shuffle
+      bookmark
+      trashbin
+    ];
   };
 }

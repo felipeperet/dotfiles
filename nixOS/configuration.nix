@@ -14,10 +14,12 @@
 }: {
   system.stateVersion = "25.05";
 
-  home-manager = {
-    users.sasdelli.home.stateVersion = "25.05";
-    users.sasdelli.imports = [inputs.spicetify-nix.homeManagerModules.default];
-    backupFileExtension = "backup";
+  home-manager.users.sasdelli = {
+    home.stateVersion = "25.05";
+    imports = [
+      inputs.spicetify-nix.homeManagerModules.default
+      ./home/spicetify.nix
+    ];
   };
 
   imports = [
@@ -33,7 +35,6 @@
     ./home/rofi.nix
     ./home/waybar.nix
     ./home/yazi.nix
-    ./home/spicetify.nix
     # Nix Packages
     # List packages installed in system profile. To search, run:
     # $ nix search wget
@@ -65,7 +66,7 @@
   # Stylix Configuration.
   stylix = {
     enable = true;
-    # targets.spicetify.enable = false;
+    targets.spicetify.enable = false;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     image = /home/sasdelli/Wallpapers/Gruvbox/gruv.png;
     polarity = "dark";
