@@ -33,7 +33,7 @@
     ./home/rofi.nix
     ./home/waybar.nix
     ./home/yazi.nix
-    # ./home/spicetify.nix
+    ./home/spicetify.nix
     # Nix Packages
     # List packages installed in system profile. To search, run:
     # $ nix search wget
@@ -62,18 +62,10 @@
     '';
   };
 
-  nixpkgs = {
-    # Allow unfree packages.
-    config.allowUnfree = true;
-
-    # Permitted Insecure Packages.
-    config.permittedInsecurePackages = [
-    ];
-  };
-
   # Stylix Configuration.
   stylix = {
     enable = true;
+    # targets.spicetify.enable = false;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     image = /home/sasdelli/Wallpapers/Gruvbox/gruv.png;
     polarity = "dark";

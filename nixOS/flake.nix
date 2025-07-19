@@ -19,6 +19,12 @@
         system = "x86_64-linux";
 
         modules = [
+          {
+            nixpkgs.config = {
+              allowUnfree = true;
+              allowUnfreePredicate = pkg: true;
+            };
+          }
           ./configuration.nix
           home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix
