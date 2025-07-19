@@ -13,12 +13,8 @@ in {
 
     enabledExtensions = with spicePkgs.extensions; [
       adblock
-      fullAppDisplay
       hidePodcasts
-      keyboardShortcut
       shuffle
-      bookmark
-      trashbin
     ];
   };
 }
