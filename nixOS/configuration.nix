@@ -9,12 +9,14 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   system.stateVersion = "25.05";
 
   home-manager = {
     users.sasdelli.home.stateVersion = "25.05";
+    users.sasdelli.imports = [inputs.spicetify-nix.homeManagerModules.default];
     backupFileExtension = "backup";
   };
 
@@ -31,6 +33,7 @@
     ./home/rofi.nix
     ./home/waybar.nix
     ./home/yazi.nix
+    # ./home/spicetify.nix
     # Nix Packages
     # List packages installed in system profile. To search, run:
     # $ nix search wget
@@ -105,12 +108,8 @@
     };
   };
 
-  # Chaotic-Nyx Configuration.
-  chaotic.mesa-git.enable = false;
-
   # Setting a specific Kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs.linuxPackages_cachyos;
 
   # Bootloader.
   boot.loader = {
@@ -188,19 +187,6 @@
       ExecStart = "/home/sasdelli/scripts/deepcool-digital-linux";
       Type = "simple";
       User = "sasdelli";
-    };
-  };
-
-  # Enable Proton Bridge.
-  systemd.user.services.protonmail-bridge = {
-    description = "Proton Mail Bridge";
-    after = ["graphical-session.target"];
-    wantedBy = ["default.target"];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge -n";
-      Restart = "on-failure";
-      RestartSec = 5;
     };
   };
 

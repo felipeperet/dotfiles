@@ -4,7 +4,7 @@
     # Browsers
     # --------------------------------------------------------------------------
     librewolf # Fork of Firefox, focused on privacy, security and freedom.
-    google-chrome # Google's web browser.
+    brave # Privacy-oriented browser for Desktop and Laptop computers.
     tor-browser # Privacy-focused browser routing traffic.
     ############################################################################
   ];

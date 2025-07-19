@@ -3,7 +3,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     stylix.url = "github:danth/stylix";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
   };
 
   outputs = {
@@ -11,7 +11,7 @@
     nixpkgs,
     home-manager,
     stylix,
-    chaotic,
+    spicetify-nix,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -22,7 +22,6 @@
           ./configuration.nix
           home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix
-          chaotic.nixosModules.default
         ];
 
         specialArgs = {inherit inputs;};

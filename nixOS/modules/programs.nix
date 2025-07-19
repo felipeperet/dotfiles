@@ -16,9 +16,6 @@
       xwayland.enable = true;
     };
 
-    # Enable Thunderbird.
-    thunderbird.enable = true;
-
     # Enable Thunar.
     thunar.enable = true;
 
