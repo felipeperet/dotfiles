@@ -216,7 +216,7 @@ require("lazy").setup({
 			require("quarto").setup({
 				lspFeatures = {
 					enabled = true,
-					languages = { "python", "bash", "html" },
+					languages = { "python" },
 					diagnostics = {
 						enabled = true,
 						triggers = { "BufWritePost" },
@@ -391,7 +391,7 @@ vim.api.nvim_create_autocmd("FileType", {
 				foldclose = "▸",
 			})
 
-			if vim.bo.filetype == "markdown" then
+			if vim.bo.filetype == "markdown" or vim.bo.filetype == "quarto" then
 				vim.opt_local.foldcolumn = "0"
 			else
 				vim.opt_local.foldcolumn = "1"
@@ -448,6 +448,7 @@ local function setupColorColumn()
 	end
 
 	vim.cmd("autocmd FileType markdown setlocal colorcolumn=")
+	vim.cmd("autocmd FileType quarto setlocal colorcolumn=")
 	vim.cmd("autocmd BufNewFile,BufRead .env* setlocal colorcolumn=")
 end
 
