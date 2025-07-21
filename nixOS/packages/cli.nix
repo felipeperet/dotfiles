@@ -13,7 +13,7 @@
     unzip # A decompression utility.
     rar # Utility for RAR archives.
     unrar # Utility for RAR archives.
-    tparted # Text-based user interface (TUI) frontend for parted.
+    parted # Create, destroy, resize, check, and copy partitions.
     cryptsetup # LUKS for dm-crypt.
     git # A distributed version control system.
     git-filter-repo # Quickly rewrite git repository history.

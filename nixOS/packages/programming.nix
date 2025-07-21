@@ -9,9 +9,10 @@
     ############################################################################
     # Lua
     # --------------------------------------------------------------------------
-    lua # A lightweight and embeddable scripting language.
+    lua51Packages.lua # A lightweight and embeddable scripting language.
     lua-language-server # Language server for Lua.
     stylua # An opinionated Lua code formatter.
+    lua51Packages.luarocks # Package manager for Lua.
     ############################################################################
 
     ############################################################################
@@ -83,25 +84,30 @@
     ############################################################################
     # Python
     # --------------------------------------------------------------------------
+    pyright
     (python3.withPackages (ps:
       with ps; [
         pip
         jupyter
         ipython
+        ipykernel
+        pynvim
+        autopep8
         pandas
         numpy
         matplotlib
+        seaborn
         scikit-learn
         scikit-image
         pyodbc
         sqlalchemy
         tabulate
         xgboost
+        opencv
         torch
         torchvision
         torchsummary
         gdown
-        ipykernel
       ]))
     ############################################################################
 
