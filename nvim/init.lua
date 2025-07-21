@@ -664,6 +664,10 @@ require("toggleterm").setup({
 	},
 })
 
+require("render-markdown").setup({
+	file_types = { "markdown", "quarto" },
+})
+
 local harpoon = require("harpoon")
 harpoon:setup({
 	settings = {
