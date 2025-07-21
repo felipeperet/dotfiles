@@ -62,6 +62,9 @@ eval "$(direnv hook zsh)"
 # Git Credential Store.
 export GCM_CREDENTIAL_STORE=cache
 
+# Quarto python3 config.
+export QUARTO_PYTHON=/run/current-system/sw/bin/python3
+
 # Shell integration for opam.
 eval "$(opam env)"
 
