@@ -1014,7 +1014,7 @@ keymap("n", "<leader>rl", runner.run_line, opts)
 keymap("v", "<leader>r", runner.run_range, opts)
 
 -- Quarto preview keymap.
-keymap("n", "<leader>p", function()
+keymap("n", "<leader>qp", function()
 	local current_file = vim.fn.expand("%:p")
 	if vim.fn.expand("%:e") == "qmd" then
 		vim.fn.system("pkill -f 'quarto.js preview'")
@@ -1029,17 +1029,17 @@ keymap("n", "<leader>p", function()
 end, opts)
 
 -- Keymap to stop Quarto preview.
-vim.keymap.set("n", "<leader>s", function()
+vim.keymap.set("n", "<leader>qs", function()
 	vim.fn.system("pkill -f 'quarto.js preview'")
 	print("Quarto preview stopped!")
 end, opts)
 
 -- Molten Keymaps.
 keymap("n", "<leader>mi", ":MoltenInit python3<CR>", opts)
-keymap("n", "<leader>md", ":MoltenDeinit<CR>", opts)
+keymap("n", "<leader>md", ":MoltenDelete<CR>", opts)
+keymap("n", "<leader>mD", ":MoltenDeinit<CR>", opts)
 keymap("n", "<leader>mp", ":MoltenImagePopup<CR>", opts)
 keymap("n", "<leader>mh", ":MoltenHideOutput<CR>", opts)
-keymap("n", "<leader>ms", ":noautocmd MoltenEnterOutput<CR>", opts)
 
 -- Function to increase the font size.
 local function increase_font_size()
@@ -1079,7 +1079,7 @@ keymap("n", "<leader>w", ":w<CR>", opts)
 keymap("n", "<leader>e", ":e<CR>", opts)
 
 -- Quit.
-keymap("n", "<leader>q", ":q<CR>", opts)
+keymap("n", "<leader>qq", ":q<CR>", opts)
 
 -- Delete buffer.
 keymap("n", "<leader>bd", ":bd<CR>", opts)
