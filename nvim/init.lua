@@ -27,6 +27,11 @@ vim.opt.rtp:prepend(lazypath)
 --------------------------------------------------------------------------------
 -- Using Lazy to manage plugins.
 require("lazy").setup({
+	rocks = {
+		enabled = true,
+		-- Use luarocks instead.
+		hererocks = false,
+	},
 	-- Lazy can manage itself.
 	"folke/lazy.nvim",
 	-- Catppuccin Color Scheme.
@@ -207,6 +212,40 @@ require("lazy").setup({
 			"jmbuhr/otter.nvim",
 			"nvim-treesitter/nvim-treesitter",
 		},
+		config = function()
+			require("quarto").setup({
+				lspFeatures = {
+					enabled = true,
+					languages = { "python", "bash", "html" },
+					diagnostics = {
+						enabled = true,
+						triggers = { "BufWritePost" },
+					},
+					completion = {
+						enabled = true,
+					},
+				},
+				codeRunner = {
+					enabled = true,
+					default_method = "molten",
+					ft_runners = {},
+					never_run = { "yaml" },
+				},
+			})
+		end,
+	},
+	-- Molten for executing code in Quarto mode.
+	{
+		"benlubas/molten-nvim",
+		version = "^1.0.0",
+		build = ":UpdateRemotePlugins",
+		init = function()
+			vim.g.molten_output_win_max_height = 20
+			vim.g.molten_auto_open_output = true
+			vim.g.molten_wrap_output = true
+			vim.g.molten_virt_text_output = true
+			vim.g.molten_output_show_more = true
+		end,
 	},
 	-- Aiken Programming Language Support.
 	{
@@ -214,14 +253,14 @@ require("lazy").setup({
 		event = { "BufReadPre *.ak", "BufNewFile *.ak" },
 	},
 	-- Agda Theorem Prover.
-	{
-		"isovector/cornelis",
-		name = "cornelis",
-		ft = "agda",
-		build = "stack install",
-		dependencies = { "neovimhaskell/nvim-hs.vim", "kana/vim-textobj-user" },
-		version = "*",
-	},
+	-- {
+	-- 	"isovector/cornelis",
+	-- 	name = "cornelis",
+	-- 	ft = "agda",
+	-- 	build = "stack install",
+	-- 	dependencies = { "neovimhaskell/nvim-hs.vim", "kana/vim-textobj-user" },
+	-- 	version = "*",
+	-- },
 	-- Lean Theorem Prover.
 	{
 		"Julian/lean.nvim",
@@ -240,6 +279,9 @@ require("lazy").setup({
 --------------------------------------------------------------------------------
 -- 3. Neovim Settings
 --------------------------------------------------------------------------------
+-- Configure Python provider for molten-nvim.
+vim.g.python3_host_prog = "/run/current-system/sw/bin/python3"
+
 -- Set color scheme to Catppuccin Mocha.
 vim.cmd([[
   syntax enable
@@ -328,10 +370,12 @@ vim.api.nvim_create_autocmd("FileType", {
 		"gleam",
 		"aiken",
 		"typescript",
+		"javascript",
 		"c",
 		"cpp",
 		"hpp",
 		"markdown",
+		"quarto",
 	},
 	callback = function()
 		if vim.bo.buftype ~= "nofile" then
@@ -363,11 +407,11 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 -- Settings for agda-mode.
-vim.api.nvim_set_var("cornelis_split_location", "bottom")
+-- vim.api.nvim_set_var("cornelis_split_location", "bottom")
 
 -- Function to create autocmd for 4 spaces indentation.
 local function setupFourSpacesIndentation()
-	local four_spaces_languages = { "c", "cpp", "rust", "haskell" }
+	local four_spaces_languages = { "c", "cpp", "rust", "haskell", "python" }
 	for _, lang in ipairs(four_spaces_languages) do
 		local cmd = string.format(
 			"autocmd FileType %s setlocal tabstop=4 "
@@ -387,9 +431,9 @@ local function setupColorColumn()
 		"lean",
 		"rust",
 		"aiken",
-		"javascript",
 		"typescript",
 		"typescriptreact",
+		"javascript",
 	}
 	local col = 101
 
@@ -503,6 +547,9 @@ lspconfig.ocamllsp.setup({})
 -- C/C++ LSP
 lspconfig.clangd.setup({})
 
+-- Python LSP
+lspconfig.pyright.setup({})
+
 -- Enables autoformatting for Aiken files.
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*.ak",
@@ -522,6 +569,7 @@ require("conform").setup({
 		ocaml = { "ocamlformat" },
 		typescript = { "prettierd" },
 		javascript = { "prettierd" },
+		python = { "autopep8" },
 		c = { "clang_format" },
 		cpp = { "clang_format" },
 		markdown = { "prettierd" },
@@ -668,8 +716,9 @@ require("nvim-treesitter.configs").setup({
 		"vimdoc",
 		"nix",
 		"lua",
-		"javascript",
 		"typescript",
+		"javascript",
+		"python",
 		"c",
 		"cpp",
 		"rust",
@@ -937,20 +986,56 @@ keymap("n", "<leader>5", function()
 end, opts)
 
 -- Cornelis Agda Keymaps.
-keymap("n", "<C-c><C-l>", "<Cmd>CornelisLoad<CR>", opts)
-keymap("n", "<C-c><C-g>", "<Cmd>CornelisGoals<CR>", opts)
-keymap("n", "<C-c><C-s>", "<Cmd>CornelisSolve<CR>", opts)
-keymap("n", "<C-c><C-d>", "<Cmd>CornelisGoToDefinition<CR>", opts)
-keymap("n", "<C-c><C-b>", "<Cmd>CornelisPrevGoal<CR>:sleep 5m<CR>zz", opts)
-keymap("n", "<C-c><C-f>", "<Cmd>CornelisNextGoal<CR>:sleep 5m<CR>zz", opts)
-keymap("n", "<C-c><C-r>", "<Cmd>CornelisRefine<CR>", opts)
-keymap("n", "<C-c><C-a>", "<Cmd>CornelisAuto<CR>", opts)
-keymap("n", "<C-c><C-c>", "<Cmd>CornelisMakeCase<CR>", opts)
-keymap("n", "<C-c><C-,>", "<Cmd>CornelisTypeContext<CR>", opts)
-keymap("n", "<C-c><C-i>", "<Cmd>CornelisTypeInfer<CR>", opts)
-keymap("n", "<C-c><C-n>", "<Cmd>CornelisNormalize<CR>", opts)
-keymap("n", "<C-c><C-k>", "<Cmd>CornelisQuestionToMeta<CR>", opts)
-keymap("n", "<C-c><C-x><C-r>", "<Cmd>CornelisRestart<CR>", opts)
+-- keymap("n", "<C-c><C-l>", "<Cmd>CornelisLoad<CR>", opts)
+-- keymap("n", "<C-c><C-g>", "<Cmd>CornelisGoals<CR>", opts)
+-- keymap("n", "<C-c><C-s>", "<Cmd>CornelisSolve<CR>", opts)
+-- keymap("n", "<C-c><C-d>", "<Cmd>CornelisGoToDefinition<CR>", opts)
+-- keymap("n", "<C-c><C-b>", "<Cmd>CornelisPrevGoal<CR>:sleep 5m<CR>zz", opts)
+-- keymap("n", "<C-c><C-f>", "<Cmd>CornelisNextGoal<CR>:sleep 5m<CR>zz", opts)
+-- keymap("n", "<C-c><C-r>", "<Cmd>CornelisRefine<CR>", opts)
+-- keymap("n", "<C-c><C-a>", "<Cmd>CornelisAuto<CR>", opts)
+-- keymap("n", "<C-c><C-c>", "<Cmd>CornelisMakeCase<CR>", opts)
+-- keymap("n", "<C-c><C-,>", "<Cmd>CornelisTypeContext<CR>", opts)
+-- keymap("n", "<C-c><C-i>", "<Cmd>CornelisTypeInfer<CR>", opts)
+-- keymap("n", "<C-c><C-n>", "<Cmd>CornelisNormalize<CR>", opts)
+-- keymap("n", "<C-c><C-k>", "<Cmd>CornelisQuestionToMeta<CR>", opts)
+-- keymap("n", "<C-c><C-x><C-r>", "<Cmd>CornelisRestart<CR>", opts)
+
+-- Quarto Keymaps.
+local runner = require("quarto.runner")
+keymap("n", "<leader>rc", runner.run_cell, opts)
+keymap("n", "<leader>ra", runner.run_above, opts)
+keymap("n", "<leader>rA", runner.run_all, opts)
+keymap("n", "<leader>rl", runner.run_line, opts)
+keymap("v", "<leader>r", runner.run_range, opts)
+
+-- Quarto preview keymap.
+keymap("n", "<leader>p", function()
+	local current_file = vim.fn.expand("%:p")
+	if vim.fn.expand("%:e") == "qmd" then
+		vim.fn.system("pkill -f 'quarto.js preview'")
+		vim.cmd("sleep 500m")
+		vim.fn.jobstart({ "quarto", "preview", current_file }, {
+			detach = true,
+		})
+		print("Starting Quarto preview...")
+	else
+		print("Not a .qmd file")
+	end
+end, opts)
+
+-- Keymap to stop Quarto preview.
+vim.keymap.set("n", "<leader>s", function()
+	vim.fn.system("pkill -f 'quarto.js preview'")
+	print("Quarto preview stopped!")
+end, opts)
+
+-- Molten Keymaps.
+keymap("n", "<leader>mi", ":MoltenInit python3<CR>", opts)
+keymap("n", "<leader>md", ":MoltenDeinit<CR>", opts)
+keymap("n", "<leader>mp", ":MoltenImagePopup<CR>", opts)
+keymap("n", "<leader>mh", ":MoltenHideOutput<CR>", opts)
+keymap("n", "<leader>ms", ":noautocmd MoltenEnterOutput<CR>", opts)
 
 -- Function to increase the font size.
 local function increase_font_size()
