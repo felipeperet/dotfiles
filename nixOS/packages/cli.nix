@@ -57,7 +57,6 @@
     xorg.xmodmap # Modify keymaps.
     xorg.setxkbmap # Set keyboard keymaps.
     xorg.xset # User preference utility for X.
-    texlive.combined.scheme-full # Comprehensive TeX system.
     ############################################################################
   ];
 }

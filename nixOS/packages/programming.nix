@@ -92,6 +92,7 @@
         ipython
         ipykernel
         pynvim
+        pyperclip
         autopep8
         pandas
         numpy
@@ -103,7 +104,7 @@
         sqlalchemy
         tabulate
         xgboost
-        opencv
+        opencv-python
         torch
         torchvision
         torchsummary
