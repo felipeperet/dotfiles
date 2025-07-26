@@ -240,11 +240,7 @@ require("lazy").setup({
 		version = "^1.0.0",
 		build = ":UpdateRemotePlugins",
 		init = function()
-			vim.g.molten_output_win_max_height = 20
-			vim.g.molten_auto_open_output = true
-			vim.g.molten_wrap_output = true
-			vim.g.molten_virt_text_output = true
-			vim.g.molten_output_show_more = true
+			vim.g.molten_copy_output = true
 		end,
 	},
 	-- Aiken Programming Language Support.
@@ -272,6 +268,9 @@ require("lazy").setup({
 		opts = {
 			lsp = {},
 			mappings = false,
+			infoview = {
+				width = 43,
+			},
 		},
 	},
 })
@@ -411,7 +410,8 @@ vim.opt.expandtab = true
 
 -- Function to create autocmd for 4 spaces indentation.
 local function setupFourSpacesIndentation()
-	local four_spaces_languages = { "c", "cpp", "rust", "haskell", "python" }
+	local four_spaces_languages =
+		{ "markdown", "quarto", "c", "cpp", "rust", "haskell", "python" }
 	for _, lang in ipairs(four_spaces_languages) do
 		local cmd = string.format(
 			"autocmd FileType %s setlocal tabstop=4 "
@@ -612,7 +612,7 @@ dashboard.section.buttons.val = {
 	dashboard.button("f", "  > Find file", "<Cmd>Telescope find_files<CR>"),
 	dashboard.button("d", "  > Find directory", ":Yazi cwd<CR>"),
 	dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
-	dashboard.button("n", "  > Notes", ":e ~/Notes.md<CR>"),
+	dashboard.button("n", "  > Notes", ":e ~/Notes.qmd<CR>"),
 	dashboard.button("s", "  > Settings", ":e $MYVIMRC<CR>"),
 	dashboard.button("q", "⏻  > Quit NVIM", ":qa<CR>"),
 }
@@ -1039,7 +1039,9 @@ end, opts)
 keymap("n", "<leader>mi", ":MoltenInit python3<CR>", opts)
 keymap("n", "<leader>md", ":MoltenDelete<CR>", opts)
 keymap("n", "<leader>mD", ":MoltenDeinit<CR>", opts)
+keymap("n", "<leader>mn", ":MoltenNext<CR>", opts)
 keymap("n", "<leader>mp", ":MoltenImagePopup<CR>", opts)
+keymap("n", "<leader>ms", ":MoltenShowOutput<CR>", opts)
 keymap("n", "<leader>mh", ":MoltenHideOutput<CR>", opts)
 
 -- Function to increase the font size.
