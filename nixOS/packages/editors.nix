@@ -6,6 +6,7 @@
     vim # A highly configurable text editor.
     neovim # Vim-fork focused on extensibility and usability.
     neovide # A simple graphical user interface for Neovim.
+    vscode # Open source source code editor developed by Microsoft.
     quarto # Open-source publishing system built on Pandoc.
     pandoc # Conversion between documentation formats.
     emacs # An extensible, customizable text editor.
