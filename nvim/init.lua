@@ -249,14 +249,16 @@ require("lazy").setup({
 		event = { "BufReadPre *.ak", "BufNewFile *.ak" },
 	},
 	-- Agda Theorem Prover.
-	-- {
-	-- 	"isovector/cornelis",
-	-- 	name = "cornelis",
-	-- 	ft = "agda",
-	-- 	build = "stack install",
-	-- 	dependencies = { "neovimhaskell/nvim-hs.vim", "kana/vim-textobj-user" },
-	-- 	version = "*",
-	-- },
+	{
+		"isovector/cornelis",
+		name = "cornelis",
+		ft = "agda",
+		build = "stack install",
+		dependencies = { "neovimhaskell/nvim-hs.vim", "kana/vim-textobj-user" },
+		version = "*",
+	},
+	-- Coq Theorem Prover.
+	"whonore/Coqtail",
 	-- Lean Theorem Prover.
 	{
 		"Julian/lean.nvim",
@@ -406,7 +408,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 -- Settings for agda-mode.
--- vim.api.nvim_set_var("cornelis_split_location", "bottom")
+vim.api.nvim_set_var("cornelis_split_location", "bottom")
 
 -- Function to create autocmd for 4 spaces indentation.
 local function setupFourSpacesIndentation()
@@ -620,17 +622,28 @@ dashboard.section.buttons.val = {
 -- Apply the updated settings to Alpha
 alpha.setup(dashboard.opts)
 
-local signs = {
-	Error = " E",
-	Warn = " W",
-	Hint = " H",
-	Info = " I",
-}
-
-for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon })
-end
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = " E",
+			[vim.diagnostic.severity.WARN] = " W",
+			[vim.diagnostic.severity.HINT] = " H",
+			[vim.diagnostic.severity.INFO] = " I",
+		},
+	},
+	virtual_text = false,
+	update_in_insert = false,
+	underline = true,
+	severity_sort = true,
+	float = {
+		focusable = true,
+		style = "minimal",
+		border = "rounded",
+		source = false,
+		header = "",
+		prefix = "",
+	},
+})
 
 require("gitsigns").setup({
 	signcolumn = true,
@@ -829,7 +842,7 @@ require("lualine").setup({
 		icons_enabled = true,
 		theme = "catppuccin-mocha",
 		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
+		section_separators = { left = "", right = "" },
 		always_divide_middle = true,
 		globalstatus = false,
 		refresh = {
@@ -991,20 +1004,20 @@ keymap("n", "<leader>5", function()
 end, opts)
 
 -- Cornelis Agda Keymaps.
--- keymap("n", "<C-c><C-l>", "<Cmd>CornelisLoad<CR>", opts)
--- keymap("n", "<C-c><C-g>", "<Cmd>CornelisGoals<CR>", opts)
--- keymap("n", "<C-c><C-s>", "<Cmd>CornelisSolve<CR>", opts)
--- keymap("n", "<C-c><C-d>", "<Cmd>CornelisGoToDefinition<CR>", opts)
--- keymap("n", "<C-c><C-b>", "<Cmd>CornelisPrevGoal<CR>:sleep 5m<CR>zz", opts)
--- keymap("n", "<C-c><C-f>", "<Cmd>CornelisNextGoal<CR>:sleep 5m<CR>zz", opts)
--- keymap("n", "<C-c><C-r>", "<Cmd>CornelisRefine<CR>", opts)
--- keymap("n", "<C-c><C-a>", "<Cmd>CornelisAuto<CR>", opts)
--- keymap("n", "<C-c><C-c>", "<Cmd>CornelisMakeCase<CR>", opts)
--- keymap("n", "<C-c><C-,>", "<Cmd>CornelisTypeContext<CR>", opts)
--- keymap("n", "<C-c><C-i>", "<Cmd>CornelisTypeInfer<CR>", opts)
--- keymap("n", "<C-c><C-n>", "<Cmd>CornelisNormalize<CR>", opts)
--- keymap("n", "<C-c><C-k>", "<Cmd>CornelisQuestionToMeta<CR>", opts)
--- keymap("n", "<C-c><C-x><C-r>", "<Cmd>CornelisRestart<CR>", opts)
+keymap("n", "<C-c><C-l>", "<Cmd>CornelisLoad<CR>", opts)
+keymap("n", "<C-c><C-g>", "<Cmd>CornelisGoals<CR>", opts)
+keymap("n", "<C-c><C-s>", "<Cmd>CornelisSolve<CR>", opts)
+keymap("n", "<C-c><C-d>", "<Cmd>CornelisGoToDefinition<CR>", opts)
+keymap("n", "<C-c><C-b>", "<Cmd>CornelisPrevGoal<CR>:sleep 5m<CR>zz", opts)
+keymap("n", "<C-c><C-f>", "<Cmd>CornelisNextGoal<CR>:sleep 5m<CR>zz", opts)
+keymap("n", "<C-c><C-r>", "<Cmd>CornelisRefine<CR>", opts)
+keymap("n", "<C-c><C-a>", "<Cmd>CornelisAuto<CR>", opts)
+keymap("n", "<C-c><C-c>", "<Cmd>CornelisMakeCase<CR>", opts)
+keymap("n", "<C-c><C-,>", "<Cmd>CornelisTypeContext<CR>", opts)
+keymap("n", "<C-c><C-i>", "<Cmd>CornelisTypeInfer<CR>", opts)
+keymap("n", "<C-c><C-n>", "<Cmd>CornelisNormalize<CR>", opts)
+keymap("n", "<C-c><C-k>", "<Cmd>CornelisQuestionToMeta<CR>", opts)
+keymap("n", "<C-c><C-x><C-r>", "<Cmd>CornelisRestart<CR>", opts)
 
 -- Quarto Keymaps.
 local runner = require("quarto.runner")
