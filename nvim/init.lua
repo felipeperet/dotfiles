@@ -451,6 +451,7 @@ local function setupColorColumn()
 
 	vim.cmd("autocmd FileType markdown setlocal colorcolumn=")
 	vim.cmd("autocmd FileType quarto setlocal colorcolumn=")
+	vim.cmd("autocmd FileType haskell setlocal colorcolumn=")
 	vim.cmd("autocmd BufNewFile,BufRead .env* setlocal colorcolumn=")
 end
 
