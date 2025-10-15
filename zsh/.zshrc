@@ -40,6 +40,9 @@ alias cabal2nix='cabal2nix --shell . > shell.nix'
 # Alias for opam-nix.
 alias opam-nix='nix flake init -t github:tweag/opam-nix'
 
+# Alias for ls to use eza.
+alias ls='eza'
+
 # Set the terminal title to the current directory
 precmd() { print -Pn "\e]0;%~\a" }
 
