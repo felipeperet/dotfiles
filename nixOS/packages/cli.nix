@@ -5,6 +5,7 @@
     # --------------------------------------------------------------------------
     fastfetch # Like neofetch, but much faster because written in C.
     zoxide # A fast cd command that learns your habits.
+    eza # Modern, maintained replacement for ls.
     tldr # Simplified and community-driven man pages.
     wget # A tool to retrieve files using HTTP, HTTPS, FTP, and FTPS.
     curl # A tool and library for transferring data with URL syntax.
