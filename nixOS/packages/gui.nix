@@ -8,6 +8,7 @@
     (discord.override {
       withVencord = true;
     })
+    slack # Desktop client for Slack.
     freetube # Open Source YouTube app for privacy.
     popcorntime # A BitTorrent client with a nice interface.
     transmission_4-qt # Fast, easy and free BitTorrent client.
