@@ -32,6 +32,24 @@
       jack.enable = false;
     };
 
+    # pipewire = {
+    #   enable = true;
+    #   alsa.enable = true;
+    #   alsa.support32Bit = true;
+    #   pulse.enable = true;
+    #   jack.enable = false;
+    #   extraConfig.pipewire = {
+    #     "10-bluetooth" = {
+    #       "context.modules" = [
+    #         {
+    #           name = "libpipewire-module-bluetooth-policy";
+    #           args = {};
+    #         }
+    #       ];
+    #     };
+    #   };
+    # };
+
     # Enable Blueman for Bluetooh.
     blueman.enable = true;
 
@@ -54,6 +72,12 @@
     udev.extraRules = ''
       SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3633", MODE="0666"
     '';
+
+    # Disable USB autosuspend for Bluetooth to improve signal strength.
+    # udev.extraRules = ''
+    #   SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3633", MODE="0666"
+    #   ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="btusb", ATTR{power/control}="on"
+    # '';
 
     # Disable Pulseaudio (using PipeWire instead).
     pulseaudio.enable = false;

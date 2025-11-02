@@ -168,9 +168,28 @@
       powerOnBoot = true;
     };
 
+    # bluetooth = {
+    #   enable = true;
+    #   powerOnBoot = true;
+    #   settings = {
+    #     General = {
+    #       Enable = "Source,Sink,Media,Socket";
+    #       ControllerMode = "dual";
+    #       FastConnectable = true;
+    #       IdleTimeout = 0;
+    #     };
+    #     Policy = {
+    #       AutoEnable = true;
+    #     };
+    #   };
+    # };
+
     # Enable i2c (for OpenRGB).
     i2c.enable = true;
   };
+
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true;
 
   # Enable DeepCool AK620 Digital monitoring.
   systemd.services.deepcool-digital = {
