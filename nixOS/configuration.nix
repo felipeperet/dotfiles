@@ -67,6 +67,7 @@
   stylix = {
     enable = true;
     targets.spicetify.enable = false;
+    targets.gnome.enable = false;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     image = /home/sasdelli/Wallpapers/Gruvbox/gruv.png;
     polarity = "dark";
@@ -89,7 +90,7 @@
         name = "VictorMono Nerd Font";
       };
       emoji = {
-        package = pkgs.noto-fonts-emoji;
+        package = pkgs.noto-fonts-color-emoji;
         name = "Noto Color Emoji";
       };
       sizes = {

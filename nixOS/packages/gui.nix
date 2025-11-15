@@ -16,7 +16,6 @@
     obs-studio # Open Broadcaster Software Studio.
     lxappearance-gtk2 # GTK theme switcher.
     zoom-us # Video conferencing application.
-    nextcloud-client # Desktop sync client for Nextcloud.
     keepassxc # Offline password manager with many features.
     zotero # Collect, organize, cite, and share your research sources.
     libreoffice # Comprehensive, professional-quality productivity suite.

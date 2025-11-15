@@ -63,7 +63,6 @@
     # JavaScript / TypeScript
     # --------------------------------------------------------------------------
     nodejs # JavaScript runtime built on Chrome's V8 JavaScript engine.
-    nodePackages.ts-node # TypeScript execution environment and REPL for nodejs.
     deno # A secure runtime for JavaScript and TypeScript.
     typescript # A superset of JavaScript that compiles to clean JavaScript.
     prettierd # Prettier, as a daemon, for improved formatting speed.
