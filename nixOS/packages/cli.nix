@@ -30,7 +30,7 @@
     cpu-x # Gathers information on CPU, motherboard and more.
     sysbench # Modular, cross-platform and multi-threaded benchmark tool.
     stress-ng # Stress test a computer system.
-    glxinfo # Display information about the GLX implementation.
+    mesa-demos # Collection of demos and test programs for OpenGL and Mesa
     trash-cli # Command line interface to the freedesktop.org trashcan.
     gdown # A CLI tool for downloading large files from Google Drive.
     killall # A tool to kill all instances of a process.

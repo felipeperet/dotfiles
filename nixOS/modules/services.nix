@@ -32,23 +32,11 @@
       jack.enable = false;
     };
 
-    # pipewire = {
-    #   enable = true;
-    #   alsa.enable = true;
-    #   alsa.support32Bit = true;
-    #   pulse.enable = true;
-    #   jack.enable = false;
-    #   extraConfig.pipewire = {
-    #     "10-bluetooth" = {
-    #       "context.modules" = [
-    #         {
-    #           name = "libpipewire-module-bluetooth-policy";
-    #           args = {};
-    #         }
-    #       ];
-    #     };
-    #   };
-    # };
+    # Enable Sunshine for streaming.
+    sunshine = {
+      enable = true;
+      openFirewall = true;
+    };
 
     # Enable Blueman for Bluetooh.
     blueman.enable = true;
