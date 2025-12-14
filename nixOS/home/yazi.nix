@@ -8,7 +8,7 @@
     programs.yazi = {
       enable = true;
       keymap = {
-        manager.prepend_keymap = [
+        mgr.prepend_keymap = [
           {
             on = ["z"];
             run = "plugin zoxide";
