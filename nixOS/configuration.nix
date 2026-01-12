@@ -12,10 +12,10 @@
   inputs,
   ...
 }: {
-  system.stateVersion = "25.05";
+  system.stateVersion = "26.05";
 
   home-manager.users.sasdelli = {
-    home.stateVersion = "25.05";
+    home.stateVersion = "26.05";
     imports = [
       inputs.spicetify-nix.homeManagerModules.default
       ./home/spicetify.nix
