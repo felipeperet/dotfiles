@@ -3,7 +3,6 @@
     ############################################################################
     # GUI
     # --------------------------------------------------------------------------
-    spotify # A digital music service.
     # All-in-one cross-platform voice and text chat.
     (discord.override {
       withVencord = true;

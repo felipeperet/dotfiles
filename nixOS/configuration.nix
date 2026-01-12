@@ -35,10 +35,10 @@
     ./home/rofi.nix
     ./home/waybar.nix
     ./home/yazi.nix
+    ./home/dunst.nix
     # Nix Packages
     # List packages installed in system profile. To search, run:
     # $ nix search wget
-    ./packages/terminals.nix
     ./packages/editors.nix
     ./packages/browsers.nix
     ./packages/hyprland.nix

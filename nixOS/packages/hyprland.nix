@@ -8,10 +8,7 @@ in {
     ############################################################################
     # Wayland + Hyprland
     # --------------------------------------------------------------------------
-    customWaybar # A customizable wayland bar.
-    dunst # A lightweight notification daemon.
     libnotify # Library for sending desktop notifications.
-    rofi # An application launcher, works with Wayland.
     swww # Efficient animated wallpaper daemon for wayland.
     wlogout # Wayland based logout menu.
     networkmanagerapplet # Applet for managing network connections.
