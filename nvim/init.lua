@@ -1103,3 +1103,7 @@ keymap("n", "<leader>bd", ":bd<CR>", opts)
 
 -- Erase highlight.
 keymap("n", "<leader>noh", ":noh<CR>", opts)
+
+-- Disable jump list navigation.
+keymap("n", "<C-o>", "<Nop>", opts)
+keymap("n", "<C-i>", "<Nop>", opts)
