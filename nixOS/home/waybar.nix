@@ -37,6 +37,10 @@
               urgent = "";
               default = "";
             };
+            persistent-workspaces = {
+              "*" = [1 2 3 4 5];
+            };
+            ignore-workspaces = ["6" "7" "8" "9" "10" "11" "12"];
           };
           "tray" = {
             spacing = 10;
