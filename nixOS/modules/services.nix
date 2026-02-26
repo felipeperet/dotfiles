@@ -32,12 +32,6 @@
       jack.enable = false;
     };
 
-    # Enable Sunshine for streaming.
-    sunshine = {
-      enable = true;
-      openFirewall = true;
-    };
-
     # Enable Blueman for Bluetooh.
     blueman.enable = true;
 
