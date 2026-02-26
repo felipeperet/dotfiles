@@ -80,40 +80,40 @@
     clang-tools # Standalone command line tools for C development.
     ############################################################################
 
-    ############################################################################
-    # Python
-    # --------------------------------------------------------------------------
-    pyright
-    (python312.withPackages (ps:
-      with ps; [
-        pip
-        jupyter
-        ipython
-        ipykernel
-        pynvim
-        pyperclip
-        autopep8
-        pandas
-        numpy
-        matplotlib
-        seaborn
-        scikit-learn
-        scikit-image
-        pyodbc
-        sqlalchemy
-        tabulate
-        xgboost
-        opencv-python
-        protobuf
-        kaggle
-        keras
-        tensorflow-bin
-        torch
-        torchvision
-        torchsummary
-        gdown
-      ]))
-    ############################################################################
+    # ############################################################################
+    # # Python
+    # # --------------------------------------------------------------------------
+    # pyright
+    # (python312.withPackages (ps:
+    #   with ps; [
+    #     pip
+    #     jupyter
+    #     ipython
+    #     ipykernel
+    #     pynvim
+    #     pyperclip
+    #     autopep8
+    #     pandas
+    #     numpy
+    #     matplotlib
+    #     seaborn
+    #     scikit-learn
+    #     scikit-image
+    #     pyodbc
+    #     sqlalchemy
+    #     tabulate
+    #     xgboost
+    #     opencv-python
+    #     protobuf
+    #     kaggle
+    #     keras
+    #     tensorflow-bin
+    #     torch
+    #     torchvision
+    #     torchsummary
+    #     gdown
+    #   ]))
+    # ############################################################################
 
     ############################################################################
     # Agda
