@@ -1,5 +1,6 @@
 {
   home-manager.users.sasdelli = {
+    inputs,
     pkgs,
     config,
     lib,
@@ -7,6 +8,7 @@
   }: {
     programs.yazi = {
       enable = true;
+      package = inputs.yazi-pinned.packages.${pkgs.stdenv.hostPlatform.system}.default;
       keymap = {
         mgr.prepend_keymap = [
           {
