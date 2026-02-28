@@ -1,4 +1,12 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    inputs.hyprland.nixosModules.default
+  ];
+
   programs = {
     # Enable zsh.
     zsh = {
@@ -10,10 +18,12 @@
       syntaxHighlighting.enable = true;
     };
 
-    # Enable Hyprland.
+    # Enable Hyprland (before color management bug).
     hyprland = {
       enable = true;
       xwayland.enable = true;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
 
     # Enable Thunar.
