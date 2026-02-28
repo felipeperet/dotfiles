@@ -1,9 +1,33 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    stylix.url = "github:danth/stylix";
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Pinned before 0.53 color management bug
+    hyprland = {
+      url = "github:hyprwm/Hyprland/v0.52.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Pinned before blue folders icons bug
+    yazi-pinned = {
+      url = "github:sxyazi/yazi/v26.1.4";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -17,14 +41,9 @@
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-
+        specialArgs = {inherit inputs;};
         modules = [
-          {
-            nixpkgs.config = {
-              allowUnfree = true;
-              allowUnfreePredicate = pkg: true;
-            };
-          }
+          {nixpkgs.config.allowUnfree = true;}
           ./configuration.nix
           home-manager.nixosModules.home-manager
           {
@@ -36,8 +55,6 @@
           }
           stylix.nixosModules.stylix
         ];
-
-        specialArgs = {inherit inputs;};
       };
     };
   };
