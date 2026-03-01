@@ -826,6 +826,9 @@ require("trim").setup({
 require("nvim-autopairs").setup()
 
 require("nvim-tree").setup({
+	git = {
+		ignore = false,
+	},
 	sort_by = "case_sensitive",
 	view = {
 		width = 25,
