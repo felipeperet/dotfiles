@@ -48,6 +48,7 @@ precmd() { print -Pn "\e]0;%~\a" }
 
 # Add different directories to PATH.
 export PATH="$HOME/.aiken/bin:$PATH"
+. "$HOME/.aiken/bin/env"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
