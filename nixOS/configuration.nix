@@ -119,6 +119,12 @@
     };
   };
 
+  home-manager.sharedModules = [
+    {
+      stylix.targets.rofi.enable = false;
+    }
+  ];
+
   # Setting a specific Kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
