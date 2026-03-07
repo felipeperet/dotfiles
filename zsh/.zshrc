@@ -78,3 +78,6 @@ eval "$(zoxide init --cmd cd zsh)"
 # Bind forward-word and backward-word.
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
+
+export TX3_ROOT="/home/sasdelli/.tx3"
+export PATH="$TX3_ROOT/default/bin:$PATH"
