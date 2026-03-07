@@ -11,7 +11,7 @@
         mainBar = {
           layer = "top";
           position = "top";
-          height = 32;
+          height = 24;
           spacing = 4;
           margin-top = 6;
           margin-left = 8;
@@ -107,13 +107,16 @@
           background: transparent;
         }
         .modules-left, .modules-center, .modules-right {
+          min-height: 24px;
           border-radius: 10px;
           padding: 0.5rem 1rem;
           background: alpha(@theme_bg_color, 0.30);
           border: 1px solid alpha(@theme_fg_color, 0.15);
         }
         #workspaces button {
+          min-height: 0;
           padding: 0 0.5rem;
+          margin: 0;
           border-radius: 10px;
           transition: all 0.2s ease;
         }
