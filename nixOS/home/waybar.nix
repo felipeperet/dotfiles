@@ -37,9 +37,6 @@
               urgent = "";
               default = "";
             };
-            persistent-workspaces = {
-              "*" = [1 2 3 4 5];
-            };
             ignore-workspaces = ["6" "7" "8" "9" "10" "11" "12"];
           };
           "tray" = {
@@ -112,7 +109,8 @@
         .modules-left, .modules-center, .modules-right {
           border-radius: 10px;
           padding: 0.5rem 1rem;
-          background: @theme_bg_color;
+          background: alpha(@theme_bg_color, 0.30);
+          border: 1px solid alpha(@theme_fg_color, 0.15);
         }
         #workspaces button {
           padding: 0 0.5rem;
@@ -121,7 +119,7 @@
         }
         #workspaces button.active {
           color: @theme_selected_fg_color;
-          background: @theme_selected_bg_color;
+          background: alpha(@theme_selected_bg_color, 0.5);
         }
         #workspaces button.urgent {
           background: @warning_color;
@@ -138,22 +136,22 @@
         }
         #pulseaudio {
           color: @theme_fg_color;
-          background: @theme_bg_color;
+          background: transparent;
           padding: 0 0.7rem;
         }
         #pulseaudio:hover {
           color: @theme_selected_bg_color;
-          background: @theme_bg_color;
+          background: transparent;
           padding: 0 0.7rem;
         }
         #custom-power {
           color: @theme_fg_color;
-          background: @theme_bg_color;
+          background: transparent;
           padding: 0 0.7rem;
         }
         #custom-power:hover {
           color: @theme_selected_bg_color;
-          background: @theme_bg_color;
+          background: transparent;
           padding: 0 0.7rem;
         }
         #battery.charging, #battery.plugged {
