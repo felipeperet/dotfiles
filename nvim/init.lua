@@ -124,6 +124,30 @@ require("lazy").setup({
 			open_for_directories = false,
 			keymaps = { show_help = "<f1>" },
 			yazi_args = {},
+			change_neovim_cwd_on_close = true,
+			hooks = {
+				yazi_closed_successfully = function(chosen_file, _, _)
+					vim.schedule(function()
+						local ok, api = pcall(require, "nvim-tree.api")
+						if not ok then
+							return
+						end
+						local dir
+						if chosen_file then
+							local path = tostring(chosen_file)
+							if vim.fn.isdirectory(path) == 1 then
+								dir = path
+							else
+								dir = vim.fn.fnamemodify(path, ":h")
+							end
+						else
+							dir = vim.fn.getcwd()
+						end
+						api.tree.change_root(dir)
+						api.tree.reload()
+					end)
+				end,
+			},
 		},
 	},
 	-- Nvim Tree.
