@@ -122,6 +122,7 @@
   home-manager.sharedModules = [
     {
       stylix.targets.rofi.enable = false;
+      stylix.targets.dunst.enable = false;
     }
   ];
 
