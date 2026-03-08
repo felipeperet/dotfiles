@@ -17,10 +17,11 @@
         "*" = {
           background-color = lib.mkForce (mkLiteral "rgba(0, 0, 0, 0)");
           text-color = lib.mkForce (mkLiteral "rgba(${text}, 1.0)");
+          font = lib.mkForce "${config.stylix.fonts.sansSerif.name} 14";
         };
         window = {
           background-color = lib.mkForce (mkLiteral "rgba(${base}, 0.6)");
-          width = lib.mkForce (mkLiteral "50%");
+          width = lib.mkForce (mkLiteral "40%");
           location = lib.mkForce (mkLiteral "center");
           anchor = lib.mkForce (mkLiteral "center");
           border-radius = lib.mkForce (mkLiteral "20px");
@@ -33,7 +34,7 @@
         };
         inputbar = {
           children = lib.mkForce [(mkLiteral "entry")];
-          background-color = lib.mkForce (mkLiteral "rgba(${surface0}, 0.5)");
+          background-color = lib.mkForce (mkLiteral "rgba(${surface0}, 0.7)");
           padding = lib.mkForce (mkLiteral "20px");
           border-radius = lib.mkForce (mkLiteral "15px");
           margin = lib.mkForce (mkLiteral "0 0 20px 0");
@@ -57,7 +58,7 @@
           text-color = lib.mkForce (mkLiteral "rgba(${text}, 1.0)");
         };
         "element selected" = {
-          background-color = lib.mkForce (mkLiteral "rgba(${blue}, 0.12)");
+          background-color = lib.mkForce (mkLiteral "rgba(${blue}, 0.22)");
           border-radius = lib.mkForce (mkLiteral "10px");
         };
         element-icon = {
