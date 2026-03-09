@@ -99,6 +99,8 @@
               default = ["" "" ""];
             };
             on-click = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
+            on-scroll-up = "swayosd-client --output-volume raise";
+            on-scroll-down = "swayosd-client --output-volume lower";
           };
         };
       };
