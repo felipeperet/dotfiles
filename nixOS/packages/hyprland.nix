@@ -14,7 +14,6 @@ in {
     networkmanagerapplet # Applet for managing network connections.
     grim # A tool to capture screenshots in Wayland.
     slurp # Select a region in Wayland.
-    # light # GNU/Linux application to control backlights.
     wl-clipboard # Wayland clipboard utilities.
     swayimg # Wayland image viewer.
     zathura # A lightweight document viewer.
