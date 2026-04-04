@@ -7,3 +7,5 @@ nm-applet --indicator &
 blueman-applet &
 
 waybar &
+
+systemctl --user start swayosd
