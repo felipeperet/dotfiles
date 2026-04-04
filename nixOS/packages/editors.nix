@@ -4,7 +4,10 @@
     # Editors
     # --------------------------------------------------------------------------
     vim # A highly configurable text editor.
-    neovim # Vim-fork focused on extensibility and usability.
+    # Vim-fork focused on extensibility and usability.
+    (neovim.override {
+      withPython3 = true;
+    })
     neovide # A simple graphical user interface for Neovim.
     obsidian # Powerful knowledge base.
     vscode # Open source source code editor developed by Microsoft.

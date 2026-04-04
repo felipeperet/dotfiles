@@ -56,10 +56,10 @@
     cmatrix # Console-based Matrix-style animation.
     xdotool # Command-line X11 automation tool.
     xbindkeys # Binds keys to shell commands.
-    xorg.xev # Print contents of X events.
-    xorg.xmodmap # Modify keymaps.
-    xorg.setxkbmap # Set keyboard keymaps.
-    xorg.xset # User preference utility for X.
+    xev # Print contents of X events.
+    xmodmap # Modify keymaps.
+    setxkbmap # Set keyboard keymaps.
+    xset # User preference utility for X.
     ############################################################################
   ];
 }

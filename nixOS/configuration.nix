@@ -148,14 +148,14 @@
   };
 
   # Allow non-root users to adjust screen brightness using 'light'.
-  security.wrappers = {
-    light = {
-      source = "${pkgs.light}/bin/light";
-      owner = "root";
-      group = "root";
-      setuid = true;
-    };
-  };
+  # security.wrappers = {
+  #   light = {
+  #     source = "${pkgs.light}/bin/light";
+  #     owner = "root";
+  #     group = "root";
+  #     setuid = true;
+  #   };
+  # };
 
   # Set your time zone.
   time.timeZone = "America/Sao_Paulo";
@@ -263,6 +263,7 @@
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
     nerd-fonts.monaspace
+    source-code-pro
   ];
 
   xdg = {
