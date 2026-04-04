@@ -57,6 +57,30 @@
     # Enable unpatched dynamic binaries.
     nix-ld.enable = true;
     nix-ld.libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+      openssl
+      glib
+      nss
+      nspr
+      dbus
+      atk
+      cups
+      libdrm
+      gtk3
+      pango
+      cairo
+      libX11
+      libXcomposite
+      libXdamage
+      libXext
+      libXfixes
+      libXrandr
+      libxcb
+      mesa
+      expat
+      alsa-lib
+      libGL
     ];
   };
 }
