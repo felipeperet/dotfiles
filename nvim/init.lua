@@ -34,6 +34,12 @@ require("lazy").setup({
 	},
 	-- Lazy can manage itself.
 	"folke/lazy.nvim",
+	-- Correct Lua type annotations for Neovim plugins.
+	{
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {},
+	},
 	-- Catppuccin Color Scheme.
 	"catppuccin/nvim",
 	-- TokyoNight Color Scheme.
@@ -46,16 +52,12 @@ require("lazy").setup({
 	"nvim-lualine/lualine.nvim",
 	-- LSP.
 	{
-		"VonHeikemen/lsp-zero.nvim",
-		branch = "v2.x",
+		"neovim/nvim-lspconfig",
 		dependencies = {
-			"neovim/nvim-lspconfig",
 			{
 				"williamboman/mason.nvim",
 				build = ":MasonUpdate",
 			},
-			"williamboman/mason-lspconfig.nvim",
-
 			-- Autocompletion.
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-nvim-lsp",
@@ -366,6 +368,9 @@ vim.wo.relativenumber = true
 -- Highlight the text line of the cursor.
 vim.opt.cursorline = false
 
+-- Fix the sign column width to 1, preventing it from expanding dynamically.
+vim.opt.signcolumn = "yes:1"
+
 -- Set the font family and size in neovide.
 vim.o.guifont = "VictorMono Nerd Font:h17"
 
@@ -493,7 +498,7 @@ vim.api.nvim_exec2(
 
 -- Disable ~ symbols in the Alpha buffer.
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "alpha",
+	pattern = { "alpha", "leaninfo" },
 	callback = function()
 		vim.opt_local.fillchars = "eob: "
 	end,
@@ -523,25 +528,26 @@ vim.api.nvim_create_autocmd("FileType", {
 --------------------------------------------------------------------------------
 -- 4. LSP Configuration
 --------------------------------------------------------------------------------
-local lspconfig = require("lspconfig")
-
--- LSP configuration.
 require("mason").setup()
-local lsp = require("lsp-zero").preset({})
 
-lsp.on_attach(function(_, bufnr)
-	lsp.default_keymaps({ buffer = bufnr })
-end)
+vim.lsp.config("*", {
+	on_attach = function(_, bufnr)
+		local opts = { buffer = bufnr, noremap = true, silent = true }
+		vim.keymap.set("n", "<S-k>", vim.lsp.buf.hover, opts)
+		vim.keymap.set("n", "gd", function()
+			vim.lsp.buf.definition()
+			vim.defer_fn(function()
+				vim.cmd("normal! zz")
+			end, 50)
+		end, opts)
+		vim.keymap.set("n", "<C-a>", vim.lsp.buf.code_action, opts)
+	end,
+})
 
-lsp.setup()
-
--- Lua LSP
-lspconfig.lua_ls.setup({
+vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {
-			runtime = {
-				version = "LuaJIT",
-			},
+			runtime = { version = "LuaJIT" },
 			diagnostics = {
 				globals = { "vim", "use" },
 				disable = { "missing-fields", "undefined-field" },
@@ -550,33 +556,21 @@ lspconfig.lua_ls.setup({
 				library = vim.api.nvim_get_runtime_file("", true),
 				checkThirdParty = false,
 			},
-			telemetry = {
-				enable = false,
-			},
+			telemetry = { enable = false },
 		},
 	},
 })
 
--- Rust LSP
-lspconfig.rust_analyzer.setup({})
-
--- Gleam LSP
-lspconfig.gleam.setup({})
-
--- Aiken LSP
-lspconfig.aiken.setup({})
-
--- Haskell LSP
-lspconfig.hls.setup({})
-
--- OCaml LSP
-lspconfig.ocamllsp.setup({})
-
--- C/C++ LSP
-lspconfig.clangd.setup({})
-
--- Python LSP
-lspconfig.pyright.setup({})
+vim.lsp.enable({
+	"lua_ls",
+	"rust_analyzer",
+	"gleam",
+	"aiken",
+	"hls",
+	"ocamllsp",
+	"clangd",
+	"pyright",
+})
 
 -- Enables autoformatting for Aiken files.
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -946,7 +940,7 @@ keymap("n", "<leader>lg", "<cmd>LazyGitCurrentFile<cr>", opts)
 -- Keybindings for hovering LSP information with <Shift-k>.
 keymap("n", "<S-k>", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
 -- Keybindings for jumping to the next warning/error with <C-k>.
-keymap("n", "<C-k>", "<Cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+keymap("n", "<C-k>", "<Cmd>lua vim.diagnostic.jump({count=1})<CR>", opts)
 
 -- Navigate buffers.
 keymap("n", "<S-l>", ":bnext<CR>", opts)
