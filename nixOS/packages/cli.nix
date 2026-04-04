@@ -22,6 +22,7 @@
     git-filter-repo # Quickly rewrite git repository history.
     act # Run your GitHub Actions locally.
     lazygit # Simple terminal UI for git commands.
+    mistral-vibe # Minimal CLI coding agent by Mistral.
     gnupg # A GPL OpenPGP implementation.
     tokei # Program that allows you to count your code, quickly.
     ncdu # Disk usage analyzer with an ncurses interface.

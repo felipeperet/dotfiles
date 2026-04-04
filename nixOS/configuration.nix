@@ -194,22 +194,6 @@
       powerOnBoot = true;
     };
 
-    # bluetooth = {
-    #   enable = true;
-    #   powerOnBoot = true;
-    #   settings = {
-    #     General = {
-    #       Enable = "Source,Sink,Media,Socket";
-    #       ControllerMode = "dual";
-    #       FastConnectable = true;
-    #       IdleTimeout = 0;
-    #     };
-    #     Policy = {
-    #       AutoEnable = true;
-    #     };
-    #   };
-    # };
-
     # Enable i2c (for OpenRGB).
     i2c.enable = true;
   };
@@ -273,4 +257,21 @@
 
   # List services that you want to enable:
   virtualisation.docker.enable = true;
+
+  # WORKAROUND: Pining Spotify to 1.2.74 due to a regression in 1.2.77+
+  # that broke desktop notifications on Linux (removed the toggle from settings
+  # and stopped emitting D-Bus notifications entirely).
+  # Track: https://community.spotify.com/t5/Desktop-Linux/Desktop-notifications-no-longer-work/td-p/7354304
+  # Remove this overlay once Spotify fixes the issue upstream.
+  nixpkgs.overlays = [
+    (final: prev: {
+      spotify =
+        (import (builtins.fetchTarball {
+            url = "https://github.com/NixOS/nixpkgs/archive/f1e0d9fe68d0.tar.gz";
+          }) {
+            system = prev.system;
+            config.allowUnfree = true;
+          }).spotify;
+    })
+  ];
 }

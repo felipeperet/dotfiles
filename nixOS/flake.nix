@@ -17,13 +17,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Pinned before 0.53 color management bug
+    # WORKAROUND: Pinned before 0.53 color management bug
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.52.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Pinned before blue folders icons bug
+    # WORKAROUND: Pinned before blue folders icons bug
     yazi-pinned = {
       url = "github:sxyazi/yazi/v26.1.4";
       inputs.nixpkgs.follows = "nixpkgs";

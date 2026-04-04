@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-swww-daemon &
-swww img ~/Wallpapers/Abstract/bluecloud-2.png &
+awww-daemon &
+awww img ~/Wallpapers/Cool/nixOS.png &
 
 nm-applet --indicator &
 blueman-applet &
