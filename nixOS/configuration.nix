@@ -37,6 +37,7 @@
     ./home/yazi.nix
     ./home/dunst.nix
     ./home/swayosd.nix
+    ./home/zathura.nix
     # Nix Packages
     # List packages installed in system profile. To search, run:
     # $ nix search wget

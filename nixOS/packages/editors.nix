@@ -8,6 +8,7 @@
     (neovim.override {
       withPython3 = true;
     })
+    tree-sitter # Parser generator tool and an incremental parsing library.
     neovide # A simple graphical user interface for Neovim.
     obsidian # Powerful knowledge base.
     vscode # Open source source code editor developed by Microsoft.

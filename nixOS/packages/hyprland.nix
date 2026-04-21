@@ -16,7 +16,6 @@ in {
     slurp # Select a region in Wayland.
     wl-clipboard # Wayland clipboard utilities.
     swayimg # Wayland image viewer.
-    zathura # A lightweight document viewer.
     mpv # A media player.
     ############################################################################
   ];
