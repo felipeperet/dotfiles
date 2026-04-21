@@ -48,8 +48,6 @@ require("lazy").setup({
 	"sainnhe/gruvbox-material",
 	-- Gruvbox Color Scheme.
 	"ellisonleao/gruvbox.nvim",
-	-- Status line plugin.
-	"nvim-lualine/lualine.nvim",
 	-- LSP.
 	{
 		"neovim/nvim-lspconfig",
@@ -58,16 +56,51 @@ require("lazy").setup({
 				"williamboman/mason.nvim",
 				build = ":MasonUpdate",
 			},
-			-- Autocompletion.
-			"hrsh7th/nvim-cmp",
-			"hrsh7th/cmp-nvim-lsp",
-			"L3MON4D3/LuaSnip",
 		},
 	},
+	-- Snippet engine.
+	{
+		"L3MON4D3/LuaSnip",
+		lazy = false,
+		config = function()
+			require("luasnip").config.set_config({
+				enable_autosnippets = true,
+				store_selection_keys = "<Tab>",
+				update_events = "TextChanged,TextChangedI",
+				region_check_events = "CursorMoved",
+				delete_check_events = "TextChanged",
+			})
+			require("luasnip.loaders.from_lua").load({
+				paths = vim.fn.stdpath("config") .. "/luasnippets",
+			})
+		end,
+	},
+	-- Snippet collections.
+	-- {
+	-- 	"iurimateus/luasnip-latex-snippets.nvim",
+	-- 	dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
+	-- 	ft = { "tex" },
+	-- 	config = function()
+	-- 		require("luasnip-latex-snippets").setup({ use_treesitter = true })
+	-- 		require("luasnip").config.set_config({ enable_autosnippets = true })
+	-- 	end,
+	-- },
+	-- Autocompletion.
+	{
+		"hrsh7th/nvim-cmp",
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			"saadparwaiz1/cmp_luasnip",
+		},
+	},
+	-- Render Markdown.
+	"MeanderingProgrammer/render-markdown.nvim",
 	-- Formatting.
 	"stevearc/conform.nvim",
 	-- Fancy notification popups.
 	"rcarriga/nvim-notify",
+	-- Status line plugin.
+	"nvim-lualine/lualine.nvim",
 	-- Better UI.
 	{
 		"folke/noice.nvim",
@@ -75,14 +108,20 @@ require("lazy").setup({
 	},
 	-- Dashboard UI.
 	"goolord/alpha-nvim",
-	-- Render Markdown.
-	"MeanderingProgrammer/render-markdown.nvim",
 	-- ToggleTerm.
 	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 	-- Tree sitter.
 	"nvim-treesitter/nvim-treesitter",
 	-- Neovim comments.
 	"terrortylor/nvim-comment",
+	-- Auto trim trailing whitespaces and lines.
+	"cappyzawa/trim.nvim",
+	-- Auto pairs.
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = true,
+	},
 	-- Indentation guide.
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -221,14 +260,6 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 		},
 	},
-	-- Auto trim trailing whitespaces and lines.
-	"cappyzawa/trim.nvim",
-	-- Auto pairs.
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		config = true,
-	},
 	-- Direnv.
 	"direnv/direnv.vim",
 	-- Quarto mode for Neovim.
@@ -267,6 +298,32 @@ require("lazy").setup({
 		build = ":UpdateRemotePlugins",
 		init = function()
 			vim.g.molten_copy_output = true
+		end,
+	},
+	-- VimTeX for LaTeX editing.
+	{
+		"lervag/vimtex",
+		lazy = false,
+		ft = { "tex", "bib" },
+		init = function()
+			vim.g.vimtex_view_method = "zathura"
+			vim.g.vimtex_compiler_method = "latexmk"
+			vim.g.vimtex_mappings_disable = { ["n"] = { "K" } }
+			vim.g.vimtex_quickfix_mode = 0
+			vim.g.vimtex_imaps_enabled = 0
+			vim.g.vimtex_syntax_conceal = {
+				accents = 1,
+				cites = 1,
+				fancy = 1,
+				greek = 1,
+				math_bounds = 1,
+				math_delimiters = 1,
+				math_fracs = 1,
+				math_super_sub = 1,
+				math_symbols = 1,
+				sections = 0,
+				styles = 1,
+			}
 		end,
 	},
 	-- Aiken Programming Language Support.
@@ -319,37 +376,37 @@ vim.cmd([[
 vim.api.nvim_create_autocmd("User", {
 	pattern = "YaziReady",
 	callback = function()
-		vim.api.nvim_set_hl(0, "YaziDirectory", { fg = "#8caaee", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziFile", { fg = "#c6d0f5", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziSymlink", { fg = "#ca9ee6", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziSocket", { fg = "#a6d189", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziBlock", { fg = "#ef9f76", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziFifo", { fg = "#99d1db", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziChar", { fg = "#ca9ee6", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziMissing", { fg = "#e78284", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziCursorLine", { bg = "#414559" })
-		vim.api.nvim_set_hl(0, "YaziNormal", { fg = "#c6d0f5", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "YaziBorder", { fg = "#626880", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziDirectory", { fg = "#89b4fa", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziFile", { fg = "#cdd6f4", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziSymlink", { fg = "#cba6f7", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziSocket", { fg = "#a6e3a1", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziBlock", { fg = "#fab387", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziFifo", { fg = "#89dceb", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziChar", { fg = "#cba6f7", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziMissing", { fg = "#f38ba8", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziCursorLine", { bg = "#313244" })
+		vim.api.nvim_set_hl(0, "YaziNormal", { fg = "#cdd6f4", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "YaziBorder", { fg = "#585b70", bg = "NONE" })
 	end,
 })
 
 -- Set the colors for ToggleTerm to match Catppuccin.
-vim.api.nvim_set_var("terminal_color_0", "#303446")
-vim.api.nvim_set_var("terminal_color_1", "#e78284")
-vim.api.nvim_set_var("terminal_color_2", "#a6d189")
-vim.api.nvim_set_var("terminal_color_3", "#e5c890")
-vim.api.nvim_set_var("terminal_color_4", "#8caaee")
-vim.api.nvim_set_var("terminal_color_5", "#ca9ee6")
-vim.api.nvim_set_var("terminal_color_6", "#99d1db")
-vim.api.nvim_set_var("terminal_color_7", "#c6d0f5")
-vim.api.nvim_set_var("terminal_color_8", "#626880")
-vim.api.nvim_set_var("terminal_color_9", "#e78284")
-vim.api.nvim_set_var("terminal_color_10", "#a6d189")
-vim.api.nvim_set_var("terminal_color_11", "#e5c890")
-vim.api.nvim_set_var("terminal_color_12", "#8caaee")
-vim.api.nvim_set_var("terminal_color_13", "#ca9ee6")
-vim.api.nvim_set_var("terminal_color_14", "#99d1db")
-vim.api.nvim_set_var("terminal_color_15", "#c6d0f5")
+vim.api.nvim_set_var("terminal_color_0", "#1e1e2e")
+vim.api.nvim_set_var("terminal_color_1", "#f38ba8")
+vim.api.nvim_set_var("terminal_color_2", "#a6e3a1")
+vim.api.nvim_set_var("terminal_color_3", "#f9e2af")
+vim.api.nvim_set_var("terminal_color_4", "#89b4fa")
+vim.api.nvim_set_var("terminal_color_5", "#cba6f7")
+vim.api.nvim_set_var("terminal_color_6", "#89dceb")
+vim.api.nvim_set_var("terminal_color_7", "#cdd6f4")
+vim.api.nvim_set_var("terminal_color_8", "#585b70")
+vim.api.nvim_set_var("terminal_color_9", "#f38ba8")
+vim.api.nvim_set_var("terminal_color_10", "#a6e3a1")
+vim.api.nvim_set_var("terminal_color_11", "#f9e2af")
+vim.api.nvim_set_var("terminal_color_12", "#89b4fa")
+vim.api.nvim_set_var("terminal_color_13", "#cba6f7")
+vim.api.nvim_set_var("terminal_color_14", "#89dceb")
+vim.api.nvim_set_var("terminal_color_15", "#cdd6f4")
 
 -- Disable netrw at the very start of your init.lua (strongly advised).
 vim.api.nvim_set_var("loaded_netrw", 1)
@@ -480,6 +537,7 @@ local function setupColorColumn()
 
 	vim.cmd("autocmd FileType markdown setlocal colorcolumn=")
 	vim.cmd("autocmd FileType quarto setlocal colorcolumn=")
+	vim.cmd("autocmd FileType tex setlocal colorcolumn=")
 	-- vim.cmd("autocmd FileType haskell setlocal colorcolumn=")
 	vim.cmd("autocmd BufNewFile,BufRead .env* setlocal colorcolumn=")
 end
@@ -525,6 +583,15 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- Disable TreeSitter preview for Telescope.
+require("telescope").setup({
+	defaults = {
+		preview = {
+			treesitter = false,
+		},
+	},
+})
+
 --------------------------------------------------------------------------------
 -- 4. LSP Configuration
 --------------------------------------------------------------------------------
@@ -563,6 +630,7 @@ vim.lsp.config("lua_ls", {
 
 vim.lsp.enable({
 	"lua_ls",
+	"texlab",
 	"rust_analyzer",
 	"gleam",
 	"aiken",
@@ -712,6 +780,11 @@ harpoon:setup({
 local cmp = require("cmp")
 
 cmp.setup({
+	snippet = {
+		expand = function(args)
+			require("luasnip").lsp_expand(args.body)
+		end,
+	},
 	mapping = {
 		["<C-e>"] = cmp.mapping.close(),
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
@@ -743,6 +816,7 @@ cmp.setup({
 
 	sources = {
 		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
 		{ name = "buffer" },
 	},
 })
@@ -751,6 +825,7 @@ require("nvim-treesitter.configs").setup({
 	ensure_installed = {
 		"vim",
 		"vimdoc",
+		"latex",
 		"nix",
 		"lua",
 		"typescript",
@@ -765,7 +840,7 @@ require("nvim-treesitter.configs").setup({
 	},
 	highlight = {
 		enable = true,
-		disable = {},
+		disable = { "latex" },
 	},
 	indent = {
 		enable = true,
@@ -903,6 +978,14 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "tex", "bib" },
+	callback = function()
+		vim.opt_local.conceallevel = 2
+		vim.opt_local.concealcursor = ""
+	end,
+})
+
 --------------------------------------------------------------------------------
 -- 6. Keymaps
 --------------------------------------------------------------------------------
@@ -940,7 +1023,9 @@ keymap("n", "<leader>lg", "<cmd>LazyGitCurrentFile<cr>", opts)
 -- Keybindings for hovering LSP information with <Shift-k>.
 keymap("n", "<S-k>", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
 -- Keybindings for jumping to the next warning/error with <C-k>.
-keymap("n", "<C-k>", "<Cmd>lua vim.diagnostic.jump({count=1})<CR>", opts)
+keymap("n", "<C-k>", function()
+	vim.diagnostic.jump({ count = 1, float = true })
+end, opts)
 
 -- Navigate buffers.
 keymap("n", "<S-l>", ":bnext<CR>", opts)
@@ -1065,7 +1150,7 @@ keymap("n", "<leader>qp", function()
 end, opts)
 
 -- Keymap to stop Quarto preview.
-vim.keymap.set("n", "<leader>qs", function()
+keymap("n", "<leader>qs", function()
 	vim.fn.system("pkill -f 'quarto.js preview'")
 	print("Quarto preview stopped!")
 end, opts)
@@ -1128,3 +1213,19 @@ keymap("n", "<leader>noh", ":noh<CR>", opts)
 -- Disable jump list navigation.
 keymap("n", "<C-o>", "<Nop>", opts)
 keymap("n", "<C-i>", "<Nop>", opts)
+
+-- LuaSnip jump forward.
+keymap({ "i", "s" }, "<C-Tab>", function()
+	local ls = require("luasnip")
+	if ls.jumpable(1) then
+		ls.jump(1)
+	end
+end, opts)
+
+-- LuaSnip jump backward.
+keymap({ "i", "s" }, "<C-S-Tab>", function()
+	local ls = require("luasnip")
+	if ls.jumpable(-1) then
+		ls.jump(-1)
+	end
+end, opts)
